@@ -19,11 +19,11 @@
 # Repository Structure
 | Folder | Content |
 |--------|---------|
-| `t-photos` | Team photos (official one and funny one) |
-| `v-photos` | Photos of our vehicle (from every side, from top and bottom) |
-| `videos` | Demonstration video links of the robot in the challenges |
-| `schemes` | Wiring diagram with pins and electronic components |
-| `src` | Code of the robotic vehicle system |
-| `models` | 3D printed parts and other chassis pieces |
-| `other` | Extra documentation |
+| [`t-photos`](t-photos/README.md) | Team photos (official one and funny one) |
+| [`v-photos`](v-photos/README.md) | Photos of our vehicle (from every side, from top and bottom) |
+| [`videos`](videos/README.md) | Demonstration video links of the robot in the challenges |
+| [`schemes`](schemes/README.md) | Wiring diagram with pins and electronic components |
+| [`src`](src/README.md) | Code of the robotic vehicle system |
+| [`models`](models/README.md) | 3D printed parts and other chassis pieces |
+| [`other`](other/README.md) | Extra documentation |
 
