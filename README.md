@@ -6,11 +6,7 @@
 
 ---
 
-+ Team Name: **Wiñay**
-+ Car Name: **Sami**
-+ Club Name: **Robotek**
-+ Team Members: **Isabella Gonzales, Rodrigo Osorio & Valeria Hurtado**
-+ Coach: **Anthony Valladolid**
+We are Wiñay, a team of three students proudly participating at the 2026 World Robot Olympiad! This GitHub repository contains the documentation, code, and full development journey of our autonomous vehicle, designed and built to compete in the Future Engineers Challenge.
 
 ---
 
@@ -26,4 +22,53 @@
 | [`src`](src) | Code of the robotic vehicle system |
 | [`models`](models) | 3D printed parts and other chassis pieces |
 | [`other`](other) | Extra documentation |
+
+# Meet the team!
+<table>
+  <tr>
+    <td width="55%" valign="top">
+      <strong>Isabella Gonzales</strong><br><br>
+      <img width="15" alt="pencial" src="https://github.com/user-attachments/assets/cf4faf62-f43d-47b9-8fd1-917cc4955a78" /> <i>Responsible for...</i><br>
+       <img width="15" alt="mail" src="https://www.clipartmax.com/png/full/278-2785632_big-image-mail-icon-png-circle.png" /> isabellamilagros842@gmail.com<br>
+       <img width="15" alt="location" src="https://github.com/user-attachments/assets/11318a7b-9411-4503-9885-926fe4fb4ffb" /> Lima, Perú<br><br>
+      bio <br><br>
+   
+  <td width="45%" align="center">
+    <img src="https://github.com/user-attachments/assets/decc08ce-4294-4859-8b7f-eccb05b879a1" alt="Isa"/>
+    </td>
+  </tr>
+  
+</table>
+
+  <tr>
+    <td width="55%" valign="top">
+      <strong>Rodrigo Osorio</strong><br><br>
+      <img width="15" alt="pencial" src="https://github.com/user-attachments/assets/cf4faf62-f43d-47b9-8fd1-917cc4955a78" /> <i>Responsible for...</i><br>
+       <img width="15" alt="mail" src="https://www.clipartmax.com/png/full/278-2785632_big-image-mail-icon-png-circle.png" /> email<br>
+       <img width="15" alt="location" src="https://github.com/user-attachments/assets/11318a7b-9411-4503-9885-926fe4fb4ffb" /> Lima, Perú<br><br>
+      bio <br><br>
+   
+  <td width="45%" align="center">
+    <img src="photo" alt="Rodri"/>
+    </td>
+  </tr>
+  
+</table>
+
+</table>
+
+  <tr>
+    <td width="55%" valign="top">
+      <strong>Valeria Hurtado</strong><br><br>
+      <img width="15" alt="pencial" src="https://github.com/user-attachments/assets/cf4faf62-f43d-47b9-8fd1-917cc4955a78" /> <i>Responsible for...</i><br>
+       <img width="15" alt="mail" src="https://www.clipartmax.com/png/full/278-2785632_big-image-mail-icon-png-circle.png" /> valeria.hurtado.delarosa@outlook.com<br>
+       <img width="15" alt="location" src="https://github.com/user-attachments/assets/11318a7b-9411-4503-9885-926fe4fb4ffb" /> Lima, Perú<br><br>
+      bio <br><br>
+   
+  <td width="45%" align="center">
+    <img src="photo" alt="Vale"/>
+    </td>
+  </tr>
+  
+</table>
 
