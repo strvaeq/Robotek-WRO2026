@@ -11,3 +11,19 @@
 + Club Name: **Robotek**
 + Team Members: **Isabella Gonzales, Rodrigo Osorio & Valeria Hurtado**
 + Coach: **Anthony Valladolid**
+
+---
+
+# Table of Contents
+
+# Repository Structure
+| Folder | Content |
+|--------|---------|
+| `t-photos` | Team photos (official one and funny one) |
+| `v-photos` | Photos of our vehicle (from every side, from top and bottom) |
+| `videos` | Demonstration video links of the robot in the challenges |
+| `schemes` | Wiring diagram with pins and electronic components |
+| `src` | Code of the robotic vehicle system |
+| `models` | 3D printed parts and other chassis pieces |
+| `other` | Extra documentation |
+
