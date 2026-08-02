@@ -1,15 +1,24 @@
-# Renkay - WRO 2026 Future Engineers<img width="50" alt="robotek" src="https://github.com/user-attachments/assets/bffadef9-b0aa-4810-93ff-13db445ac044" /><img src="https://em-content.zobj.net/source/apple/325/flag-peru_1f1f5-1f1ea.png" alt="Peru Flag" width="30" />
+<img width="453" height="181" alt="Banner - Robotek (1)" src="https://github.com/user-attachments/assets/11d460a9-e632-4b5d-98a9-f1d8454827f6" /># Renkay - WRO 2026 Future Engineers<img width="50" alt="robotek" src="https://github.com/user-attachments/assets/bffadef9-b0aa-4810-93ff-13db445ac044" /><img src="https://em-content.zobj.net/source/apple/325/flag-peru_1f1f5-1f1ea.png" alt="Peru Flag" width="30" />
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/e1bea63e-13d2-49d8-8dde-90277fe10ef0" alt="Banner Renkay" width="100%">
+  <img src="https://github.com/user-attachments/assets/55549ed3-5577-4a21-9c86-cdb83e04f086" alt="Banner Renkay" width="100%">
 </p>
 
 [![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/robotekperu/)
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@Robotekperu)
 [![Facebook](https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white)](https://www.facebook.com/p/Robotek-Per%C3%BA-61566493439700/)
 
-Welcome! 🐨✨
+**Welcome! 🐨✨**
+
 We are Renkay, a team of three students participating at the 2026 World Robot Olympiad! This GitHub repository contains the documentation, code, and full development journey of our autonomous vehicle, designed and built to compete in the Future Engineers Challenge.
+
+<br>
+
+> [!NOTE]
+> 🤔 Why is our team named *Renkay*?<br><br>
+> The name *Renkay* is inspired by three words that define our team: resilience, minka, and wiñay. "**Resilience**" represents our determination to never give up; "**minka**", an ancestral tradition of working together for a common purpose, reflects our belief that the best ideas are built through collaboration; and wiñay, which means "to grow", symbolizes our commitment to continuous learning and improvement. Together, these words represent who we are as a team, and guide every step of our robotics journey.
+
+<br>
 
 ---
 
@@ -81,12 +90,7 @@ We are Renkay, a team of three students participating at the 2026 World Robot Ol
   
 </table>
 
-<br>
 
-> [!NOTE]
-> 🤔 Why is our team named *Renkay*?<br><br>
-> The name *Renkay* is inspired by three words that define our team: resilience, minka, and wiñay. "**Resilience**" represents our determination to never give up; "**minka**", an ancestral tradition of working together for a common purpose, reflects our belief that the best ideas are built through collaboration; and wiñay, which means "to grow", symbolizes our commitment to continuous learning and improvement. Together, these words represent who we are as a team, and guide every step of our robotics journey.
-
-<br>
-
+## 3. Vehicle Overview
+This is our car named **Sami**, it is the result of multiple versions and modifications since 2024. We have been studying, learning and testing different methods to improve our car. It has been an interesting and challenging journey in robotics, but every effort was worth it!
 
