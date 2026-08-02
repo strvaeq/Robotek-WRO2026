@@ -1,4 +1,8 @@
-# Wiñay - WRO 2026 Future Engineers<img width="50" alt="robotek" src="https://github.com/user-attachments/assets/bffadef9-b0aa-4810-93ff-13db445ac044" /><img src="https://em-content.zobj.net/source/apple/325/flag-peru_1f1f5-1f1ea.png" alt="Peru Flag" width="30" />
+# Renkay - WRO 2026 Future Engineers<img width="50" alt="robotek" src="https://github.com/user-attachments/assets/bffadef9-b0aa-4810-93ff-13db445ac044" /><img src="https://em-content.zobj.net/source/apple/325/flag-peru_1f1f5-1f1ea.png" alt="Peru Flag" width="30" />
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e1bea63e-13d2-49d8-8dde-90277fe10ef0" alt="Banner Renkay" width="100%">
+</p>
 
 [![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/robotekperu/)
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@Robotekperu)
@@ -6,7 +10,7 @@
 
 ---
 
-We are Wiñay, a team of three students proudly participating at the 2026 World Robot Olympiad! This GitHub repository contains the documentation, code, and full development journey of our autonomous vehicle, designed and built to compete in the Future Engineers Challenge.
+We are Renkay, a team of three students proudly participating at the 2026 World Robot Olympiad! This GitHub repository contains the documentation, code, and full development journey of our autonomous vehicle, designed and built to compete in the Future Engineers Challenge.
 
 ---
 
