@@ -1,3 +1,6 @@
+<img width="2000" height="1615" alt="MEMBER" src="https://github.com/user-attachments/assets/158d1867-e709-4360-82a1-43f3e4bf49ea" />
+<img width="2000" height="1615" alt="MEMBER" src="https://github.com/user-attachments/assets/a806ada9-7751-4804-bff1-423ae7efc793" />
+<img width="2000" height="1615" alt="MEMBER" src="https://github.com/user-attachments/assets/a375c42e-08ee-4363-9934-1d2202966c54" />
 # Renkay - WRO 2026 Future Engineers<img width="50" alt="robotek" src="https://github.com/user-attachments/assets/bffadef9-b0aa-4810-93ff-13db445ac044" /><img src="https://em-content.zobj.net/source/apple/325/flag-peru_1f1f5-1f1ea.png" alt="Peru Flag" width="30" />
 
 <p align="center">
@@ -38,7 +41,7 @@ We are Renkay, a team of three students proudly participating at the 2026 World 
       bio <br><br>
    
   <td width="45%" align="center">
-    <img src="photo" alt="Isa"/>
+    <img src="https://github.com/user-attachments/assets/46aba916-a5ea-40b4-8cb5-4737ae68305c" alt="Isa"/>
     </td>
   </tr>
   
@@ -53,7 +56,7 @@ We are Renkay, a team of three students proudly participating at the 2026 World 
       bio <br><br>
    
   <td width="45%" align="center">
-    <img src="photo" alt="Rodri"/>
+    <img src="https://github.com/user-attachments/assets/46aba916-a5ea-40b4-8cb5-4737ae68305c" alt="Rodri"/>
     </td>
   </tr>
   
@@ -64,13 +67,14 @@ We are Renkay, a team of three students proudly participating at the 2026 World 
   <tr>
     <td width="55%" valign="top">
       <strong>Valeria Hurtado</strong><br><br>
-      <img width="15" alt="pencial" src="https://github.com/user-attachments/assets/cf4faf62-f43d-47b9-8fd1-917cc4955a78" /> <i>Responsible for...</i><br>
+      <img width="15" alt="pencil" src="https://github.com/user-attachments/assets/cf4faf62-f43d-47b9-8fd1-917cc4955a78" /> <i>Responsible for...</i><br>
        <img width="15" alt="mail" src="https://www.clipartmax.com/png/full/278-2785632_big-image-mail-icon-png-circle.png" /> valeria.hurtado.delarosa@outlook.com<br>
        <img width="15" alt="location" src="https://github.com/user-attachments/assets/11318a7b-9411-4503-9885-926fe4fb4ffb" /> Cercado de Lima, Lima<br><br>
       bio <br><br>
    
   <td width="45%" align="center">
-    <img src="photo" alt="Vale"/>
+    <img src="https://github.com/user-attachments/assets/46aba916-a5ea-40b4-8cb5-4737ae68305c" alt="Vale"/>
+
     </td>
   </tr>
   
