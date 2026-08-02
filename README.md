@@ -27,18 +27,18 @@ We are Renkay, a team of three students proudly participating at the 2026 World 
 | [`models`](models) | 3D printed parts and other chassis pieces |
 | [`other`](other) | Extra documentation |
 
-# Meet the team!
+# Meet the Team!
 <table>
   <tr>
     <td width="55%" valign="top">
       <strong>Isabella Gonzales</strong><br><br>
       <img width="15" alt="pencial" src="https://github.com/user-attachments/assets/cf4faf62-f43d-47b9-8fd1-917cc4955a78" /> <i>Responsible for...</i><br>
        <img width="15" alt="mail" src="https://www.clipartmax.com/png/full/278-2785632_big-image-mail-icon-png-circle.png" /> isabellamilagros842@gmail.com<br>
-       <img width="15" alt="location" src="https://github.com/user-attachments/assets/11318a7b-9411-4503-9885-926fe4fb4ffb" /> Lima, Perú<br><br>
+       <img width="15" alt="location" src="https://github.com/user-attachments/assets/11318a7b-9411-4503-9885-926fe4fb4ffb" /> Miraflores, Lima<br><br>
       bio <br><br>
    
   <td width="45%" align="center">
-    <img src="https://github.com/user-attachments/assets/decc08ce-4294-4859-8b7f-eccb05b879a1" alt="Isa"/>
+    <img src="photo" alt="Isa"/>
     </td>
   </tr>
   
@@ -49,7 +49,7 @@ We are Renkay, a team of three students proudly participating at the 2026 World 
       <strong>Rodrigo Osorio</strong><br><br>
       <img width="15" alt="pencial" src="https://github.com/user-attachments/assets/cf4faf62-f43d-47b9-8fd1-917cc4955a78" /> <i>Responsible for...</i><br>
        <img width="15" alt="mail" src="https://www.clipartmax.com/png/full/278-2785632_big-image-mail-icon-png-circle.png" /> email<br>
-       <img width="15" alt="location" src="https://github.com/user-attachments/assets/11318a7b-9411-4503-9885-926fe4fb4ffb" /> Lima, Perú<br><br>
+       <img width="15" alt="location" src="https://github.com/user-attachments/assets/11318a7b-9411-4503-9885-926fe4fb4ffb" /> Los Olivos, Lima<br><br>
       bio <br><br>
    
   <td width="45%" align="center">
@@ -66,7 +66,7 @@ We are Renkay, a team of three students proudly participating at the 2026 World 
       <strong>Valeria Hurtado</strong><br><br>
       <img width="15" alt="pencial" src="https://github.com/user-attachments/assets/cf4faf62-f43d-47b9-8fd1-917cc4955a78" /> <i>Responsible for...</i><br>
        <img width="15" alt="mail" src="https://www.clipartmax.com/png/full/278-2785632_big-image-mail-icon-png-circle.png" /> valeria.hurtado.delarosa@outlook.com<br>
-       <img width="15" alt="location" src="https://github.com/user-attachments/assets/11318a7b-9411-4503-9885-926fe4fb4ffb" /> Lima, Perú<br><br>
+       <img width="15" alt="location" src="https://github.com/user-attachments/assets/11318a7b-9411-4503-9885-926fe4fb4ffb" /> Cercado de Lima, Lima<br><br>
       bio <br><br>
    
   <td width="45%" align="center">
@@ -75,4 +75,13 @@ We are Renkay, a team of three students proudly participating at the 2026 World 
   </tr>
   
 </table>
+
+<br>
+
+> [!NOTE]
+> 🤔Why is our team named *Renkay*?<br><br>
+> The name **Renkay** is inspired by three words that define our team: resilience, minka, and wiñay. "**Resilience**" represents our determination to never give up; "**minka**"", an ancestral tradition of working together for a common purpose, reflects our belief that the best ideas are built through collaboration; and wiñay, which means "to grow", symbolizes our commitment to continuous learning and improvement. Together, these represent who we are as a team, and guide every step of our robotics journey.
+
+<br>
+
 
