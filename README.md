@@ -1,6 +1,3 @@
-<img width="2000" height="1615" alt="MEMBER" src="https://github.com/user-attachments/assets/158d1867-e709-4360-82a1-43f3e4bf49ea" />
-<img width="2000" height="1615" alt="MEMBER" src="https://github.com/user-attachments/assets/a806ada9-7751-4804-bff1-423ae7efc793" />
-<img width="2000" height="1615" alt="MEMBER" src="https://github.com/user-attachments/assets/a375c42e-08ee-4363-9934-1d2202966c54" />
 # Renkay - WRO 2026 Future Engineers<img width="50" alt="robotek" src="https://github.com/user-attachments/assets/bffadef9-b0aa-4810-93ff-13db445ac044" /><img src="https://em-content.zobj.net/source/apple/325/flag-peru_1f1f5-1f1ea.png" alt="Peru Flag" width="30" />
 
 <p align="center">
