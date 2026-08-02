@@ -71,8 +71,8 @@ We are Renkay, a team of three students proudly participating at the 2026 World 
    
   <td width="45%" align="center">
     <img src="https://github.com/user-attachments/assets/46aba916-a5ea-40b4-8cb5-4737ae68305c" alt="Vale"/>
-
-    </td>
+  
+  </td>
   </tr>
   
 </table>
