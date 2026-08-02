@@ -79,7 +79,7 @@ We are Renkay, a team of three students proudly participating at the 2026 World 
 <br>
 
 > [!NOTE]
-> 🤔Why is our team named *Renkay*?<br><br>
+> 🤔 Why is our team named *Renkay*?<br><br>
 > The name **Renkay** is inspired by three words that define our team: resilience, minka, and wiñay. "**Resilience**" represents our determination to never give up; "**minka**"", an ancestral tradition of working together for a common purpose, reflects our belief that the best ideas are built through collaboration; and wiñay, which means "to grow", symbolizes our commitment to continuous learning and improvement. Together, these represent who we are as a team, and guide every step of our robotics journey.
 
 <br>
