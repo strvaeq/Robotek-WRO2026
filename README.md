@@ -8,13 +8,17 @@
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@Robotekperu)
 [![Facebook](https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white)](https://www.facebook.com/p/Robotek-Per%C3%BA-61566493439700/)
 
-We are Renkay, a team of three students proudly participating at the 2026 World Robot Olympiad! This GitHub repository contains the documentation, code, and full development journey of our autonomous vehicle, designed and built to compete in the Future Engineers Challenge.
+Welcome! 🐨✨
+We are Renkay, a team of three students participating at the 2026 World Robot Olympiad! This GitHub repository contains the documentation, code, and full development journey of our autonomous vehicle, designed and built to compete in the Future Engineers Challenge.
 
 ---
 
-# Table of Contents
+# 📮 Table of Contents
+* [Repository Structure](repository-structure)
+* [Meet the Team!](meet-the-team)
 
-# Repository Structure
+
+## Repository Structure
 | Folder | Content |
 |--------|---------|
 | [`t-photos`](t-photos) | Team photos (official one and funny one) |
@@ -25,7 +29,7 @@ We are Renkay, a team of three students proudly participating at the 2026 World 
 | [`models`](models) | 3D printed parts and other chassis pieces |
 | [`other`](other) | Extra documentation |
 
-# Meet the Team!
+## Meet the Team!
 <table>
   <tr>
     <td width="55%" valign="top">
@@ -81,7 +85,7 @@ We are Renkay, a team of three students proudly participating at the 2026 World 
 
 > [!NOTE]
 > 🤔 Why is our team named *Renkay*?<br><br>
-> The name **Renkay** is inspired by three words that define our team: resilience, minka, and wiñay. "**Resilience**" represents our determination to never give up; "**minka**", an ancestral tradition of working together for a common purpose, reflects our belief that the best ideas are built through collaboration; and wiñay, which means "to grow", symbolizes our commitment to continuous learning and improvement. Together, these words represent who we are as a team, and guide every step of our robotics journey.
+> The name *Renkay* is inspired by three words that define our team: resilience, minka, and wiñay. "**Resilience**" represents our determination to never give up; "**minka**", an ancestral tradition of working together for a common purpose, reflects our belief that the best ideas are built through collaboration; and wiñay, which means "to grow", symbolizes our commitment to continuous learning and improvement. Together, these words represent who we are as a team, and guide every step of our robotics journey.
 
 <br>
 
