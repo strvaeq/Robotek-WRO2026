@@ -44,6 +44,8 @@ We are Renkay, a team of three students proudly participating at the 2026 World 
   
 </table>
 
+<table>
+
   <tr>
     <td width="55%" valign="top">
       <strong>Rodrigo Osorio</strong><br><br>
@@ -59,7 +61,7 @@ We are Renkay, a team of three students proudly participating at the 2026 World 
   
 </table>
 
-</table>
+<table>
 
   <tr>
     <td width="55%" valign="top">
