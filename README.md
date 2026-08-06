@@ -1,7 +1,7 @@
 # Renkay - WRO 2026 Future Engineers<img width="50" alt="robotek" src="https://github.com/user-attachments/assets/bffadef9-b0aa-4810-93ff-13db445ac044" /><img src="https://em-content.zobj.net/source/apple/325/flag-peru_1f1f5-1f1ea.png" alt="Peru Flag" width="30" />
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/55549ed3-5577-4a21-9c86-cdb83e04f086" alt="Banner Renkay" width="100%">
+  <img src="https://github.com/user-attachments/assets/0a4118c9-bc9c-422e-af6b-4e9b3267209f" alt="Banner Renkay" width="100%">
 </p>
 
 [![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/robotekperu/)
