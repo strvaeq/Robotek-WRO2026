@@ -112,8 +112,10 @@ Our autonomous vehicle is built to take on both the Open and Obstacle Challenges
 > [!NOTE]
 > 📸 Visit our [`v-photos`](https://github.com/vania020/wro2025-robotek/tree/main/v-photos) folder for more detailed photos of the car
 
+
 ### **<ins>Versions of the Car</ins>**
-Our vehicle has gone through **10 versions** (and since we are always improving, there are still more to come!). It all started with a cardboard prototype, then moved on to acrylic and metal chassis designs, and later, we made personalized adjustments to a HiWonder kit. Along the way, we also experimented with different wheel designs, repositioned components, tested sensors like LiDAR, and finally adopted a new operating environment with ROS and Ubuntu.
+Our vehicle has gone through **10 versions** (and since we are always improving, there are still more to come). It all started with a cardboard prototype, then moved on to acrylic and metal chassis designs, and later, we made personalized adjustments to a HiWonder kit. Along the way, we also experimented with different wheel designs, repositioned components, tested sensors like LiDAR, and finally adopted a new operating environment with ROS and Ubuntu.
+
 <table>  
   <tr>
     <th width="10%">Version</th>
@@ -236,7 +238,7 @@ A new chassis base was printed in MDF, and the Ackermann was moved slightly beca
     </td>
     <td>
       <br> <b>Car dimensions:</b> 15 x 18 x 16 cm <br><br>
-We removed the LiDAR housing because, after testing the robot multiple times, we found that vision worked better without it. We also printed the rear wheels, so now all wheels are the same. We modified the gear system, which allowed the robot to complete the 3 laps faster. It now takes less than 10 seconds to complete an entire lap, and it manages to complete the 3 laps in 28 seconds. The small and big gears were interchanged so that the big gear is directly attached to the motor shaft.<br><br>
+After testing the robot multiple times, we found that vision worked better without the LiDAR housing and with the addition of a 16-LED WS2812 RGB pixel ring light (DC5V). We also printed the rear wheels, so now all wheels are the same. We modified the gear system, which allowed the robot to complete the 3 laps faster. The small and big gears were interchanged so that the big gear is directly attached to the motor shaft. <br><br>
   <a href="v-photos/vehicle-versions/README.md#version-10">➡️ See more photos 🚗</a><br><br>
     </td>
   </tr>
@@ -247,7 +249,7 @@ We removed the LiDAR housing because, after testing the robot multiple times, we
 <br>
 
 > [!NOTE]
-> Visit our [`vehicle-versions`](v-photos/vehicle-versions/README.md) folder to see photos and videos of our car evolution 🔝
+> 🌱 Visit our [`vehicle-versions`](v-photos/vehicle-versions/README.md) folder to see photos and videos of our car evolution.
 
 <br>
 
