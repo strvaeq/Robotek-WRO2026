@@ -1,4 +1,3 @@
-<img width="1058" height="755" alt="download (1)" src="https://github.com/user-attachments/assets/8d59744c-6780-41b5-b574-d37ff983cf1b" />
 # Renkay - WRO 2026 Future Engineers<img width="50" alt="robotek" src="https://github.com/user-attachments/assets/bffadef9-b0aa-4810-93ff-13db445ac044" /><img src="https://em-content.zobj.net/source/apple/325/flag-peru_1f1f5-1f1ea.png" alt="Peru Flag" width="30" />
 
 <p align="center">
