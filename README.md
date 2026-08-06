@@ -94,3 +94,21 @@ We are Renkay, a team of three students participating at the 2026 World Robot Ol
 ## 3. Vehicle Overview
 This is our car named **Sami**, it is the result of multiple versions and modifications since 2024. We have been studying, learning and testing different methods to improve our car. It has been an interesting and challenging journey in robotics, but every effort was worth it!
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/88871f98-e533-4bf0-9a45-785f721ad036" alt="Vehicle Overview" width="100%">
+</p>
+
+### **<ins>General Description of the Car</ins>**
+Our autonomous vehicle is built to take on both the Open and Obstacle Challenges at the Future Engineers competition. Running on Ubuntu with ROS, it can process information and make decisions in real time. The car uses an Ackermann steering system and a custom-built chassis to move smoothly through turns and straight paths. A LiDAR sensor helps it detect the field walls, while the camera identifies traffic signs and obstacles. With this setup, the car can adapt its route, count laps, and complete the course efficiently.
+<br>
+
+| Front | Left | Right |
+| :--: | :--: | :--: | 
+| <img src="https://github.com/user-attachments/assets/28923492-d764-4988-a0c9-e2183df74ae1" width="90%" /> | <img src="https://github.com/user-attachments/assets/2265c607-e2aa-4e1a-9f56-c9a5992ae09a" width="90%" /> |  <img src="https://github.com/user-attachments/assets/80249658-56e7-4098-839c-93499d065515" width="90%" /> | 
+
+| Back  | Top  | Bottom |
+| :--: | :--: |:--: |  
+| <img src="https://github.com/user-attachments/assets/b8727deb-2396-4c2e-8c75-e689d34e1701" width="90%" /> | <img src="https://github.com/user-attachments/assets/7149db8b-3c9a-4099-995a-b4f2d22a28e5" width="90%" /> |  <img src="https://github.com/user-attachments/assets/e96e91e3-e632-4904-bc53-c4c556ba8ca1" width="90%" /> | 
+> [!NOTE]
+> Visit our [`v-photos`](https://github.com/vania020/wro2025-robotek/tree/main/v-photos) folder for more detailed photos of the car 📸🚗
+
