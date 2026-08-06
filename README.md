@@ -41,7 +41,7 @@ We are Renkay, a team of three students participating at the 2026 World Robot Ol
 ## 2. Meet the Team!
 <table>
   <tr>
-    <td width="55%" valign="top">
+    <td width="70%" valign="top">
       <strong>Isabella Gonzales</strong><br><br>
       <img width="15" alt="pencial" src="https://github.com/user-attachments/assets/cf4faf62-f43d-47b9-8fd1-917cc4955a78" /> <i>Responsible for...</i><br>
        <img width="15" alt="mail" src="https://www.clipartmax.com/png/full/278-2785632_big-image-mail-icon-png-circle.png" /> isabellamilagros842@gmail.com<br>
@@ -58,7 +58,7 @@ We are Renkay, a team of three students participating at the 2026 World Robot Ol
 <table>
 
   <tr>
-    <td width="55%" valign="top">
+    <td width="70%" valign="top">
       <strong>Rodrigo Osorio</strong><br><br>
       <img width="15" alt="pencial" src="https://github.com/user-attachments/assets/cf4faf62-f43d-47b9-8fd1-917cc4955a78" /> <i>Responsible for...</i><br>
        <img width="15" alt="mail" src="https://www.clipartmax.com/png/full/278-2785632_big-image-mail-icon-png-circle.png" /> email<br>
@@ -75,7 +75,7 @@ We are Renkay, a team of three students participating at the 2026 World Robot Ol
 <table>
 
   <tr>
-    <td width="55%" valign="top">
+    <td width="70%" valign="top">
       <strong>Valeria Hurtado</strong><br><br>
       <img width="15" alt="pencil" src="https://github.com/user-attachments/assets/cf4faf62-f43d-47b9-8fd1-917cc4955a78" /> <i>Responsible for...</i><br>
        <img width="15" alt="mail" src="https://www.clipartmax.com/png/full/278-2785632_big-image-mail-icon-png-circle.png" /> valeria.hurtado.delarosa@outlook.com<br>
