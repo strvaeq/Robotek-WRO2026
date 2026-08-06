@@ -238,7 +238,7 @@ A new chassis base was printed in MDF, and the Ackermann was moved slightly beca
     </td>
     <td>
       <br> <b>Car dimensions:</b> 15 x 18 x 16 cm <br><br>
-After testing the robot multiple times, we found that vision worked better without the LiDAR housing and with the addition of a 16-LED WS2812 RGB pixel ring light (DC5V).
+After testing the robot multiple times, we found that vision worked better without the LiDAR housing and with the addition of a 16-LED WS2812 RGB pixel ring light (DC5V).<br><br>
 We also printed the rear wheels, so now all wheels are the same. We modified the gear system, which allowed the robot to complete the 3 laps faster. The small and big gears were interchanged so that the big gear is directly attached to the motor shaft. <br><br>
   <a href="v-photos/vehicle-versions/README.md#version-10">➡️ See more photos 🚗</a><br><br>
     </td>
