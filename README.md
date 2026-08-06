@@ -225,7 +225,7 @@ During previous testing, we realized the LiDAR was struggling to properly detect
     </td>
     <td>
       <br> <b>Car dimensions:</b> 15 x 20 cm <br><br>
-In this version, the components were arranged more efficiently to save space. We added a custom housing for the batteries, placed the Pi5 controller on top, and mounted the Raspberry above it, creating a layered system.<br><br>
+In this version, the components were arranged more efficiently to save space. We added a custom housing for the batteries, placed the Pi5 controller on top, and mounted the Raspberry above it, creating a layered system.<br><br> 
 A new chassis base was printed in MDF, and the Ackermann was moved slightly because, in the previous version, the rack was colliding with the servo. To improve traction, we added a groove to the wheels and printed small cylinders between them to prevent contact with the screws. With these adjustments, the robot managed to complete a lap in <b>20 seconds</b>.<br><br>
       <a href="v-photos/vehicle-versions/README.md#version-9">➡️ See more photos 🚗</a><br><br>
     </td>
@@ -238,7 +238,8 @@ A new chassis base was printed in MDF, and the Ackermann was moved slightly beca
     </td>
     <td>
       <br> <b>Car dimensions:</b> 15 x 18 x 16 cm <br><br>
-After testing the robot multiple times, we found that vision worked better without the LiDAR housing and with the addition of a 16-LED WS2812 RGB pixel ring light (DC5V). We also printed the rear wheels, so now all wheels are the same. We modified the gear system, which allowed the robot to complete the 3 laps faster. The small and big gears were interchanged so that the big gear is directly attached to the motor shaft. <br><br>
+After testing the robot multiple times, we found that vision worked better without the LiDAR housing and with the addition of a 16-LED WS2812 RGB pixel ring light (DC5V).
+We also printed the rear wheels, so now all wheels are the same. We modified the gear system, which allowed the robot to complete the 3 laps faster. The small and big gears were interchanged so that the big gear is directly attached to the motor shaft. <br><br>
   <a href="v-photos/vehicle-versions/README.md#version-10">➡️ See more photos 🚗</a><br><br>
     </td>
   </tr>
