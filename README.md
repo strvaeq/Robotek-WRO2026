@@ -110,5 +110,5 @@ Our autonomous vehicle is built to take on both the Open and Obstacle Challenges
 | :--: | :--: |:--: |  
 | <img src="https://github.com/user-attachments/assets/b8727deb-2396-4c2e-8c75-e689d34e1701" width="90%" /> | <img src="https://github.com/user-attachments/assets/7149db8b-3c9a-4099-995a-b4f2d22a28e5" width="90%" /> |  <img src="https://github.com/user-attachments/assets/e96e91e3-e632-4904-bc53-c4c556ba8ca1" width="90%" /> | 
 > [!NOTE]
-> Visit our [`v-photos`](https://github.com/vania020/wro2025-robotek/tree/main/v-photos) folder for more detailed photos of the car 📸🚗
+> 📸 Visit our [`v-photos`](https://github.com/vania020/wro2025-robotek/tree/main/v-photos) folder for more detailed photos of the car
 
