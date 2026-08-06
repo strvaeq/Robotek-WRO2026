@@ -1,3 +1,4 @@
+<img width="904" height="646" alt="Gif-raspberrypi (1)" src="https://github.com/user-attachments/assets/52cd04df-8828-464d-8480-359dcb5ac194" />
 # Renkay - WRO 2026 Future Engineers<img width="50" alt="robotek" src="https://github.com/user-attachments/assets/bffadef9-b0aa-4810-93ff-13db445ac044" /><img src="https://em-content.zobj.net/source/apple/325/flag-peru_1f1f5-1f1ea.png" alt="Peru Flag" width="30" />
 
 <p align="center">
@@ -26,8 +27,10 @@ We are Renkay, a team of three students participating at the 2026 World Robot Ol
 1. [Repository Structure](repository-structure)
 2. [Meet the Team!](meet-the-team)
 
+---
 
 ## 1. Repository Structure
+
 | Folder | Content |
 |--------|---------|
 | [`t-photos`](t-photos) | Team photos (official one and funny one) |
