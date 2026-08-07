@@ -1,4 +1,4 @@
-# Renkay - WRO 2026 Future Engineers<img width="50" alt="robotek" src="https://github.com/user-attachments/assets/bffadef9-b0aa-4810-93ff-13db445ac044" /><img src="https://em-content.zobj.net/source/apple/325/flag-peru_1f1f5-1f1ea.png" alt="Peru Flag" width="30" />
+<img width="1058" height="755" alt="Copy of Untitled (3)" src="https://github.com/user-attachments/assets/0d07c35f-7153-4c60-bf17-9b2424c84763" /># Renkay - WRO 2026 Future Engineers<img width="50" alt="robotek" src="https://github.com/user-attachments/assets/bffadef9-b0aa-4810-93ff-13db445ac044" /><img src="https://em-content.zobj.net/source/apple/325/flag-peru_1f1f5-1f1ea.png" alt="Peru Flag" width="30" />
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/0a4118c9-bc9c-422e-af6b-4e9b3267209f" alt="Banner Renkay" width="100%">
@@ -260,17 +260,16 @@ We also printed the rear wheels, so now all wheels are the same. We modified the
 |-----------|----------|-------------|-------|
 | Raspberry Pi 5 | 1 | Main processing unit for running **ROS**. Acts as the main brain and the Host Controller of the system, capable of running operating systems and handling complex processing tasks. | <img width="850" alt="Raspberry Pi 5" src="https://github.com/user-attachments/assets/0588b2c6-88d8-49b9-84a2-4d0a834ffff4" /> |
 | RRC Lite Controller | 1 | Integrates: ROS expansion board, High-Frequency PID Control, Motor Closed-Loop Control, Servo Control and Feedback, IMU Data Acquisition, Power Status Monitoring, and a Power Switch. | <img width="850" alt="Controller" src="https://github.com/user-attachments/assets/1703132a-77bc-4e78-95cc-8da6df285f75" /> |
-| STL-19P TOF Lidar | 1 | Provides precise, 360-degree distance measurements for real-time navigation and obstacle detection in dynamic environments. | <img width="850" alt="Lidar" src="https://github.com/user-attachments/assets/14a9ca9e-b206-44cb-9bdd-cd3c675e7abc" /> |
-| Lidar Adapter Board | 1 | Converts the LiDAR’s UART signals to USB for PC connection and data reading. | <img width="850" alt="Adapter" src="https://github.com/user-attachments/assets/407671ef-bed2-4a04-8aef-0cb69cab464a" /> |
-| 15 kg.cm Digital Servo | 1 | Provides accurate steering control. | <img width="850" alt="Servo" src="https://github.com/user-attachments/assets/b949c033-fc6d-4032-8d41-b136ea6ddc90" /> |
-| 25MM Metal Gear Motor | 1 | Core drive motor for powering the wheels with torque and speed. | <img width="850" alt="Motor" src="https://github.com/user-attachments/assets/de6786ac-3dc2-4d36-89e3-03435708c338" /> |
-| Suitcase Wheel Protector | 4 | Ensures 3d-printed wheels stability and grip on the floor. | <img width="850" alt="tire" src="https://github.com/user-attachments/assets/7544f94e-684d-4f12-aa88-d533e06f4869" /> |
-| Monocular Camera | 1 | A camera used for capturing images and videos, can be used for computer vision or live streaming. | <img width="850" alt="Camera" src="https://github.com/user-attachments/assets/47eeb574-59c4-4cdf-be45-4133167f8739" /> |
-| L298N Motor Driver | 1 | Controls motor direction and speed from the Raspberry Pi. | <img width="850" alt="Motor Driver" src="https://github.com/user-attachments/assets/3ab3c2e0-8b73-4996-9412-b28877301502" /> |
-| Jumper Cables | 4–8 | Electrical connections between the motor driver and Pi. | <img width="850" alt="Jumper Cables" src="https://github.com/user-attachments/assets/44758ea5-a6b2-4366-a1fb-7a0eeac5135b" /> |
-| USB-USB Cable | 1 | A cable to connect the Raspberry Pi to the camera, Lidar, and Controller. | <img width="850" alt="USB Cable" src="https://github.com/user-attachments/assets/e28195ef-1993-4163-a3de-d2299c443eb0" /> |
-| Li-Po Battery 7.4 V 5000mAh 20C | 1 | A lithium polymer battery that provides portable, high-density power. | <img width="850" alt="Battery" src="https://github.com/user-attachments/assets/204ea520-4bc6-4757-93e2-d99036c49403" /> |
+| STL-19P TOF Lidar | 1 | Provides precise, 360-degree distance measurements for real-time navigation and obstacle detection in dynamic environments. | <img width="850" alt="Lidar" src="https://github.com/user-attachments/assets/a8cece7d-a10f-465d-8982-c96919f8e1bd" /> |
+| Lidar Adapter Board | 1 | Converts the LiDAR’s UART signals to USB for PC connection and data reading. | <img width="850" alt="Adapter" src="https://github.com/user-attachments/assets/c6bdca97-f5a3-4a1e-b0ee-6b4bda3a2ee1" /> |
+| 15 kg.cm Digital Servo | 1 | Provides accurate steering control. | <img width="850" alt="Servo" src="https://github.com/user-attachments/assets/14a9ca9e-b206-44cb-9bdd-cd3c675e7abc" /> |
+| 25MM Metal Gear Motor | 1 | Core drive motor for powering the wheels with torque and speed. | <img width="850" alt="Motor" src="https://github.com/user-attachments/assets/e6695af1-8bcd-48a0-8b6f-802e3145f1be" /> |
+| Suitcase Wheel Protector | 4 | Ensures 3d-printed wheels stability and grip on the floor. | <img width="850" alt="tire" src="" /> |
+| Monocular Camera | 1 | A camera used for capturing images and videos, can be used for computer vision or live streaming. | <img width="850" alt="Camera" src="https://github.com/user-attachments/assets/b280e148-f627-4687-9174-b62485a19662" /> |
+| L298N Motor Driver | 1 | Controls motor direction and speed from the Raspberry Pi. | <img width="850" alt="Motor Driver" src="https://github.com/user-attachments/assets/d1deaab5-c61c-41f2-afcc-9f248350fcf1" /> |
+| Jumper Cables | 4–8 | Electrical connections between the motor driver and Pi. | <img width="850" alt="Jumper Cables" src="https://github.com/user-attachments/assets/e1c2d347-97a2-4d19-bac0-bf0af226dfde" /> |
+| USB-USB Cable | 1 | A cable to connect the Raspberry Pi to the camera, Lidar, and Controller. | <img width="850" alt="USB Cable" src="https://github.com/user-attachments/assets/8f95630d-fcd1-4340-b176-5e16c1988f18" /> |
+| Li-Po Battery 7.4 V 5000mAh 20C | 1 | A lithium polymer battery that provides portable, high-density power. | <img width="850" alt="Battery" src="https://github.com/user-attachments/assets/452710d7-b1f9-4be5-8f41-9b5a35c3246e" /> |
 
 
 <br>
-
