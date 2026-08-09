@@ -23,12 +23,19 @@ We are Renkay, a team of three students participating at the 2026 World Robot Ol
 ---
 
 # 📮 Table of Contents
-1. [Repository Structure](repository-structure)
-2. [Meet the Team!](meet-the-team)
+1. [About the Competition](about-the-competition)
+   + Overview
+   + The Challenges
+2. [Repository Structure](repository-structure)
+3. [Meet the Team!](meet-the-team)
 
 ---
 
-## 1. Repository Structure
+## 1. About the Competition
+### **<ins>Overview</ins>**
+### **<ins>The Challenges</ins>**
+
+## 2. Repository Structure
 
 | Folder | Content |
 |--------|---------|
@@ -40,7 +47,7 @@ We are Renkay, a team of three students participating at the 2026 World Robot Ol
 | [`models`](models) | 3D printed parts and other chassis pieces |
 | [`other`](other) | Extra documentation |
 
-## 2. Meet the Team!
+## 3. Meet the Team!
 <table>
   <tr>
     <td width="55%" valign="top">
