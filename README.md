@@ -41,27 +41,10 @@ We participate in the **Future Engineers category**, designed for students aged 
 
 
 ### **<ins>Challenges Overview</ins>**
-<table>
-  <tr>
-    <th width="50%" align="center">🔓 Open Challenge</th>
-    <th width="50%" align="center">🚨 Obstacle Challenge</th>
-  </tr>
-
-  <tr>
-    <td width="50%">
-      In the <strong>Open Challenge</strong>, the vehicle must autonomously navigate the track and complete three laps. The track layout and driving direction can change between rounds, and the vehicle should adapt to different configurations.
-      <p align="center">
-        <img src="https://github.com/user-attachments/assets/d872cdba-48b3-4573-b674-391eae443546" width="300">
-      </p>
-    </td>
-    <td width="50%">
-      In the <strong>Obstacle Challenge</strong>, the vehicle must complete three laps and detects obstacles placed on the track. After completing it, the vehicle must perform a parallel parking maneuver.
-      <p align="center">
-        <img src="https://github.com/user-attachments/assets/05564ce7-e8b3-4ec2-8f6c-ba8a3d05d400" width="300">
-      </p>
-    </td>
-  </tr>
-</table>
+| 🔓 Open Challenge | 🚨 Obstacle Challenge |
+|:------------------:|:---------------------:|
+| In the **Open Challenge**, the vehicle must autonomously navigate the track and complete three laps. The track layout and driving direction can change between rounds, and the vehicle should adapt to different configurations. | In the **Obstacle Challenge**, the vehicle must complete three laps and detects the obstacles placed on the track. After completing it, the vehicle must perform a parallel parking maneuver. |
+| <img width="450" alt="Open Challenge" src="https://github.com/user-attachments/assets/d872cdba-48b3-4573-b674-391eae443546"/> | <img width="450" alt="Obstacle Challenge" src="https://github.com/user-attachments/assets/05564ce7-e8b3-4ec2-8f6c-ba8a3d05d400"/>
 
 ## 2. Repository Structure
 
