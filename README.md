@@ -34,10 +34,13 @@ We are Renkay, a team of three students participating at the 2026 World Robot Ol
 
 ## 1. About the Competition
 ### **<ins>World Robot Olympiad (WRO)</ins>**
+The **World Robot Olympiad (WRO)** is a global robotics competition which brings together students to develop their creativity, engineering, and problem-solving skills. The competition offers four categories with different challenges.
 
 ### **<ins>Future Engineers Category</ins>**
+We participate in the **Future Engineers category**, designed for students aged 14–22. In this category, teams design and build an autonomous vehicle using freely chosen hardware and software. It focuses on autonomous driving, requiring the vehicle to navigate a track and respond to changing conditions.
 
 ### **<ins>The Challenges</ins>**
+
 
 ## 2. Repository Structure
 
