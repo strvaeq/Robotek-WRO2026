@@ -24,7 +24,8 @@ We are Renkay, a team of three students participating at the 2026 World Robot Ol
 
 # 📮 Table of Contents
 1. [About the Competition](about-the-competition)
-   + [Overview](overview)
+   + [World Robotic Olympiad (WRO)](world-robotic-olympiad-(wro))
+   + [Future Engineers Category](future-engineers-category)
    + [The Challenges](the-challenges)
 2. [Repository Structure](repository-structure)
 3. [Meet the Team!](meet-the-team)
@@ -32,7 +33,10 @@ We are Renkay, a team of three students participating at the 2026 World Robot Ol
 ---
 
 ## 1. About the Competition
-### **<ins>Overview</ins>**
+### **<ins>World Robotic Olympiad (WRO)</ins>**
+
+### **<ins>Future Engineers Category</ins>**
+
 ### **<ins>The Challenges</ins>**
 
 ## 2. Repository Structure
