@@ -40,6 +40,10 @@ The **World Robot Olympiad (WRO)** is a global robotics competition which brings
 We participate in the **Future Engineers category**, designed for students aged 14–22. In this category, teams design and build an autonomous vehicle using freely chosen hardware and software. It focuses on autonomous driving, requiring the vehicle to navigate a track and respond to changing conditions.
 
 ### **<ins>The Challenges</ins>**
+| 🔓 Open Challenge | 🚨 Obstacle Challenge |
+|--------------------|-----------------------|
+| In the **Open Challenge**, the vehicle must autonomously navigate the track and complete three laps. The track layout and driving direction can change between rounds, and the vehicle should adapt to different configurations. | In the **Obstacle Challenge**, the vehicle must complete three laps and detects the obstacles placed on the track. After completing it, the vehicle must perform a parallel parking maneuver. |
+| <img width="250" alt="Open Challenge" src=""/> | <img width="250" alt="Obstacle Challenge" src=""/>
 
 
 ## 2. Repository Structure
