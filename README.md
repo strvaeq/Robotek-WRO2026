@@ -43,7 +43,7 @@ We participate in the **Future Engineers category**, designed for students aged 
 | 🔓 Open Challenge | 🚨 Obstacle Challenge |
 |--------------------|-----------------------|
 | In the **Open Challenge**, the vehicle must autonomously navigate the track and complete three laps. The track layout and driving direction can change between rounds, and the vehicle should adapt to different configurations. | In the **Obstacle Challenge**, the vehicle must complete three laps and detects the obstacles placed on the track. After completing it, the vehicle must perform a parallel parking maneuver. |
-| <img width="450" alt="Open Challenge" src="https://github.com/user-attachments/assets/0911b622-8d04-490e-b391-5b5e51ede837"/> | <img width="450" alt="Obstacle Challenge" src="https://github.com/user-attachments/assets/05564ce7-e8b3-4ec2-8f6c-ba8a3d05d400"/>
+| <img width="450" alt="Open Challenge" src="https://github.com/user-attachments/assets/4d8850d3-cdd5-48d4-8998-3f192085e4e2"/> | <img width="450" alt="Obstacle Challenge" src="https://github.com/user-attachments/assets/05564ce7-e8b3-4ec2-8f6c-ba8a3d05d400"/>
 
 
 
