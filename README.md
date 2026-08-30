@@ -278,7 +278,6 @@ We also printed the rear wheels, so now all wheels are the same. We modified the
 | Component | Quantity | Description | Image |
 |-----------|----------|-------------|-------|
 | Raspberry Pi 5 | 1 | Main processing unit for running **ROS**. Acts as the main brain and the Host Controller of the system, capable of running operating systems and handling complex processing tasks. | <img width="250" alt="Raspberry Pi 5" src="https://github.com/user-attachments/assets/657762ac-c99f-4375-9b41-e28a6fd0f865" /> |
-
 | RRC Lite Controller | 1 | Integrates: ROS expansion board, High-Frequency PID Control, Motor Closed-Loop Control, Servo Control and Feedback, IMU Data Acquisition, Power Status Monitoring, and a Power Switch. | <img width="250" alt="Controller" src="https://github.com/user-attachments/assets/1703132a-77bc-4e78-95cc-8da6df285f75" /> |
 | STL-19P TOF Lidar | 1 | Provides precise, 360-degree distance measurements for real-time navigation and obstacle detection in dynamic environments. | <img width="250" alt="Lidar" src="https://github.com/user-attachments/assets/a8cece7d-a10f-465d-8982-c96919f8e1bd" /> |
 | Lidar Adapter Board | 1 | Converts the LiDAR’s UART signals to USB for PC connection and data reading. | <img width="250" alt="Adapter" src="https://github.com/user-attachments/assets/c6bdca97-f5a3-4a1e-b0ee-6b4bda3a2ee1" /> |
