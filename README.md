@@ -265,6 +265,9 @@ We also printed the rear wheels, so now all wheels are the same. We modified the
     </td>
   </tr>
 
+> [!NOTE]
+> 🌱 Visit our [`vehicle-versions`](v-photos/vehicle-versions/README.md) folder to see photos and videos of our car evolution.
+
 ### System Setup
 ### **<ins>Operating Environment Overview</ins>**
 The operating environment of our robotic car is designed as a structure that connects hardware, software, and middleware into a single functional system, shown in the diagram below:
@@ -272,9 +275,6 @@ The operating environment of our robotic car is designed as a structure that con
 <p align="center">
   <img src="https://github.com/user-attachments/assets/aed2f470-f8ad-4831-a153-82bd271397bb" width="90%">
 </p>
-
-> [!NOTE]
-> 🌱 Visit our [`vehicle-versions`](v-photos/vehicle-versions/README.md) folder to see photos and videos of our car evolution.
 
 
 
