@@ -29,6 +29,7 @@ We are Renkay, a team of three students participating at the 2026 World Robot Ol
    + [Challenges Overview](challenges-overview)
 2. [Repository Structure](repository-structure)
 3. [Meet the Team!](meet-the-team)
+4. [System Setup](system-setup)
 
 ---
 
