@@ -264,7 +264,100 @@ We also printed the rear wheels, so now all wheels are the same. We modified the
   <a href="v-photos/vehicle-versions/README.md#version-10">➡️ See more photos 🚗</a><br><br>
     </td>
   </tr>
-  
+
+### System Setup
+### **<ins>Operating Environment Overview</ins>**
+The operating environment of our robotic car is designed as a structure that connects hardware, software, and middleware into a single functional system, shown in the diagram below:
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/aed2f470-f8ad-4831-a153-82bd271397bb" width="90%">
+</p>
+
+
+
+### **<ins>Robot Operating System (ROS)</ins>** <img width="50" alt="ROS" src="https://github.com/user-attachments/assets/53574d65-315e-4dfd-a8d9-ffb38e892bab" />
+ROS is a framework that connects a robot’s software and hardware, making sensors, motors, and programs work together so the robot can perform tasks smoothly. For this project, we use ROS 2 Jazzy, one of the latest versions of ROS 2. You can find the documentation here:  [ROS 2 Documentation: Jazzy](https://docs.ros.org/en/jazzy/index.html)<br>
+
+Without ROS, everything would have to be written in one long, complicated program that’s hard to manage. We can now divide the system into smaller parts, or nodes, that each do one job, making the system easier to build, fix, and expand.<br>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b94b35c9-c47d-48f0-9a54-57789c4cc455" alt="Nodes" width="80%">
+</p>
+
+> This is an official animation to better understand how nodes work. Each node does one clear job, like moving wheels or reading sensors, and they talk to each other using topics, services, actions, or parameters.
+>  In practice, this is the process:
+> 1. Sensors send data to ROS 2 by publishing it on topics.
+> 2. Other nodes listen to that data, process it, and decide what the car should do.
+> 3. Finally, a controller node sends commands, making the car move accordingly.
+
+<br>
+
+*<ins>Why we use ROS?</ins>*<br>
+
+<table>
+  <tr>
+    <td><b>Sensor & Actuator Integration</b></td>
+    <td>
+      ROS connects all sensors and actuators in one system, ensuring seamless coordination. 
+      This gives our autonomous car continuous information about its surroundings 
+      and optimizes overall performance.
+    </td>
+  </tr>
+  <tr>
+    <td><b>Environmental Perception with LiDAR</b></td>
+    <td>
+      Most manufacturers of advanced sensors, such as LiDARs, provide an official package to use their hardware with ROS. In the case of the DTOF STL-19P, the manufacturer provides a package that automatically publishes the LiDAR data so it can be processed afterward.
+    </td>
+  </tr>
+  <tr>
+    <td><b>Support with Python</b></td>
+    <td>
+      ROS is fully compatible with Python, which allows for versatile and high-level code development. In addition, being open-source, it has a large community that provides support and assistance for robot development.
+    </td>
+  </tr>
+  <tr>
+    <td><b>Debugging & Simulation</b></td>
+    <td>
+      ROS includes tools to quickly debug the content published on topics. It also provides tools such as RViz, which allows real-time data visualization, and Gazebo, which enables running simulations.
+    </td>
+  </tr>
+  <tr>
+    <td><b>Efficient Simulation & Debugging</b></td>
+    <td>
+      Virtual environments like 
+      <a href="https://gazebosim.org/home">Gazebo</a> let us fine-tune parameters before implementation. 
+      Tools like 
+      <a href="https://docs.ros.org/en/humble/Tutorials/Intermediate/RViz/RViz-User-Guide/RViz-User-Guide.html">RViz</a> 
+      allow real-time visualization of sensor data and car status, making debugging much easier.
+    </td>
+  </tr>
+</table>
+
+
+
+<br>
+
+### **<ins>Ubuntu</ins>** <img width="60" alt="UBUNTU" src="https://github.com/user-attachments/assets/38f176af-2d07-41f9-bb14-3ef8eb2c0022" />
+Ubuntu is a popular, free, open-source operating system based on Linux. It is known for being reliable, flexible, and widely used in both research and industry. In our project, we use Ubuntu 24.04 as the **foundation that runs on the Raspberry Pi**.<br>
+
+Ubuntu manages the Raspberry Pi’s resources efficiently, ensuring it runs correctly. It provides drivers and compatibility for sensors and external hardware, making integration easier. Ubuntu also allows us to install and run ROS 2 Jazzy and gives us access to important libraries and tools that simplify tasks such as sensor communication and system development.<br>
+
+We use Ubuntu because of its stability and compatibility with ROS 2 Jazzy. Since ROS 2 packages are officially distributed for Ubuntu, using this operating system guarantees that we can easily install and manage the software needed for our car.
+<br><br>
+
+### **<ins>Raspberry Pi</ins>** <img width="70" alt="Raspberry" src="https://github.com/user-attachments/assets/6e218c1a-8fe1-47a2-8ae5-1719956508fa" />
+The Raspberry Pi is a small computer that works as the brain of our car. It is powerful enough to run Ubuntu, ROS 2, and our algorithms in real time. In our project, we use the Raspberry Pi 5, which you can find here: [Raspberry Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5/)<br>
+
+**👉 Set up and configuration**<br>
+
+With the [Raspberry Pi Imager](https://www.raspberrypi.com/software/), we flash Ubuntu 24.04 into the microSD card of the Raspberry. After that, we configure the basics like Wi-Fi, SSH for remote access, and hostname. And finally, we install ROS 2 Jazzy by following these steps: [Installation Ubuntu (deb packages)](https://www.google.com/url?q=https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html&sa=D&source=docs&ust=1756316032253380&usg=AOvVaw24eBtKhOAoYRVzp4xh2Rkh)
+
+| Step 1 | Step 2 | Step 3 | Step 4 |
+| :--: | :--: | :--: |  :--: |
+| <img src="https://github.com/user-attachments/assets/f6ee9449-517c-443a-aad2-c7a4913f8334"/> | <img src="https://github.com/user-attachments/assets/0990b9f5-a0a7-408b-a90b-2e9086ae6032" /> | <img src="https://github.com/user-attachments/assets/8b716aad-e25b-4ff4-a92a-8e5e1b085319" /> | <img src="https://github.com/user-attachments/assets/c0f70529-b1b9-4ce7-b0c2-3803a02c44db"/> |
+
+
+<br>
   
 </table>
 
@@ -292,3 +385,31 @@ We also printed the rear wheels, so now all wheels are the same. We modified the
 
 
 <br>
+
+### <ins>**Wiring Diagram**<ins>
+
+The following visual wiring diagram illustrates the **physical connections** between the modules (Raspberry Pi, LiDAR, camera, motor, etc.) using **realistic component images**. It helps visualize the system layout and understand **how components are arranged and linked** in the robot.  
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/7d835de4-4de6-4fd3-9e2d-f6f4ee5c3b1e" width="80%">
+</p>
+
+
+#### **1. Raspberry Pi 5 Connections**
+The Raspberry Pi 5 works as the brain of the car. Its USB ports connect the main sensors and the controller:
+
++ Camera → provides visual input for detecting traffic signs and colored obstacles.
++ LiDAR → provides distance and wall detection for navigation.
++ RRC Lite Controller → interfaces with the digital servomotor and forwards control signals to the motor driver.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/06315a84-dab7-4412-98bc-3bd68fd837a6" width="80%">
+</p>
+
+
+#### **2. RRC Lite Controller**
+The RRC Lite Controller acts as a bridge between the Raspberry Pi and the actuators. It regulates incoming power from the Li-Po battery (down to a safe 5 V) and distributes it to:  
+- The **Raspberry Pi 5**  
+- The **digital servomotor** for Ackermann steering  
+
+It also handles communication with the motor driver to send PWM control signals.
