@@ -273,6 +273,9 @@ The operating environment of our robotic car is designed as a structure that con
   <img src="https://github.com/user-attachments/assets/aed2f470-f8ad-4831-a153-82bd271397bb" width="90%">
 </p>
 
+> [!NOTE]
+> 🌱 Visit our [`vehicle-versions`](v-photos/vehicle-versions/README.md) folder to see photos and videos of our car evolution.
+
 
 
 ### **<ins>Robot Operating System (ROS)</ins>** <img width="50" alt="ROS" src="https://github.com/user-attachments/assets/53574d65-315e-4dfd-a8d9-ffb38e892bab" />
@@ -362,9 +365,6 @@ With the [Raspberry Pi Imager](https://www.raspberrypi.com/software/), we flash 
 </table>
 
 <br>
-
-> [!NOTE]
-> 🌱 Visit our [`vehicle-versions`](v-photos/vehicle-versions/README.md) folder to see photos and videos of our car evolution.
 
 
 ### **<ins>BOM (Bill of Materials)</ins>**
