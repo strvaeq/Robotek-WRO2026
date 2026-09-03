@@ -276,7 +276,7 @@ We also printed the rear wheels, so now all wheels are the same. We modified the
 
 <br>
 
-### System Setup
+### 4. System Setup
 ### **<ins>Operating Environment Overview</ins>**
 The operating environment of our robotic car is designed as a structure that connects hardware, software, and middleware into a single functional system, shown in the diagram below:
 
