@@ -127,11 +127,11 @@ Our autonomous vehicle is built to take on both the Open and Obstacle Challenges
 
 | Front | Left | Right |
 | :--: | :--: | :--: | 
-| <img src="https://github.com/user-attachments/assets/ab25674e-a7c3-4c99-8bff-811073d40f97" width="90%" /> | <img src="https://github.com/user-attachments/assets/7095e83a-fdaf-4d5a-a209-661233dc80b3" width="90%" /> |  <img src="" width="90%" /> |
+| <img src="https://github.com/user-attachments/assets/ab25674e-a7c3-4c99-8bff-811073d40f97" width="90%" /> | <img src="https://github.com/user-attachments/assets/7095e83a-fdaf-4d5a-a209-661233dc80b3" width="90%" /> |  <img src="https://github.com/user-attachments/assets/f0871ca8-5884-4f0c-8e8c-fe76220a9f13" width="90%" /> |
 
 | Back  | Top  | Bottom |
 | :--: | :--: |:--: |  
-| <img src="https://github.com/user-attachments/assets/fad4e0d3-a952-41cf-9aaf-14c8d71160f6" width="90%" /> | <img src="https://github.com/user-attachments/assets/83bfe6be-d686-4c27-8264-b56118619972" width="90%" /> |  <img src="https://github.com/user-attachments/assets/99edcc0a-a95d-4cc6-9403-eabd62459a35" width="90%" /> | 
+| <img src="https://github.com/user-attachments/assets/fad4e0d3-a952-41cf-9aaf-14c8d71160f6" width="90%" /> | <img src="https://github.com/user-attachments/assets/83bfe6be-d686-4c27-8264-b56118619972" width="90%" /> |  <img src="https://github.com/user-attachments/assets/1fc6e812-b461-41aa-980b-cba96ac88442" width="90%" /> | 
 > [!NOTE]
 > 📸 Visit our [`v-photos`](https://github.com/vania020/wro2025-robotek/tree/main/v-photos) folder for more detailed photos of the car
 
