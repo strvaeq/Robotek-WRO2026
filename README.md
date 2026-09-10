@@ -123,9 +123,11 @@ We participate in the **Future Engineers category**, designed for students aged 
 This is our car named **Sami**, it is the result of multiple versions and modifications since 2024. We have been studying, learning and testing different methods to improve our car. It has been an interesting and challenging journey in robotics, but every effort was worth it!
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/b4ea0d3f-327a-4e63-8e99-e16eb785663e" alt="Vehicle Overview" width="70%">
+  <img src="https://github.com/user-attachments/assets/c9428f36-4973-4e2e-b154-49eb06b29305" width="70%">
 
 </p>
+
+
 
 ### **<ins>General Description of the Car</ins>**
 Our autonomous vehicle is built to take on both the Open and Obstacle Challenges at the Future Engineers competition. Running on Ubuntu with ROS, it can process information and make decisions in real time. The car uses an Ackermann steering system and a custom-built chassis to move smoothly through turns and straight paths. A LiDAR sensor helps it detect the field walls, while the camera identifies traffic signs and obstacles. With this setup, the car can adapt its route, count laps, and complete the course efficiently.
@@ -133,13 +135,14 @@ Our autonomous vehicle is built to take on both the Open and Obstacle Challenges
 
 | Front | Left | Right |
 | :--: | :--: | :--: | 
-| <img src="https://github.com/user-attachments/assets/ab25674e-a7c3-4c99-8bff-811073d40f97" width="90%" /> | <img src="https://github.com/user-attachments/assets/7095e83a-fdaf-4d5a-a209-661233dc80b3" width="90%" /> |  <img src="https://github.com/user-attachments/assets/f0871ca8-5884-4f0c-8e8c-fe76220a9f13" width="90%" /> |
+| <img src="https://github.com/user-attachments/assets/57818eb1-a1db-4454-9928-7ac42b46e3ae" width="90%" /> | <img src="https://github.com/user-attachments/assets/3c8d3351-0cf4-471f-be21-785de03897c0" width="90%" /> |  <img src="https://github.com/user-attachments/assets/b8d704a5-4bf8-4e6a-acd5-54b882e8ccc6" width="90%" /> |
 
 | Back  | Top  | Bottom |
 | :--: | :--: |:--: |  
-| <img src="https://github.com/user-attachments/assets/fad4e0d3-a952-41cf-9aaf-14c8d71160f6" width="90%" /> | <img src="https://github.com/user-attachments/assets/83bfe6be-d686-4c27-8264-b56118619972" width="90%" /> |  <img src="https://github.com/user-attachments/assets/1fc6e812-b461-41aa-980b-cba96ac88442" width="90%" /> | 
+| <img src="https://github.com/user-attachments/assets/1b9fdaee-b758-47dd-b572-509e3d5af35e" width="90%" /> | <img src="https://github.com/user-attachments/assets/19fba1bd-56ff-441b-8411-ddadb8295040" width="90%" /> |  <img src="https://github.com/user-attachments/assets/e8d83c7d-673f-43ad-bcc0-ec78e74bc9e3" width="90%" /> | 
 > [!NOTE]
 > 📸 Visit our [`v-photos`](https://github.com/vania020/wro2025-robotek/tree/main/v-photos) folder for more detailed photos of the car
+
 
 
 ### **<ins>Versions of the Car</ins>**
@@ -266,16 +269,29 @@ A new chassis base was printed in MDF, and the Ackermann was moved slightly beca
     <td align="center"><img src="https://github.com/user-attachments/assets/03a1e68f-fcf6-40c0-91ea-beff7a2833ab" width="330" height="450"/>
     </td>
     <td>
-      <br> <b>Car dimensions:</b> 15 x 18 x 16 cm <br><br>
-After testing the robot multiple times, we found that vision worked better without the LiDAR housing and with the addition of a 16-LED WS2812 RGB pixel ring light (DC5V).<br><br>
-We also printed the rear wheels, so now all wheels are the same. We modified the gear system, which allowed the robot to complete the 3 laps faster. The small and big gears were interchanged so that the big gear is directly attached to the motor shaft. <br><br>
+      <br> <b>Car dimensions:</b> 15 x 18 x 16 cm <br><br> 
+We removed the LiDAR housing because, after testing the robot multiple times, we found that vision worked better without it. We also printed the rear wheels, so now all wheels are the same. We modified the gear system, which allowed the robot to complete the 3 laps faster. It now takes less than 10 seconds to complete an entire lap, and it manages to complete the 3 laps in 28 seconds. The small and big gears were interchanged so that the big gear is directly attached to the motor shaft
+<br><br>
   <a href="v-photos/vehicle-versions/README.md#version-10">➡️ See more photos 🚗</a><br><br>
     </td>
   </tr>
 
-
+  <!-- Version 11 -->
+  <tr>
+    <td align="center"><i>Version N°11</i></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/deba8088-32d4-4846-b635-17d4c11e2836" width="330" height="450"/>
+    </td>
+    <td>
+      <br> <b>Car dimensions:</b> N x N x N cm <br><br> 
+We noticed that the room lights were affecting our color detection, so we added a 16-LED WS2812 RGB ring light (5V) to keep the lighting consistent. We also moved the LiDAR again. We printed a new housing and placed it at the very front, right under the chassis, and it actually helped it detect walls much better.
+Finally, we replaced the old L298N motor driver with a TB6612FNG. This made a big difference because we can now control the speed more smoothly, starting at around 35%, and we have much better control when reversing and stopping.
+<br><br>
+  <a href="v-photos/vehicle-versions/README.md#version-10">➡️ See more photos 🚗</a><br><br>
+    </td>
+  </tr>
   
 </table>
+
 
 <br>
 
