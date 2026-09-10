@@ -61,54 +61,60 @@ We participate in the **Future Engineers category**, designed for students aged 
 | [`other`](other) | Extra documentation |
 
 ## 3. Meet the Team!
-<table>
+
+<table width="100%">
   <tr>
-    <td width="55%" valign="top">
-      <strong>Isabella Gonzales</strong><br><br>
-      <img width="15" alt="pencial" src="https://github.com/user-attachments/assets/cf4faf62-f43d-47b9-8fd1-917cc4955a78" /> <i>Responsible for...</i><br>
-       <img width="15" alt="mail" src="https://www.clipartmax.com/png/full/278-2785632_big-image-mail-icon-png-circle.png" /> isabellamilagros842@gmail.com<br>
-       <img width="15" alt="location" src="https://github.com/user-attachments/assets/11318a7b-9411-4503-9885-926fe4fb4ffb" /> Miraflores, Lima<br><br>
-      bio <br><br>
-   
-  <td width="45%" align="center">
-    <img src="https://github.com/user-attachments/assets/46aba916-a5ea-40b4-8cb5-4737ae68305c" alt="Isa"/>
+    <td align="center" width="25%" style="padding: 20px;">
+      <img src="https://github.com/user-attachments/assets/4f37460a-c3a6-42cd-93e6-db632a62fead" width="800" style="border-radius: 10px;">
+    </td>
+    <td width="75%" style="padding: 20px;">
+      <h3><strong>Isabella Gonzales 🌟</strong></h3>
+      <b>🔧 Role: </b>Team Member<br>
+      <b>💬 About me:</b><br>
+      <b>🌐 Contact:</b> isabellamilagros842@gmail.com
     </td>
   </tr>
-  
-</table>
 
-<table>
 
   <tr>
-    <td width="55%" valign="top">
-      <strong>Rodrigo Osorio</strong><br><br>
-      <img width="15" alt="pencial" src="https://github.com/user-attachments/assets/cf4faf62-f43d-47b9-8fd1-917cc4955a78" /> <i>Responsible for...</i><br>
-       <img width="15" alt="mail" src="https://www.clipartmax.com/png/full/278-2785632_big-image-mail-icon-png-circle.png" /> email<br>
-       <img width="15" alt="location" src="https://github.com/user-attachments/assets/11318a7b-9411-4503-9885-926fe4fb4ffb" /> Los Olivos, Lima<br><br>
-      bio <br><br>
-   
-  <td width="45%" align="center">
-    <img src="https://github.com/user-attachments/assets/46aba916-a5ea-40b4-8cb5-4737ae68305c" alt="Rodri"/>
+    <td align="center" width="25%" style="padding: 20px;">
+      <img src="https://github.com/user-attachments/assets/c0f1333d-bda1-4e65-9402-9381d1af59e1" width="800" style="border-radius: 10px;">
+    </td>
+    <td width="75%" style="padding: 20px;">
+      <h3><strong>Rodrigo Osorio 🎶</strong></h3>
+      <b>🔧 Role: </b>Team Member<br>
+      <b>💬 About me:</b><br>
+      <b>🌐 Contact:</b> rod10peru@gmail.com
     </td>
   </tr>
-  
-</table>
 
-<table>
 
   <tr>
-    <td width="55%" valign="top">
-      <strong>Valeria Hurtado</strong><br><br>
-      <img width="15" alt="pencil" src="https://github.com/user-attachments/assets/cf4faf62-f43d-47b9-8fd1-917cc4955a78" /> <i>Responsible for...</i><br>
-       <img width="15" alt="mail" src="https://www.clipartmax.com/png/full/278-2785632_big-image-mail-icon-png-circle.png" /> valeria.hurtado.delarosa@outlook.com<br>
-       <img width="15" alt="location" src="https://github.com/user-attachments/assets/11318a7b-9411-4503-9885-926fe4fb4ffb" /> Cercado de Lima, Lima<br><br>
-      bio <br><br>
-   
-  <td width="45%" align="center">
-    <img src="https://github.com/user-attachments/assets/46aba916-a5ea-40b4-8cb5-4737ae68305c" alt="Vale"/>
-  
-  </td>
+    <td align="center" width="25%" style="padding: 20px;">
+      <img src="https://github.com/user-attachments/assets/e68b56c1-9123-44ee-a194-316b82ebae8a" width="800" style="border-radius: 10px;">
+    </td>
+    <td width="75%" style="padding: 20px;">
+      <h3><strong>Valeria Hurtado 🎷🐛</strong></h3>
+      <b>🔧 Role: </b>Team Member<br>
+      <b>💬 About me:</b><br>
+      <b>🌐 Contact:</b> valeria.hurtado.delarosa@outlook.com
+    </td>
   </tr>
+
+  
+  <tr>
+    <td align="center" width="25%" style="padding: 20px;">
+      <img src="https://github.com/user-attachments/assets/2ce1a5c3-1f01-488f-a7aa-983ac89b57d3" width="800" style="border-radius: 10px;">
+    </td>
+    <td width="75%" style="padding: 20px;">
+      <h3><strong>Anthony Valladolid 🤓</strong></h3>
+      <b>🔧 Role: </b>Coach<br>
+      <b>💬 About me:</b><br>
+      <b>🌐 Contact:</b> anthony.valladolid@pucp.edu.pe
+    </td>
+  </tr>
+
+
   
 </table>
 
