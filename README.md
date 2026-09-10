@@ -64,58 +64,52 @@ We participate in the **Future Engineers category**, designed for students aged 
 
 <table width="100%">
   <tr>
-    <td align="center" width="25%" style="padding: 20px;">
-      <img src="https://github.com/user-attachments/assets/4f37460a-c3a6-42cd-93e6-db632a62fead" width="800" style="border-radius: 10px;">
-    </td>
     <td width="75%" style="padding: 20px;">
       <h3><strong>Isabella Gonzales 🌟</strong></h3>
       <b>🔧 Role: </b>Team Member<br>
       <b>💬 About me:</b><br>
       <b>🌐 Contact:</b> isabellamilagros842@gmail.com
     </td>
+    <td align="center" width="25%" style="padding: 20px;">
+      <img src="https://github.com/user-attachments/assets/4f37460a-c3a6-42cd-93e6-db632a62fead" width="800" style="border-radius: 10px;">
+    </td>
   </tr>
 
-
   <tr>
-    <td align="center" width="25%" style="padding: 20px;">
-      <img src="https://github.com/user-attachments/assets/c0f1333d-bda1-4e65-9402-9381d1af59e1" width="800" style="border-radius: 10px;">
-    </td>
     <td width="75%" style="padding: 20px;">
       <h3><strong>Rodrigo Osorio 🎶</strong></h3>
       <b>🔧 Role: </b>Team Member<br>
       <b>💬 About me:</b><br>
       <b>🌐 Contact:</b> rod10peru@gmail.com
     </td>
+    <td align="center" width="25%" style="padding: 20px;">
+      <img src="https://github.com/user-attachments/assets/c0f1333d-bda1-4e65-9402-9381d1af59e1" width="800" style="border-radius: 10px;">
+    </td>
   </tr>
 
-
   <tr>
-    <td align="center" width="25%" style="padding: 20px;">
-      <img src="https://github.com/user-attachments/assets/e68b56c1-9123-44ee-a194-316b82ebae8a" width="800" style="border-radius: 10px;">
-    </td>
     <td width="75%" style="padding: 20px;">
       <h3><strong>Valeria Hurtado 🎷🐛</strong></h3>
       <b>🔧 Role: </b>Team Member<br>
       <b>💬 About me:</b><br>
       <b>🌐 Contact:</b> valeria.hurtado.delarosa@outlook.com
     </td>
+    <td align="center" width="25%" style="padding: 20px;">
+      <img src="https://github.com/user-attachments/assets/e68b56c1-9123-44ee-a194-316b82ebae8a" width="800" style="border-radius: 10px;">
+    </td>
   </tr>
 
-  
   <tr>
-    <td align="center" width="25%" style="padding: 20px;">
-      <img src="https://github.com/user-attachments/assets/2ce1a5c3-1f01-488f-a7aa-983ac89b57d3" width="800" style="border-radius: 10px;">
-    </td>
     <td width="75%" style="padding: 20px;">
       <h3><strong>Anthony Valladolid 🤓</strong></h3>
       <b>🔧 Role: </b>Coach<br>
       <b>💬 About me:</b><br>
       <b>🌐 Contact:</b> anthony.valladolid@pucp.edu.pe
     </td>
+    <td align="center" width="25%" style="padding: 20px;">
+      <img src="https://github.com/user-attachments/assets/2ce1a5c3-1f01-488f-a7aa-983ac89b57d3" width="800" style="border-radius: 10px;">
+    </td>
   </tr>
-
-
-  
 </table>
 
 
@@ -282,7 +276,7 @@ We removed the LiDAR housing because, after testing the robot multiple times, we
     </td>
     <td>
       <br> <b>Car dimensions:</b> N x N x N cm <br><br> 
-We noticed that the room lights were affecting our color detection, so we added a 16-LED WS2812 RGB ring light (5V) to keep the lighting consistent. We also moved the LiDAR again. We printed a new housing and placed it at the very front, right under the chassis, and it actually helped it detect walls much better.
+We noticed that the room lights were affecting our color detection, so we added a 16-LED WS2812 RGB ring light (5V) to keep the lighting consistent. We also moved the LiDAR again. We printed a new housing and placed it at the front, right under the chassis, an adjustment that significantly improved wall detection.
 Finally, we replaced the old L298N motor driver with a TB6612FNG. This made a big difference because we can now control the speed more smoothly, starting at around 35%, and we have much better control when reversing and stopping.
 <br><br>
   <a href="v-photos/vehicle-versions/README.md#version-10">➡️ See more photos 🚗</a><br><br>
@@ -444,3 +438,5 @@ The RRC Lite Controller acts as a bridge between the Raspberry Pi and the actuat
 - The **digital servomotor** for Ackermann steering  
 
 It also handles communication with the motor driver to send PWM control signals.
+
+
