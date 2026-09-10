@@ -77,7 +77,7 @@ We participate in the **Future Engineers category**, designed for students aged 
 
   <tr>
     <td width="75%" style="padding: 20px;">
-      <h3><strong>Rodrigo Osorio 🎶</strong></h3>
+      <h3><strong>Rodrigo Osorio 🦙</strong></h3>
       <b>🔧 Role: </b>Team Member<br>
       <b>💬 About me:</b><br>
       <b>🌐 Contact:</b> rod10peru@gmail.com
@@ -438,5 +438,3 @@ The RRC Lite Controller acts as a bridge between the Raspberry Pi and the actuat
 - The **digital servomotor** for Ackermann steering  
 
 It also handles communication with the motor driver to send PWM control signals.
-
-
