@@ -123,10 +123,9 @@ We participate in the **Future Engineers category**, designed for students aged 
 This is our car named **Sami**, it is the result of multiple versions and modifications since 2024. We have been studying, learning and testing different methods to improve our car. It has been an interesting and challenging journey in robotics, but every effort was worth it!
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/c9428f36-4973-4e2e-b154-49eb06b29305" width="70%">
+  <img src="https://github.com/user-attachments/assets/491effc5-e55b-4c2b-aae7-920ffc49a3a9" width="70%">
 
 </p>
-
 
 
 ### **<ins>General Description of the Car</ins>**
