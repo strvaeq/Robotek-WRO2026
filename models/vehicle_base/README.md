@@ -14,7 +14,6 @@ For the fabrication process, we started by sketching the base on squared paper a
 
 > [!NOTE]
 > This was our previous chassis design. It consisted of a base and upper casing that were crafted from aluminum. The base was designed to mount the Raspberry Pi and support the weight of the vehicle’s systems. The upper casing, which houses the LiDAR sensor, was designed to ensure the sensor has an unobstructed view. Still, having the components packed wasn't efficient for immediate modifications, which is why we changed it.
-> <img src = "https://github.com/user-attachments/assets/b878388c-313e-4fd7-aca1-75f875a06fa5" >
 
 
 **Model Details**
