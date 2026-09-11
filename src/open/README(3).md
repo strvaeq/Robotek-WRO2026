@@ -1,4 +1,7 @@
-# Open Challenge — WRO Future Engineers
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5c954cd9-4603-4664-9095-5bf80d70611f" width="100%">
+</p>
+
 
 Autonomous robot that drives the track and stops after 3 laps, using a
 cascaded **lidar + IMU** controller on ROS 2 (Raspberry Pi 5).
