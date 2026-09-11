@@ -721,3 +721,192 @@ This is also a diagram that shows the **electrical wiring** and pin-level connec
 
 > [!NOTE]
 > Visit our [`schemes`](https://github.com/vania020/wro2025-robotek/tree/main/schemes) folder to access all of our diagrams and schemes 🔑🚗
+
+
+## 6. Obstacle Management 
+
+### <ins>**Control Node Structure**</ins>
+
+Since we use ROS 2 as the middleware that connects all the components of our autonomous vehicle, there isn't a single code that runs either the Open Challenge or the Obstacle Challenge. Instead, the system is built as a collection of independent but interconnected ROS 2 nodes, each performing a specific function such as reading the camera, processing LiDAR data, or controlling the motors. These nodes communicate constantly through topics and messages, allowing the car to behave as a cohesive, intelligent system.
+
+This table better explains our ROS topics and messages:
+
+| **Node**                                | **Role**           | **Topic**                      | **Message Type**                                                   | **What It Transmits**                                                                                                                       |
+| --------------------------------------- | ------------------ | ------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| **LiDAR Node**                          | Publisher          | `/scan`                        | `sensor_msgs/LaserScan`                                            | It sends 360° distance readings from the LiDAR; each value represents how far an obstacle is at a given angle.                                 |
+| **Camera Node**                         | Publisher          | `/obstaculos`                  | `std_msgs/String`                                                  | It publishes the detected obstacle color in a text form: (`rojo`, `verde`, or `ninguno`), which defines how the main controller adjusts the steering setpoint. |
+| **AckerLidar Node** *(Main Controller)* | Central Controller | `/motor_vel`, `/positionServo` | `std_msgs/Float32`, `ros_robot_controller_msgs/SetAckerServoState` | `/motor_vel`: Motor duty cycle (speed %). `/positionServo`: Steering position (PWM in µs) for Ackermann control.                            |
+| **Motor Node**                          | Subscriber         | `/motor_vel`                   | `std_msgs/Float32`                                                 | Receives motor velocity commands from the main controller and translates them into PWM signals for the DC motor driver (L298N).             |
+| **Raspberry Pi 5 Controller Node**      | Subscriber         | `/positionServo`               | `ros_robot_controller_msgs/SetAckerServoState`                     | Executes servo position commands and moves the front wheels to reach the target angle.                                                      |
+| **RRC Controller Button**               | Publisher          | `/button`                      | `ros_robot_controller_msgs/ButtonState`                            | Sends an activation signal when the onboard button is pressed, starting the robot’s control loop.                                           |
+
+### **What is a Message type?**
+
+A **message type** is like a template that defines **what kind of data** is sent through a *topic*. For example, ROS already includes many built-in types, such as:
+
+* `std_msgs/String` → used to send text.
+* `std_msgs/Float32` → used to send a decimal number.
+* `sensor_msgs/LaserScan` → used to send LiDAR data (distance readings around 360°).
+* `geometry_msgs/Twist` → used to send linear and angular velocities (very common in mobile robots).
+* And you can also have **custom message types**, like the ones included in your own package `ros_robot_controller_msgs`.
+
+### **Important clarifiactions**
+
+* For simplicity, **some topic names were shortened** in the diagrams.
+
+  * The real ROS topic `/ros_robot_controller/acker_servo/set_state` is represented as **`/positionServo`**.
+  * The real ROS topic `/ros_robot_controller/button` is represented as **`/button`**.
+
+* The button input `/ros_robot_controller/button` is processed internally by the main node and does not appear as a separate node because it doesn’t exchange messages with others.
+
+* The naming convention was simplified only for documentation clarity; all logic and connections in the code remain unchanged.
+
+* The **AckerLidar Node** acts as the core controller that links everything:
+  it subscribes to LiDAR and camera data, processes the PID control, and publishes both the steering and velocity commands.
+
+
+
+> [!NOTE]
+> If you would like to see a detailed description and explanation of the code behind each node, please visit our [`src`](https://github.com/vania020/wro2025-robotek/tree/main/src) folder 🖥️🚗
+> 
+
+---
+
+
+### <ins>**Open Challenge**</ins>
+
+The **Open Challenge** is the first autonomous driving test. In this stage, the robot must complete three laps **without any external input** relying only on its onboard **LiDAR sensor**, **PID controller**, and **Ackermann steering system**. The goal is to keep the car centered between the inner and external walls of the challenge during the entire lap. To achieve that, the robot constantly measures two key distances: **D₁** → Distance from the car to the **left wall** and **D₂** → Distance from the car to the **right wall**
+
+The **control goal** is defined by the equation:
+
+> **D₁ - D₂ = 0**  
+> *(Setpoint = 0 → car is centered)*
+
+When this balance holds true, it means that both walls are equidistant, and the car is aligned in the center of the track.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/32a3a9b0-3693-403a-a52e-a4078647d5d0" width="80%">
+</p>
+
+### **How It Works: LiDAR + Control Loop**
+
+The LiDAR sensor scans the surrounding environment in real time, detecting obstacles and measuring the distances around the car. From these scans, two zones are analyzed, one on the **left** and one on the **right** to extract D₁ and D₂.
+
+These values are sent to the **AckerLidarNode**, the main control node in charge of:
+- Reading and processing LiDAR data  
+- Computing the distance difference `error = D₁ - D₂`  
+- Sending control signals to the **steering** and **motor** nodes
+
+The logic is the following:  
+1. If **D₁ > D₂**, the car is too close to the right wall → it turns slightly **left**.  
+2. If **D₁ < D₂**, the car is too close to the left wall → it turns slightly **right**.  
+3. If **D₁ = D₂**, the car is centered → it continues straight.
+
+This process runs in a **PID feedback loop**, where:
+- The **P (Proportional)** term corrects small deviations quickly.  
+- The **I (Integral)** term reduces long-term bias (not always needed).  
+- The **D (Derivative)** term prevents oscillations and overshoot.  
+
+The result is a **smooth, stable trajectory** that keeps the car aligned throughout the race.
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/b83a0a21-d830-4516-a9d1-8e52b26a63bd" width="80%">
+</div>
+
+
+### **Open Challenge Flowchart**
+
+<p align="center"> <img src="https://github.com/user-attachments/assets/f6272aa2-9634-472e-8685-449e77ced2c1" width="80%"> </p> 
+
+
+#### Step-by-Step Description
+
+1. **Start Robot & Initialization**  
+   ROS2 nodes are launched: the LiDAR begins scanning, and the control node initializes all parameters (PID gains, setpoint, motor topics).
+
+2. **Continuous Loop**  
+   The system enters a continuous loop (`while rclpy.ok()`), running dozens of times per second. Each cycle updates sensor readings and steering actions.
+
+3. **LiDAR Scan Environment**  
+   The sensor performs a 360° scan to detect the walls and extract points on both sides of the track.
+
+4. **Extract Wall Distances (D₁, D₂)**  
+   The algorithm filters the LiDAR data to isolate the left and right regions, computes the average distance for each, and updates D₁ and D₂.
+
+5. **Compute Error (D₁ - D₂)**  
+   The difference between these distances represents how “off-center” the car is from the ideal middle of the lane.
+
+6. **PID Steering Adjustment**  
+   The PID controller processes this error and outputs an angle correction, which is sent to the **servo motor** using an Ackermann steering model.
+
+7. **Update Lap Counter**  
+   The control node counts laps based on internal flags or distance traveled (depending on the implementation in the ROS2 package).
+
+8. **3 Laps Completed → Stop Vehicle**  
+   After completing three full laps, the system safely reduces speed and stops the motor node.
+
+### **Nodes and Communication**
+
+During the Open Challenge, three ROS2 nodes work together in real time:
+
+| Node | Role | Description |
+|------|------|-------------|
+| **`AckerLidarNode`** |Main Control Node | Subscribes to LiDAR data, calculates the distance difference, runs the PID controller, and sends steering/motor commands. |
+| **`MotorPWMNode`** | Motor Control | Receives speed values (`Float32`) and controls the DC motor through PWM signals, ensuring smooth acceleration. |
+| **`SetAckerServoState`** | Steering Control | Adjusts the steering servo angle according to PID output, maintaining Ackermann kinematics. |
+
+
+---
+
+
+### <ins>**Obstacle Challenge**</ins>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d2ae5d4d-4fee-49d1-a17e-dc7cf31d3865" width="100%">
+</p>
+
+### **Obstacle Challenge Flowchart**
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1fe3b8fa-3e9d-4a10-896f-0c3e835c6a39" width="80%">
+</p>
+
+
+<br><br>
+## 7. Assembly Instructions 
+
+### **Ackermann System**
++ To build the Ackermann system on the car, first screw the fixed parts that attach the system to the base.
++ Next, attach the two movable pieces that steer the wheels to the sides of the fixed part. Make sure these pieces can still rotate freely. Each of these pieces has two holes use the hole that is closer to the wheels.
++ Then, connect the wheel pieces with a linkage that has bearings on both ends. The bearings should be screwed into the other holes of the wheel pieces, forming a movable, half-rectangular structure.
++ Attach a second linkage, identical to the first but shorter, to one side of the system. This linkage connects to one of the holes on the wheel pieces, the same ones linked to the bearings of the first linkage. This shorter linkage will move the steering system and must be connected directly to the servo motor, which should be mounted vertically on the base.
++ Important: The servo’s output shaft and the side where the second linkage is attached should be on opposite sides.
+Finally, attach the wheel hubs, the parts that hold the actual wheels, to the movable pieces via bearings. These bearings should allow the wheels to rotate freely.
+ 
+### **Motor System**
++ Screw the motor mount, which is the piece that holds both the motor and its axle, onto the base. Then, screw the motor to this mount.
++ Insert the axle into the mount. The mount has two circular openings that the axle passes through. The axle should be supported by two bearings, which keep it centered, and two locking rings, which prevent side movement.
++ Once the axle is in place, connect the motor shaft and the axle using spacers, ensuring they do not collide with the motor screws.
+ 
+### **Housings**
+After both systems are assembled, install the housings on the top side of the base. Mount the camera, LiDAR, batteries, and Raspberry Pi according to the model layout:
++ The LiDAR housing goes at the front, ensuring its field of view is unobstructed.
++ The camera housing goes right behind the LiDAR housing, which it’s taller, so its view remains clear.
++ The battery and Raspberry Pi housings go behind them, forming a sort of ceiling above the servo motor that protrudes from the base.
+ 
+### **Electronics**
+Finally, install all electronic components, attaching them to their designated housings and connecting them according to the wiring diagram.
+
+
+<br><br>
+## 8. Performance Videos 
+
+<div align="center">
+
+| Challenge | YouTube Video |
+|----------|----------------|
+| <img width="500" alt="Renkay 2" src="" /> | <a href="https://youtu.be/wX616LgmSGo?si=lTu6liZ41IkfMFjK">Watch on YouTube 🎥</a> |
+| <img width="500" alt="RenkayE 1" src="" /> | <a href="https://youtu.be/DUVe36ZpR18?si=IGmmhTL5FZdeEi8m">Watch on YouTube 🎥</a> |
+
+</div>
+
