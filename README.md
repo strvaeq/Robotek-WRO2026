@@ -29,7 +29,35 @@ We are Renkay, a team of three students participating at the 2026 World Robot Ol
    + [Challenges Overview](challenges-overview)
 2. [Repository Structure](repository-structure)
 3. [Meet the Team!](meet-the-team)
-4. [System Setup](system-setup)
+4. [Vehicle Overview](vehicle-overview)
+   + [General Description of the Car](#general-description-of-the-car)
+   + [Versions of the Car](#versions-of-the-car)
+     
+5. [System Setup](system-setup)
+   + [Operating Environment Overview](#operating-environment-overview)
+   + [Robot Operating System (ROS)](#robot-operating-system-ros-)
+   + [Ubuntu](#ubuntu-)
+   + [Raspberry Pi](#raspberry-pi-)
+     
+6. [Mobility Management](mobility-management)
+   + [Steering System - Ackermann](#steering-system--ackermann)
+   + [Motor and Drivetrain](#motor-and-drivetrain)
+   + [3D Pieces](#3d-pieces)
+   
+7. [Power & Sense Management](#power--sense-management)
+   + [Power Source](#power-source)
+   + [Sensors Integration](#sensors-integration)
+   + [BOM (Bill of Materials)](#bom-bill-of-materials)
+   + [Wiring Diagram](#wiring-diagram)
+
+8. [Obstacle Management](obstacle-management)
+   + [Control Node Structure](#control-node-structure)
+   + [Open Challenge](#open-challenge)
+   + [Obstacle Challenge](#obstacle-challenge)
+     
+9. [Assembly Instructions](#7-assembly-instructions)
+10. [Performance Videos](#8-performance-videos)
+   
 
 ---
 
@@ -67,7 +95,7 @@ We participate in the **Future Engineers category**, designed for students aged 
     <td width="75%" style="padding: 20px;">
       <h3><strong>Isabella Gonzales 🌟</strong></h3>
       <b>🔧 Role: </b>Team Member<br>
-      <b>💬 About me:</b><br>
+      <b>💬 About me:</b> Hello! My name is Isabella, I'm 17 years old, and I love robotics. I founded Robotek Perú, a club where students can learn robotics and join competitions, and this is my second time at the WRO. My favorite hobbies are singing with my choir, practicing taekwondo, and art.<br>
       <b>🌐 Contact:</b> isabellamilagros842@gmail.com
     </td>
     <td align="center" width="25%" style="padding: 20px;">
@@ -79,7 +107,7 @@ We participate in the **Future Engineers category**, designed for students aged 
     <td width="75%" style="padding: 20px;">
       <h3><strong>Rodrigo Osorio 🦙</strong></h3>
       <b>🔧 Role: </b>Team Member<br>
-      <b>💬 About me:</b><br>
+      <b>💬 About me:</b> Hi. I'm Rodrigo, a 16-year-old teenager passionate about many kinds of knowledge across a wide variety of fields. This is my third time taking part of the World Robot Olympiad however, in the past I'd taken part of Robo Mission: Junior through the 2024 and 2025 seasons. Besides robotics, I'm thrilled about humanities, specially philosophy, a field where curiosity can be flow naturally. I'm excited to take part in this year's WRO season!!<br>
       <b>🌐 Contact:</b> rod10peru@gmail.com
     </td>
     <td align="center" width="25%" style="padding: 20px;">
@@ -91,7 +119,7 @@ We participate in the **Future Engineers category**, designed for students aged 
     <td width="75%" style="padding: 20px;">
       <h3><strong>Valeria Hurtado 🎷🐛</strong></h3>
       <b>🔧 Role: </b>Team Member<br>
-      <b>💬 About me:</b><br>
+      <b>💬 About me:</b> Hellooo! My name is Valeria and I’m 17 years old. I’m curious about science, technology, and how things work, which is what got me into robotics. This is my first time participating in the WRO, and I’m excited to figure things out along the way. Outside robotics, I enjoy baking, cycling, and designing things on Canva.<br>
       <b>🌐 Contact:</b> valeria.hurtado.delarosa@outlook.com
     </td>
     <td align="center" width="25%" style="padding: 20px;">
@@ -103,7 +131,7 @@ We participate in the **Future Engineers category**, designed for students aged 
     <td width="75%" style="padding: 20px;">
       <h3><strong>Anthony Valladolid 🤓</strong></h3>
       <b>🔧 Role: </b>Coach<br>
-      <b>💬 About me:</b><br>
+      <b>💬 About me:</b> Hi, I am Anthony Valladolid, a Mechatronics Engineering graduate from Pontificia Universidad Católica del Perú, passionate about developing and researching emerging technologies. My main areas of interest are embedded systems, robotics, and applied artificial intelligence.<br>
       <b>🌐 Contact:</b> anthony.valladolid@pucp.edu.pe
     </td>
     <td align="center" width="25%" style="padding: 20px;">
@@ -113,7 +141,7 @@ We participate in the **Future Engineers category**, designed for students aged 
 </table>
 
 
-## 3. Vehicle Overview
+## 4. Vehicle Overview
 This is our car named **Sami**, it is the result of multiple versions and modifications since 2024. We have been studying, learning and testing different methods to improve our car. It has been an interesting and challenging journey in robotics, but every effort was worth it!
 
 <p align="center">
@@ -293,7 +321,7 @@ Finally, we replaced the old L298N motor driver with a TB6612FNG. This made a bi
 
 <br>
 
-## 4. System Setup
+## 5. System Setup
 ### **<ins>Operating Environment Overview</ins>**
 The operating environment of our robotic car is designed as a structure that connects hardware, software, and middleware into a single functional system, shown in the diagram below:
 
@@ -386,10 +414,167 @@ With the [Raspberry Pi Imager](https://www.raspberrypi.com/software/), we flash 
 
 
 <br>
-  
+
+## 6. Mobility Management  
+
+### <ins>**Steering System – Ackermann**</ins>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8cfcffdb-48aa-4297-a41c-b494a0f222c0" alt="Ackermann" width="70%">
+</p>
+
+Our autonomous car uses an Ackermann steering system, controlled by a **15 kg·cm digital servo**, which provides precise and stable control for navigation and turns.  
+
+The Ackermann steering geometry is designed to reduce tire slip by ensuring that all wheels align as radii of circles that share a common center when the car is turning. This configuration keeps the rear wheels fixed and places the center of rotation along a line extended from the rear axle. To achieve this geometry, the inside front wheel turns at a greater angle than the outside front wheel, allowing smoother and more efficient cornering.
+
+---
+
+### **Our own modifications ⚒️**
+
+In the first versions of the car, we implemented the Ackermann steering system using a custom mechanism. We designed and 3D printed a gear connected to a stepper motor, along with a rack, which is a stick with grooves that fit into the gear teeth. When the motor rotated the gear, the rack would move, which in turn rotated the wheels.  
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/211ba653-b04c-4f56-9fca-0c7498eb9aff" width="300" height="200">
+  <img src="https://github.com/user-attachments/assets/e45a7e54-3c88-4524-b427-0ecff04898f5" width="300" height="200">
+</p>
+
+One of the challenges we faced was the 3D printing process itself. Printing small details such as gear teeth was difficult and often imprecise, which caused problems in the initial prototypes. To solve this, we made the gear teeth larger, and while this worked mechanically, the final design ended up taking too much space inside the chassis.
+
+For this reason, we decided to switch to the system we currently use, which is part of the **HiWonder kit**, adapted to fit in our chassis base. Instead of gears, it uses a system of linkages connected by screws and supported by bearings. These linkages move and transfer the motion to the wheels, achieving the Ackermann steering effect in a more compact way.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4843c1d0-fb98-4bd4-b9e3-5fe4925295cd" width="300" height="200">
+</p>
+
+> [!WARNING]
+> At first, the Ackermann of the HiWonder kit worked fine — the car could turn and even get through some obstacles. But after a lot of testing, we noticed that whenever the car turned left, the Ackermann didn’t rotate as much as it did when turning right. This made obstacle avoidance harder, especially in the field corners, so we knew we had to make adjustments.
+
+We realized that the servo needed to be repositioned. First, it was placed horizontally under the Ackermann linkages. We brainstormed how to make it more efficient and changed the position of the servomotor, mounting it vertically with the accessory facing downward under the chassis. This way, the linkages could move freely with more angles, and we also freed up extra space for the other components. This new placement also allowed us to reduce the length of the chassis.  
+
+<table>  
+  <tr>
+    <th width="30%">Initial position</th>
+    <th width="30%">Idea</th>
+    <th width="30%">Final Position</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/8f9ed661-b90d-4a0c-a93c-d991b6ed5e6a"/>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/f8daf76d-dcd0-4047-aad0-b892d945f7b1"/>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/a90c9a7e-319a-4859-b601-9cafb577e2aa"/>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">Servo mounted horizontally (limited angles)</td>
+    <td align="center">Servo repositioned vertically</td>
+    <td align="center">Final placement with improved steering</td>
+  </tr>
 </table>
 
-<br>
+---
+
+### <ins>**Motor and Drivetrain**</ins>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f636176b-af6a-4b72-bb31-53f025ab41b1" width="70%">
+</p>
+
+The drivetrain of our autonomous car is powered by a **25 mm metal gear DC motor**, chosen for its compact size and high torque. The motor is mounted on the chassis and directly connected to the rear axle through a system of gears, ensuring efficient transfer of power to the wheels.  
+
+Our drivetrain includes a gear system:  
+- The large gear is mounted on the motor shaft.  
+- This large gear drives a smaller gear connected to the rear axle.  
+- The result is an increase in the speed of the wheels.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1b89468f-1234-4610-8944-20d835b95d5b" width="50%">
+</p>
+
+During assembly, we noticed a gap between the metal chassis part and the axle supports. This caused instability in the drivetrain. To fix it, we designed custom 3D-printed cylindrical spacers that fill the gap and keep the axle firmly in place. This simple solution reduces vibrations, prevents misalignment, and ensures smoother transmission of power from the motor to the wheels.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/6c35f5b0-4c04-4e40-a79d-c3ad8ee8d3b9" width="50%">
+</p>
+
+#### **Motor Driver Upgrade & Mobility Improvements**
+For this year's vehicle, we implemented a critical upgrade to our motor driver to resolve severe mobility issues. In our previous version, when the car's speed was reduced to 50% or lower, it would stop completely. The motor lacked the necessary force to overcome ground friction, a problem worsened by the overall weight of the car. 
+
+By changing the driver, we have achieved a significant improvement in mobility management:
+- **Low-Speed Efficiency:** The car now operates smoothly and maintains torque from as low as 35% speed without stalling.
+- **Multi-directional Movement:** The upgrade allows the vehicle to move in different directions effortlessly, finally giving us the ability to reverse reliably.
+- **Precision Braking:** We can now brake and stop the vehicle with much higher accuracy.
+
+#### **Speed Configuration**
+Through rigorous testing, we established specific speed configurations to optimize our sensor's performance. For the **Open Challenge**, we decided to cap the maximum speed at **70%** instead of running at 100%. This controlled speed ensures that the LiDAR sensor has enough processing time to accurately detect walls, preventing crashes and maintaining a reliable trajectory throughout the laps.
+
+
+---
+
+### <ins>**3D Pieces**</ins>
+
+This are the 3D model parts of our vehicle.  
+Below, you will find a table with our 3D-printed parts and their descriptions.
+
+<table align="center" width="100%" style="table-layout: fixed;">
+  <thead>
+    <tr>
+      <th width="30%">Component</th>
+      <th width="40%">Preview</th>
+      <th width="30%">Folder</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center"><b>Vehicle Base</b></td>
+      <td align="center">
+        <img src="models/vehicle_base/vehicle_base.png" width="90%">
+      </td>
+      <td align="center">
+        <a href="models/vehicle_base/" target="_blank">View</a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center"><b>Vehicle Wheels</b></td>
+      <td align="center">
+        <img src="models/vehicle_wheels/vehicle_wheels.png" width="90%">
+      </td>
+      <td align="center">
+        <a href="models/vehicle_wheels/" target="_blank">View</a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center"><b>Camera Housing</b></td>
+      <td align="center">
+        <img src="models/camara_housing/camara_housing.png" width="90%">
+      </td>
+      <td align="center">
+        <a href="models/camara_housing/" target="_blank">View</a>
+      </td>
+    </tr>
+       <td align="center"><b>Raspberry Housing</b></td>
+      <td align="center">
+        <img src="models/raspberry_housing/raspberry_housing.png" width="90%">
+      </td>
+      <td align="center">
+        <a href="models/raspberry_housing/" target="_blank">View</a>
+      </td>
+    </tr>
+  <tr>
+      <td align="center"><b>LiDar Housing</b></td>
+      <td align="center">
+        <img src="models/lidar_housing/lidar_housing.png" width="90%">
+      </td>
+      <td align="center">
+        <a href="models/lidar_housing/" target="_blank">View</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 
 
 ### **<ins>BOM (Bill of Materials)</ins>**
@@ -403,10 +588,11 @@ With the [Raspberry Pi Imager](https://www.raspberrypi.com/software/), we flash 
 | 25MM Metal Gear Motor | 1 | Core drive motor for powering the wheels with torque and speed. | <img width="250" alt="Motor" src="https://github.com/user-attachments/assets/e6695af1-8bcd-48a0-8b6f-802e3145f1be" /> |
 | Suitcase Wheel Protector | 4 | Ensures 3d-printed wheels stability and grip on the floor. | <img width="250" alt="tire" src="https://github.com/user-attachments/assets/cbca9bf3-6264-49e9-9e0d-0eec7d5ae6ef" /> |
 | Monocular Camera | 1 | A camera used for capturing images and videos, can be used for computer vision or live streaming. | <img width="250" alt="Camera" src="https://github.com/user-attachments/assets/b280e148-f627-4687-9174-b62485a19662" /> |
-| Motor Driver | 1 | Controls motor direction and speed from the Raspberry Pi. | <img width="250" alt="Motor Driver" src="https://github.com/user-attachments/assets/67e06fc8-39aa-4951-a008-c2fbcb4ed46c" /> |
+| TB6612FNGm Motor Driver | 1 | Controls motor direction and speed from the Raspberry Pi. | <img width="250" alt="Motor Driver" src="https://github.com/user-attachments/assets/67e06fc8-39aa-4951-a008-c2fbcb4ed46c" /> |
 | Jumper Cables | 4–8 | Electrical connections between the motor driver and Pi. | <img width="250" alt="Jumper Cables" src="https://github.com/user-attachments/assets/e1c2d347-97a2-4d19-bac0-bf0af226dfde" /> |
 | USB-USB Cable | 1 | A cable to connect the Raspberry Pi to the camera, Lidar, and Controller. | <img width="250" alt="USB Cable" src="https://github.com/user-attachments/assets/8f95630d-fcd1-4340-b176-5e16c1988f18" /> |
 | Li-Po Battery 7.4 V 5000mAh 20C | 1 | A lithium polymer battery that provides portable, high-density power. | <img width="250" alt="Battery" src="https://github.com/user-attachments/assets/452710d7-b1f9-4be5-8f41-9b5a35c3246e" /> |
+| 16-LED WS2812 RGB pixel ring light | 1 | A circular light module which make much easier to clearly see and distinguish the colors of the blocks. | <img width="250" alt="Battery" src="https://github.com/user-attachments/assets/3c9fbbec-c46e-43ac-8d64-a5ea1f1e1d52" /> |
 
 
 <br>
@@ -438,3 +624,4 @@ The RRC Lite Controller acts as a bridge between the Raspberry Pi and the actuat
 - The **digital servomotor** for Ackermann steering  
 
 It also handles communication with the motor driver to send PWM control signals.
+
