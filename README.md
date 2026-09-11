@@ -575,7 +575,82 @@ Below, you will find a table with our 3D-printed parts and their descriptions.
   </tbody>
 </table>
 
+## 7. Power & Sense Management 
 
+### <ins>**Power Source**</ins>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f8bf1958-dde8-4bd7-8e4c-905e09efa7b0" width="80%">
+</p>
+
+
+Our autonomous car is powered by 7.4V Li-Po batteries (2000mAh, 20C). We chose Li-Po batteries because they provide a high energy density, meaning more power in a small and lightweight package. The battery provides two main energy lines: one for the electronics and another for the motor: <br>
+
+1. **Electronics & Sensors**  
+   The battery first connects to the **RRC Lite Controller**, which regulates the power down to a safe **5 V**.  
+   From there, it distributes electricity to:  
+   - **Raspberry Pi 5** → acts as the brain of the car, running ROS 2 and processing sensor data.  
+   - **Digital servomotor** → controls the Ackermann steering system.  
+   - **STL-19P TOF LiDAR & monocular camera** → provide vision and distance perception.  
+
+2. **Drive Motor (via L298N Motor Driver)**  
+   In parallel, the battery also powers the **L298N motor driver** directly with **7.4 V**.  
+   This driver regulates how much current goes to the **25 mm metal DC motor**, which is responsible for moving the car forward.  
+
+By splitting the power into two paths (one regulated for sensitive electronics and one direct for the motor), the system ensures stability. Motors usually demand sudden spikes of current, and separating their supply avoids crashes or interruptions in the Raspberry Pi and sensors.
+
+
+### <ins>**Sensors Integration**</ins>
+To perceive its environment and handle the Future Engineers challenges, the car uses a combination of:  
+
+- **STL-19P TOF LiDAR**: provides 360° distance data.  
+- **2DOF Monocular Camera**: detects colors and obstacles.
+- **IMU (Built into the RRC Controller)**: tracks orientation, angular velocity, and acceleration.
+
+Together, these sensors give the robot a better understanding of its environment by combining depth perception with visual input.
+
+
+### <ins>**STL-19P TOF LiDAR**</ins>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/853f8730-a645-47b5-bacf-ded61b21a6c9" width="80%">
+</p>
+
+<br>
+
+Unlike simpler sensors such as ultrasonic or infrared, which measure only in a single direction and have limited precision, the LiDAR sensor is capable of a **360° scanning** and provides precise distance measurements by using laser pulses. It helps the robot map its surroundings over a wide range, detect obstacles, and navigate more accurately in dynamic environments.
+
+<br>
+
+| Characteristic        | Vaue                        |
+|------------------------|------------------------------|
+| Ranging distance       | 0.03 – 12 m                 |
+| Size                   | 38.59 x 38.59 x 34.8 mm     |
+| Scanning Angle         | 360°                        |
+| Scanning Frequency     | 5 – 13 Hz                   |
+| Ranging Accuracy       | ±45 mm                      |
+| Ranging Frequency      | 5000 Hz                     |
+
+> [!IMPORTANT]
+> **📍Placement:**
+> For this version, we decided to lower the LiDAR In our previous design, a higher placement caused the sensor to occasionally look over the walls, missing the track boundaries or detecting noise outside the field. By lowering it, the LiDAR now aligns perfectly with the 10 cm high walls of the track. This guarantees a clear, reliable view of the limits and obstacles. All other components on the car were carefully arranged below this level to avoid blocking the LiDAR’s line of sight. <br><br>
+  
+### <ins>**2DOF Monocular Camera**</ins>
+
+<p align = "center">
+  <img src = "https://github.com/user-attachments/assets/546b6072-3ab9-4a02-b0a2-437478ac0b03" width="50%">
+  </p>
+<br>
+
+The 2DOF Monocular Camera complements the LiDAR by adding visual perception. This allows the robot to recognize its environment beyond distance data, enabling future applications such as detecting the obstacles’ colors:
+
+ + **Color detection**: Since graphical color detection is a core part of our  project, the camera can precisely identify various colors on the course. This allows our car to interact with the different traffic signs in the Obstacle challenge.
+  + **Spatial awareness through data fusion**: When combining camera data with our sensor, the robot gains a richer understanding of its environment. The camera provides detailed visual context that leads to an adaptable navigation strategy.
+
+> [!IMPORTANT]
+> **📍Placement:**
+> The camera is located in a special 3D mounting piece with a certain  inclination angle that points to the floor so it can better detect obstacles. At first it was placed at the front of the car but this location provided a limited vision and sticked out of the chassis lenght. See more detailed info of the housing piece in the [`3D Printed Parts`](#3d-printed-parts) section. <br><br> 
+> <img width="1206"  src="https://github.com/user-attachments/assets/a286367c-681d-473b-807f-c9e470b2fb0d">
 
 ### **<ins>BOM (Bill of Materials)</ins>**
 | Component | Quantity | Description | Image |
@@ -595,14 +670,12 @@ Below, you will find a table with our 3D-printed parts and their descriptions.
 | 16-LED WS2812 RGB pixel ring light | 1 | A circular light module which make much easier to clearly see and distinguish the colors of the blocks. | <img width="250" alt="Battery" src="https://github.com/user-attachments/assets/3c9fbbec-c46e-43ac-8d64-a5ea1f1e1d52" /> |
 
 
-<br>
-
 ### <ins>**Wiring Diagram**<ins>
 
 The following visual wiring diagram illustrates the **physical connections** between the modules (Raspberry Pi, LiDAR, camera, motor, etc.) using **realistic component images**. It helps visualize the system layout and understand **how components are arranged and linked** in the robot.  
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/7d835de4-4de6-4fd3-9e2d-f6f4ee5c3b1e" width="80%">
+  <img src="https://github.com/user-attachments/assets/743de701-c5f6-4f64-a87a-c588e286aba9" width="80%">
 </p>
 
 
@@ -614,9 +687,8 @@ The Raspberry Pi 5 works as the brain of the car. Its USB ports connect the main
 + RRC Lite Controller → interfaces with the digital servomotor and forwards control signals to the motor driver.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/06315a84-dab7-4412-98bc-3bd68fd837a6" width="80%">
+  <img src="https://github.com/user-attachments/assets/832ce7dc-3c0e-4a98-9d64-ad4811c52f5d" width="80%">
 </p>
-
 
 #### **2. RRC Lite Controller**
 The RRC Lite Controller acts as a bridge between the Raspberry Pi and the actuators. It regulates incoming power from the Li-Po battery (down to a safe 5 V) and distributes it to:  
@@ -625,3 +697,27 @@ The RRC Lite Controller acts as a bridge between the Raspberry Pi and the actuat
 
 It also handles communication with the motor driver to send PWM control signals.
 
+---
+
+#### **3. Motor Driver and DC Motor**
+The **L298N Motor Driver** is powered directly by the **7.4 V Li-Po battery**.  
+- It regulates both the **speed** and **direction** of the **25 mm metal gear DC motor**.  
+- The motor then powers the rear axle through a gear reduction system, increasing torque for smoother acceleration.  
+
+---
+
+#### **4. Power Source**
+The **7.4 V Li-Po battery** supplies energy to the entire system, split into two paths:  
+- **Direct line (7.4 V):** powers the L298N motor driver and DC motor.  
+- **Regulated line (via RRC Lite Controller):** delivers 5 V to the Raspberry Pi, servomotor, and sensors.  
+
+<br>
+
+This is also a diagram that shows the **electrical wiring** and pin-level connections between all components — including power lines, GPIOs, and communication ports. It focuses on **signal paths and voltage levels** rather than physical appearance.  
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/49bfa6f3-0aa3-49bb-afd3-9eb036410a11" width="80%">
+</p>
+
+> [!NOTE]
+> Visit our [`schemes`](https://github.com/vania020/wro2025-robotek/tree/main/schemes) folder to access all of our diagrams and schemes 🔑🚗
