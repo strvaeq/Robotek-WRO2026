@@ -117,6 +117,11 @@
 </details>
 
 <details>
-  
   <summary>🚗 Version 11</summary>
+
+| <img width="1200" height="1600" alt="image" src="https://github.com/user-attachments/assets/703cb761-a5a8-4947-89fc-95f335f7c44b" /> | <img width="1200" height="1600" alt="image" src="https://github.com/user-attachments/assets/7789c904-419f-479d-a115-6ecaf7cee20f" /> |
+|---|---|
+| <video width="1600" height="1200" alt="image" src="https://github.com/user-attachments/assets/61eeb26a-ec0f-41b2-82eb-45fa9eade09b" /> | <img width="1200" height="1600" alt="image" src="https://github.com/user-attachments/assets/62f8c4a2-b133-48bb-8e93-6b969ce91c57" /> |
+
+</details>
 
