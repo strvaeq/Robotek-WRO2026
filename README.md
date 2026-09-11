@@ -905,7 +905,7 @@ Finally, install all electronic components, attaching them to their designated h
 
 | Challenge | YouTube Video |
 |----------|----------------|
-| <img width="500" alt="Renkay 2" src="" /> | <a href="https://youtu.be/wX616LgmSGo?si=lTu6liZ41IkfMFjK">Watch on YouTube 🎥</a> |
+| <img width="500" alt="Renkay 2" src="" /> | <a href="https://youtu.be/lE8SPT6_tL0?si=ECjmNy6-T6QCe0LI">Watch on YouTube 🎥</a> |
 | <img width="500" alt="RenkayE 1" src="" /> | <a href="https://youtu.be/DUVe36ZpR18?si=IGmmhTL5FZdeEi8m">Watch on YouTube 🎥</a> |
 
 </div>
