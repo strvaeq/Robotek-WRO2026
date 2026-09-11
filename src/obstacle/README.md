@@ -1,4 +1,6 @@
-# Obstacle Challenge — WRO Future Engineers
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/3e6b026e-11a7-42dd-8eb0-bb14e2d955f7" width="100%">
+</p>
 
 Autonomous robot that follows a wall, drives around red/green pillars, and
 stops after 3 laps, using an IMU heading loop, LiDAR wall geometry and a
