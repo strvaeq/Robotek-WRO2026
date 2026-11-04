@@ -105,7 +105,7 @@ We participate in the **Future Engineers category**, designed for students aged 
 
   <tr>
     <td width="75%" style="padding: 20px;">
-      <h3><strong>Rodrigo Osorio 🦙</strong></h3>
+      <h3><strong>Rodrigo Osorio 6️⃣7️⃣</strong></h3>
       <b>🔧 Role: </b>Team Member<br>
       <b>💬 About me:</b> Hi. I'm Rodrigo, a 16-year-old teenager passionate about many kinds of knowledge across a wide variety of fields. This is my third time taking part of the World Robot Olympiad however, in the past I'd taken part of Robo Mission: Junior through the 2024 and 2025 seasons. Besides robotics, I'm thrilled about humanities, specially philosophy, a field where curiosity can be flow naturally. I'm excited to take part in this year's WRO season!!<br>
       <b>🌐 Contact:</b> rod10peru@gmail.com
