@@ -1,6 +1,6 @@
 # 02. Power and Sensor Architecture
 
-Power and sensing of Renkay, vehicle version 11: budget, rail topology, protection, GPIO and bus map, sensor trade-offs against the 2026 field, placement, calibration, failure modes and iterations. Every number is measured, derived, from a datasheet, or marked `pending`.
+Power and sensing of Renkay, vehicle version 11: budget, rails, protection, GPIO and bus map, sensor trade-offs against the 2026 field, placement, calibration, failures and iterations. Numbers are measured, derived, datasheet or `pending`.
 
 Sources: `[M]` [`data/measurements.csv`](../data/measurements.csv), `[U]` URDF, `[C]` code in `src/`, `[D]` datasheet, `[R:line]` `README.md`, `[P]` pending. Machine-readable budget: [`data/power-budget.csv`](../data/power-budget.csv).
 
@@ -18,40 +18,38 @@ Pack: 2S Li-Po, 7.4 V, 5000 mAh, 20C, 37 Wh [M]. `duty` is the fraction of a rou
 | LED ring, 16 pixels | 5V | 5.0 | 0.30 | 0.96 | 0.60 | 20 mA average, 60 mA white [D] | datasheet |
 | TB6612 logic | 3V3 | 3.3 | 0.002 | 0.005 | 1.00 | logic only [D] | datasheet |
 | Drive motor | 7V4 | 7.4 | pending | 3.20 | 0.60 | TB6612 1.2 A continuous, 3.2 A peak [D] | pending |
-| **5 V rail total** | 5V | 5.0 | **1.72** | **8.26** | 1.00 | sum of the rows above | derived |
-| **Pack total** | 7V4 | 7.4 | **1.72** | **9.54** | 0.60 | 5 V rows reflected at 5/7.4 and 0.88 efficiency, plus motor | derived |
+| **5 V rail total** | 5V | 5.0 | **1.72** | **6.26** | 1.00 | sum of the rows above | derived |
+| **Pack total** | 7V4 | 7.4 | **1.72** | **8.01** | 0.60 | 5 V rows reflected at 5/7.4 and 0.88 efficiency, plus motor | derived |
 
-The 8.26 A peak is every 5 V load at maximum at once; the credible simultaneous peak is 4.40 A. Motor current is the gap: the TB6612 caps the branch at 1.2 A continuous and 3.2 A peak [D], but the motor's stall and cruise currents are `pending` with the clamp (7.6), so autonomy uses a 0.40 A allowance.
+6.26 A is a stress bound; 4.40 A is credible, servo moving at 0.80 A. Motor current is `pending` (7.6); the TB6612 caps the branch at 1.2 A continuous and 3.2 A peak [D], so autonomy uses a 0.40 A allowance.
 
-Nominal load is 12.73 W (1.72 A at 5 V through 0.88 efficiency plus 0.40 A at 7.4 V); the worst case is 70.6 W (8.26 A at 5 V plus 3.20 A at 7.4 V).
-
-Autonomy uses 80 % of 37 Wh = 29.6 Wh: a Li-Po should not reach 3.0 V per cell and the last 20 % sags enough to brown out the Pi. That gives 2.3 h nominal and 25 min at the bound. A 3 min round needs 2.2 % nominal, so wire rating, sag and the 5 V regulator are the constraints, not energy. The discharge test (constant 35 % to 7.0 V, time logged) is `pending`.
+Autonomy uses 80 % of 37 Wh = 29.6 Wh (Li-Po floor), giving 2.3 h at 12.73 W nominal and 30 min at 59.3 W worst. A 3 min round needs 2.2 % nominal, so wire rating, sag and the regulator bind, not energy. Discharge test (35 % to 7.0 V) is `pending`.
 
 ## 2. Rail topology
 
-The pack feeds the TB6612 at 7.4 V and the RRC Lite, whose 5 V output feeds the Pi, servo, LED ring and RRC board; the Pi's USB ports feed the camera and LiDAR. The RRC Lite does not drive the motor; it provides servo, IMU, button and buzzer. The 7.4 V branch is the motor only, chopped at 1 kHz, so the motor sees the pack minus the bridge drop. The 5 V branch carries everything that cannot take 8.4 V.
+The pack feeds the TB6612 at 7.4 V and the RRC Lite, whose 5 V output feeds the Pi, servo, LED ring and RRC board; the Pi's USB ports feed the camera and LiDAR. The RRC Lite does not drive the motor; it provides servo, IMU, button and buzzer. The 7.4 V branch is the motor only, chopped at 1 kHz, so the motor sees the pack minus the bridge drop. The RRC Lite 5 V rating is `pending`; 4.40 A is the figure to check.
 
-The split keeps the motor's chopped current and back-EMF off the 5 V rail, where a dip would brown out the Pi. Ground is a star at the RRC Lite GND: pack, TB6612, Pi, servo and adapter return there; motor current returns through the TB6612, not the Pi header, and the logic grounds stay common for the 3.3 V PWM.
+The split keeps motor noise off the 5 V rail, where a dip would brown out the Pi. Ground is a star at the RRC Lite GND: pack, TB6612, Pi, servo and adapter return there; motor current returns through the TB6612, not the Pi header, and the logic grounds stay common for the 3.3 V PWM.
 
 The servo is not on the Pi 5 V GPIO rail: its 2.00 A stall exceeds the camera, LiDAR and RRC together, the header is not a power bus, and its noise would couple into the camera and USB links. Its 3-pin lead lands on the RRC Lite steering channel, which supplies 5 V, signal and ground.
 
-**Superseded figure.** `schemes/power-distribution-diagram.png` is the v10 drawing: a 6 V UBEC for the servo and sensors taken from the Pi 5 V pins. v11 replaced that with the topology above; it is iteration evidence, not a wiring instruction.
+**Superseded figure.** `schemes/power-distribution-diagram.png` is the v10 drawing: a 6 V UBEC for the servo and sensors from the Pi 5 V pins. v11 replaced it; it is iteration evidence, not a wiring instruction.
 
 ## 3. Protection
 
-**Fuse.** Continuous pack current 1.72 A, credible peak 6.58 A.
+**Fuse.** Continuous pack current 1.72 A, credible 6.58 A, worst 8.01 A for under 1 s.
 
 ```
 I_fuse >= 1.25 x 1.72 = 2.15 A
-I_fuse >= 6.58 A for under 1 s
+I_fuse carries 8.01 A for under 1 s
 I_fuse < 16 A, the 18 AWG chassis rating
 ```
 
-A 5 A mini blade fuse meets all three: 2.9 times continuous, 132 % of the peak for under a second, below the wire rating and far below the 100 A pack capability. It sits in the pack positive 30 mm from the XT60, before the switch, so a short in the switch or harness is protected.
+A 5 A fuse meets all three: 2.9 times continuous, 160 % of the worst peak for 1 s, below the wire and pack ratings. It sits in the pack positive 30 mm from the XT60, before the switch, so switch and harness are protected.
 
 **Polarity.** The keyed XT60 prevents reverse connection; no reverse-polarity MOSFET is fitted.
 
-**Low-voltage cutoff.** A 2S pack is 8.4 V full and 6.0 V empty; the loaded floor is 3.5 V per cell, 7.0 V. Measure at rest before and after a run and retire the pack below 7.0 V. The RRC Lite reports pack voltage, but automatic cutoff is not implemented in v11; recorded gap F-01.
+**Low-voltage cutoff.** A 2S pack is 8.4 V full and 6.0 V empty; the loaded floor is 3.5 V per cell, 7.0 V. Measure at rest before and after a run and retire the pack below 7.0 V. The RRC Lite monitors pack voltage, but automatic cutoff is not implemented in v11; recorded gap F-01.
 
 **Switch.** The RRC Lite switch removes the 5 V rail and the Pi; the motor branch stays at pack voltage because it is upstream, but STBY has an internal pull-down, so the bridge is in standby with the Pi off. The harness is still live; a master switch on the pack positive is `pending fitment`.
 
@@ -61,7 +59,7 @@ A 5 A mini blade fuse meets all three: 2.9 times continuous, 132 % of the peak f
 
 ## 4. GPIO and bus map
 
-TB6612 on GPIO chip 4, channel A, PWM at 1 kHz [C]:
+TB6612 on GPIO chip 4 through `lgpio`, channel A, PWM at 1 kHz [C]:
 
 | Signal | BCM | Header pin | TB6612 pin | Direction |
 |---|---:|---:|---|---|
@@ -70,22 +68,22 @@ TB6612 on GPIO chip 4, channel A, PWM at 1 kHz [C]:
 | AIN2 | 6 | 31 | AIN2 | Pi output |
 | STBY | 13 | 33 | STBY | Pi output, high enables |
 
-GND and 3.3 V logic come from header pins 30 and 1. The motor driver reads these pins as ROS parameters [C]; the strategy nodes read none and use `config.py` as their source of truth. The RRC Lite only provides the servo, IMU, button and buzzer. STBY is high only while a command is active; the 0.30 s command watchdog drops it, and the 0.05 s node watchdog stops the motor when the IMU or scan stops [C].
+GND and 3.3 V come from header pins 30 and 1. The driver reads the GPIO numbers as ROS parameters; the strategies use `config.py`. The RRC Lite only provides the servo, IMU, button and buzzer. STBY is high only while a command is active; the 0.30 s command watchdog drops it, and the 0.05 s node watchdog stops the motor when the IMU or scan stops [C].
 
 | Device | Bus | Stable name | Fallback | Rate | Topic and type |
 |---|---|---|---|---:|---|
 | LD19 LiDAR | USB, CP210x | `/dev/ldlidar` | `/dev/ttyUSB0`, 230400 8N1 | 10 Hz | `/scan`, `LaserScan` |
 | Camera | USB video | `/dev/v4l/by-id/*-video-index0` | `/dev/video0` | 6 fps | `/usb_cam/image_raw`, `Image` |
-| RRC Lite | USB CDC ACM | `/dev/rrc_lite` | `/dev/ttyACM0`, 1 Mbaud | 50 Hz | `/ros_robot_controller/imu_raw`, `/button`, `/acker_servo/set_state` |
+| RRC Lite | USB CDC ACM | `/dev/rrc_lite` | `/dev/ttyACM0`, 1 Mbaud | 50 Hz | `/ros_robot_controller/imu_raw`, `/ros_robot_controller/button`, `/ros_robot_controller/acker_servo/set_state` |
 | Motor command | GPIO, no bus | n/a | n/a | 20 Hz | `/motor_vel`, `Float32` |
 
-There is no I2C device in v11: the IMU is on the RRC Lite MCU and shares the USB link with the button and servo. Udev rules in `/etc/udev/rules.d/99-renkay.rules` map USB `1a86:55d4` to `/dev/rrc_lite` and `10c4:ea60` to `/dev/ldlidar`, both group `dialout`. The README abbreviates `/ros_robot_controller/acker_servo/set_state` as `/positionServo`; the code uses the full names.
+There is no I2C device in v11: the IMU is on the RRC Lite MCU and shares the USB link with the button and servo. Udev rules in `/etc/udev/rules.d/99-renkay.rules` map USB `1a86:55d4` to `/dev/rrc_lite` and `10c4:ea60` to `/dev/ldlidar`, both group `dialout`.
 
 ## 5. Sensor selection
 
 The field fixes the problem: 100 mm walls 40 mm thick, a 1000 mm lane (600 mm minimum), 50 x 50 x 100 mm signs, and a 200 mm deep parking lot 1.5 car lengths long (350 mm). At 180 mm from one wall in the 600 mm case, 272 mm remains on the other side.
 
-| Option | Range | Rate | FOV | Cost | Failure mode | Decision |
+| Option | Range | Rate | FOV | Cost USD approx | Failure mode | Decision |
 |---|---|---|---:|---:|---|---|
 | LD19 LiDAR | 0.03 to 12 m | 10 Hz, 5000 Hz ranging | 360 deg, 220 deg usable | 70 USD | Dark or angled surfaces, 30 mm blind zone, body returns | **Selected**: bearing plus a wall line |
 | Ultrasonic HC-SR04 | 0.02 to 4 m | 40 Hz | 15 deg cone | 2 USD | Soft walls, cross-talk, no bearing | Rejected: blurred wall angle |
@@ -95,9 +93,7 @@ The field fixes the problem: 100 mm walls 40 mm thick, a 1000 mm lane (600 mm mi
 | Depth camera | 0.3 to 3 m | 30 fps | 60 to 90 deg | 200 to 350 USD | IR sunlight, USB load, compute | Rejected: LiDAR gives geometry |
 | RRC Lite IMU | n/a | 50 Hz | 1 axis | 0 USD | Drift, vibration, axis remap | **Selected**: shares the servo link |
 
-Costs are budget prices, not supplier quotes.
-
-The LiDAR wins on geometry: wall following needs distance at a known bearing and the wall angle, and the code uses rays at 60 and 30 deg [C]. Three ultrasonic cones at 1 m overlap into a 0.5 m patch that cannot resolve a 40 mm wall, while the LD19 gives 500 samples per revolution at 10 Hz, 0.72 deg apart. The camera wins on colour: at 9.6 px/deg a 50 x 100 mm sign at 1.5 m is 670 px, just above the 650 px threshold, and at 1.6 m it is 590 px and rejected.
+The LiDAR wins on geometry: wall following needs distance at a known bearing and the wall angle, and the code uses rays at 60 and 30 deg [C]. Three ultrasonic cones at 1 m overlap into a 0.5 m patch that cannot resolve a 40 mm wall, while the LD19 gives 500 samples per revolution at 10 Hz, 0.72 deg apart. The camera wins on colour: at 9.6 px/deg a 50 x 100 mm sign at 1.5 m is 670 px, just above the 650 px threshold, and at 1.6 m it is 590 px and rejected. The IMU is on the RRC Lite because the PD loop runs at 50 Hz and the servo delay is 60 ms [M].
 
 ## 6. Placement
 
@@ -113,9 +109,9 @@ The LiDAR is 128 mm ahead, scan plane 30 mm, 70 mm below the wall top, so a leve
 
 The plane is above the wheel axle (30.5 mm) and plate bottom (15 mm), with no chassis ahead of 94.5 mm at that height. The housing is 19.7 mm ahead of the axis, inside the 30 mm minimum range. The nose at 147.7 mm is the front contact, 53.2 mm ahead of the plate, so a wall touches the tab before the lens.
 
-The camera is 56.5 mm ahead and 144.6 mm high, pitched 10 deg down and yawed 4.4 deg left. Its axis meets the floor at `144.6 / tan(10) = 820 mm`; the bottom ray is 32.8 deg down and meets the floor 224 mm from the camera, 280 mm ahead of `base_link`. The camera sees the floor from 280 mm and the LiDAR covers 30 to 280 mm.
+The camera is 56.5 mm ahead, 144.6 mm high, pitched 10 deg down and yawed 4.4 deg left. Its axis meets the floor at 820 mm; the 66.7 deg horizontal field gives a 26.2 deg vertical half-field, so the bottom ray is 36.2 deg down and meets the floor 254 mm ahead of `base_link`. Camera floor view starts at 254 mm; LiDAR covers 120 to 254 mm.
 
-The camera is mounted upside down and the frame is used as captured: `color_vision.py` does not rotate, undistort or crop. Colour is unaffected, but `cx_norm` is mirrored: a block on the car's left appears at positive `cx_norm`, so the nudge sign is measured (7.4). Cables: LiDAR left under the scan plane, camera right, servo away from the twisted motor pair.
+The camera is mounted upside down and the frame is used as captured: `color_vision.py` does not rotate, undistort or crop. Colour is unaffected, but `cx_norm` is mirrored: a block on the car's left appears at positive `cx_norm`, so the nudge sign is measured (7.4). Cables: LiDAR left, camera right, servo clear of the motor pair.
 
 ## 7. Calibration
 
@@ -155,7 +151,7 @@ ros2 topic hz /scan                                  # expect 10 Hz
 
 Acceptance: range error at most 20 mm, bearing error at most 1 deg, no body returns in the 220 deg sector (the 2 to 8 cm returns beyond +/-110 deg must be filtered [M]); the index comes from `angle_min` and `angle_increment`.
 
-**7.6 Current and autonomy.** Clamp a UNI-T UT210E on the 5 V positive, then the motor positive, wheels off the ground. Run 35 % for 30 s and log minimum, average and maximum; block the steering 0.5 s for the servo peak. Acceptance: repeatability within 5 %, 5 V rail above 4.8 V, pack above 7.2 V before and 7.0 V after. Enter the values in `data/power-budget.csv` and set their status to `measured`.
+**7.6 Current and autonomy.** Clamp a UNI-T UT210E on the 5 V positive, then the motor positive, wheels off the ground. Run 35 % for 30 s and log min, average and max; block the steering 0.5 s for the servo peak. Acceptance: repeatability within 5 %, 5 V rail above 4.8 V, pack above 7.2 V before and 7.0 V after. Enter the values in `data/power-budget.csv` with status `measured`.
 
 ## 8. Failure modes
 
@@ -166,10 +162,10 @@ Acceptance: range error at most 20 mm, bearing error at most 1 deg, no body retu
 | IMU drift or wrong axis | Bias above 0.02 rad/s | Motor 0, servo centre | Recalibrate 4 s | Inject 0.05 rad/s; lap aborts |
 | Camera glare or occlusion | No image 1.5 s, no colour 3 frames | Keep the last side, continue on LiDAR | Clean, relight, relaunch | Cover lens 30 s; no side change |
 | Servo stall | Angle against gyro yaw | 5 V sag browns out the Pi; no servo limit | Free wheel, power cycle | Hold 25 deg for 3 s |
-| Motor stall | Above 1.2 A, case hot | TB6612 thermal shutdown | Remove obstruction, cool | Stall 35 % for 5 s |
+| Motor stall | Case hot, bridge off | TB6612 thermal shutdown | Remove obstruction, cool | Stall 35 % for 5 s |
 | USB disconnect | Device node missing | Motor 0, servo centre, latch | Replug, relaunch | Unplug each USB device |
 
-The first two rows are in `robot_node.py`: the 0.20 s IMU and 0.35 s LiDAR timeouts stop the motor, and the branch fix latches the stop [C]. The camera row is the 1.5 s block expiry added in this branch. The servo has no current limit; a sustained stall relies on the 5 V sag (R-06, fixed by a stall timer).
+The first two rows are in `robot_node.py`: the 0.20 s IMU and 0.35 s LiDAR timeouts stop the motor, and the branch fix latches the stop [C]. Camera row: 1.5 s block expiry. The servo has no current limit; a sustained stall relies on the 5 V sag (R-06, fixed by a stall timer).
 
 ## 9. Iteration evidence
 
