@@ -1,0 +1,1 @@
+run_id,date,challenge,vehicle_version,commit,battery_v,laps,best_lap_s,lap_consistency_s,lateral_error_rms_mm,lateral_error_max_mm,false_corners,color_fp_per_100_frames,parking_attempts,parking_result,final_lateral_error_mm,final_yaw_deg,notes

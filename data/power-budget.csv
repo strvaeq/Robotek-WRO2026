@@ -1,0 +1,11 @@
+component,rail,voltage_v,typical_a,peak_a,duty,source,status,notes
+raspberry_pi_5,5V,5.0,0.60,2.50,1.00,Raspberry Pi 5 documentation (575 mA idle; board plus USB allowance),datasheet,5 A PSU rating is supply headroom not load
+usb_camera,5V,5.0,0.20,0.25,1.00,USB camera 640x480 YUYV at 6 fps,datasheet,powered from a Pi USB port
+lidar_ld19,5V,5.0,0.25,0.35,1.00,LD19 datasheet (5 V +/-5 percent 250 mA),datasheet,includes the CP210x adapter
+rrc_lite_board,5V,5.0,0.12,0.20,1.00,HiWonder RRC Lite (MCU IMU LEDs buzzer),pending,clamp measurement pending
+steering_servo,5V,5.0,0.25,2.00,0.35,15 kg.cm digital servo (moving no load / stall at 5 V),datasheet,stall current at 5 V pending
+led_ring_16,5V,5.0,0.30,0.96,0.60,16 x WS2812 (20 mA average / 60 mA full white),datasheet,brightness limit in firmware pending
+tb6612_vcc,3V3,3.3,0.002,0.005,1.00,TB6612FNG datasheet (logic supply),datasheet,VCC from Pi 3.3 V
+drive_motor,7V4,7.4,,3.20,0.60,TB6612FNG limit (1.2 A continuous / 3.2 A peak); motor stall pending,pending,typical pending clamp measurement; 0.40 A provisional allowance used in the autonomy calculation
+total_5v,5V,5.0,1.72,8.26,1.00,sum of the 5 V rows above,derived,credible simultaneous peak 4.40 A; the 8.26 A sum is used for fuse stress only
+total_pack,7V4,7.4,1.72,9.54,0.60,5 V rows reflected at 5/7.4 and 0.88 efficiency plus motor,derived,nominal uses the 0.40 A motor allowance; worst case uses the 3.20 A TB6612 limit
