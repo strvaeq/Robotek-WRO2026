@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
-"""Driver ROS 2 del TB6612FNG (canal A) para Raspberry Pi 5.
+"""ROS 2 driver for the TB6612FNG (channel A) on a Raspberry Pi 5.
 
-Recibe std_msgs/Float32 en /motor_vel (0..100 %) y mueve el motor hacia
-adelante. Al recibir 0 frena brevemente en reversa para quitar la inercia y
-despues deja el puente en estado seguro. Un watchdog apaga el motor si dejan
-de llegar comandos.
+Receives std_msgs/Float32 on /motor_vel as a signed duty in percent
+(-100 = full reverse, +100 = full forward). On 0 it brakes briefly in the
+opposite direction to remove inertia and then leaves the bridge in the safe
+state. A watchdog stops the motor if commands stop arriving.
 """
+import math
 import time
 
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Float32
+
+from renkay_obstacle.config import clamp_duty, duty_to_pins
 
 try:
     import lgpio
@@ -42,13 +45,13 @@ class Tb6612Motor(Node):
         self.braking_until = None
 
         if lgpio is None:
-            self.get_logger().error('Falta lgpio; motor deshabilitado.')
+            self.get_logger().error('lgpio missing; motor disabled.')
         else:
             self.gpio = lgpio.gpiochip_open(self.chip)
             for pin in self.pins.values():
                 lgpio.gpio_claim_output(self.gpio, pin, 0)
             self.stop_motor()
-            self.get_logger().info('TB6612FNG listo.')
+            self.get_logger().info('TB6612FNG ready.')
 
         self.create_subscription(Float32, '/motor_vel', self.on_command, 10)
         self.create_timer(0.05, self.on_watchdog)
@@ -63,22 +66,24 @@ class Tb6612Motor(Node):
         self.braking_until = None
 
     def drive(self, pct):
-        lgpio.gpio_write(self.gpio, self.pins['ain1'], 1)
-        lgpio.gpio_write(self.gpio, self.pins['ain2'], 0)
+        """Apply a signed duty: positive forward, negative reverse."""
+        ain1, ain2, magnitude = duty_to_pins(pct)
+        lgpio.gpio_write(self.gpio, self.pins['ain1'], ain1)
+        lgpio.gpio_write(self.gpio, self.pins['ain2'], ain2)
         lgpio.gpio_write(self.gpio, self.pins['stby'], 1)
-        if pct >= 100.0:
+        if magnitude >= 100.0:
             lgpio.gpio_write(self.gpio, self.pins['pwm_a'], 1)
         else:
-            lgpio.tx_pwm(self.gpio, self.pins['pwm_a'], self.hz, pct)
+            lgpio.tx_pwm(self.gpio, self.pins['pwm_a'], self.hz, magnitude)
         self.last_pct = pct
 
     def brake(self):
-        """Invierte el motor un instante para frenar la inercia."""
-        pct = self.last_pct
-        lgpio.gpio_write(self.gpio, self.pins['ain1'], 0)
-        lgpio.gpio_write(self.gpio, self.pins['ain2'], 1)
+        """Drive against the last direction for an instant to remove inertia."""
+        ain1, ain2, magnitude = duty_to_pins(-self.last_pct)
+        lgpio.gpio_write(self.gpio, self.pins['ain1'], ain1)
+        lgpio.gpio_write(self.gpio, self.pins['ain2'], ain2)
         lgpio.gpio_write(self.gpio, self.pins['stby'], 1)
-        lgpio.tx_pwm(self.gpio, self.pins['pwm_a'], self.hz, pct)
+        lgpio.tx_pwm(self.gpio, self.pins['pwm_a'], self.hz, magnitude)
         self.braking_until = time.monotonic() + 0.12
         self.last_pct = 0.0
 
@@ -87,12 +92,14 @@ class Tb6612Motor(Node):
             pct = float(msg.data)
         except (TypeError, ValueError):
             pct = 0.0
-        pct = max(0.0, min(100.0, pct))
+        if not math.isfinite(pct):
+            pct = 0.0
+        pct = clamp_duty(pct)
         self.last_command = time.monotonic()
         if self.gpio is None:
             return
-        if pct <= 0.0:
-            if self.braking_until is None and self.last_pct > 0.0:
+        if pct == 0.0:
+            if self.braking_until is None and self.last_pct != 0.0:
                 self.brake()
             elif self.braking_until is None:
                 self.stop_motor()

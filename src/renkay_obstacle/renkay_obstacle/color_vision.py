@@ -1,4 +1,4 @@
-"""Deteccion de bloques rojos y verdes por HSV. """
+"""Red and green block detection in HSV."""
 import cv2
 import numpy as np
 
@@ -7,7 +7,7 @@ LIBRE, ROJO, VERDE = 0, 1, 2
 
 def _mask(hsv, color, cfg):
     if color == ROJO:
-        # el rojo cruza el limite del matiz, asi que se unen dos rangos
+        # red crosses the hue limit, so two ranges are joined
         m1 = cv2.inRange(hsv, (cfg.RED_H1_LOW, cfg.RED_S_MIN, cfg.RED_V_MIN),
                          (cfg.RED_H1_HIGH, 255, 255))
         m2 = cv2.inRange(hsv, (cfg.RED_H2_LOW, cfg.RED_S_MIN, cfg.RED_V_MIN),
@@ -22,7 +22,7 @@ def _mask(hsv, color, cfg):
 
 
 def _blocks(mask, color, width, height, cfg):
-    """Contornos que pasan los filtros de tamano/forma, como bloques validos."""
+    """Contours that pass the size/shape filters, as valid blocks."""
     contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     blocks = []
     for c in contours:
@@ -32,21 +32,21 @@ def _blocks(mask, color, width, height, cfg):
         x, y, w, h = cv2.boundingRect(c)
         if w == 0 or h == 0:
             continue
-        if area / (w * h) < cfg.COLOR_MIN_FILL:          # descarta manchas dispersas
+        if area / (w * h) < cfg.COLOR_MIN_FILL:          # drop scattered blobs
             continue
         if max(w, h) / min(w, h) > cfg.COLOR_MAX_WIDTH_HEIGHT:
             continue
-        cx_norm = (x + w / 2.0) / width - 0.5            # -0.5 izq ... +0.5 der
-        base_norm = (y + h) / height                     # 1.0 = borde inferior = cerca
+        cx_norm = (x + w / 2.0) / width - 0.5            # -0.5 left ... +0.5 right
+        base_norm = (y + h) / height                     # 1.0 = bottom edge = near
         blocks.append((color, cx_norm, base_norm, float(area)))
     return blocks
 
 
 def detect_block(frame, cfg):
-    """Bloque mas cercano como (color, cx_norm, base_norm, area), o None.
+    """Nearest block as (color, cx_norm, base_norm, area), or None.
 
-    cx_norm < 0 = a la izquierda del centro. base_norm alto = mas cerca (su
-    base cae mas abajo en la imagen).
+    cx_norm < 0 = left of centre. A high base_norm = closer (its base sits
+    lower in the image).
     """
     if frame is None or frame.ndim != 3 or frame.shape[2] != 3:
         return None

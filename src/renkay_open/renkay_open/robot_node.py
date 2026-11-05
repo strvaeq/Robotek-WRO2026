@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""Nodo principal del Open Challenge (WRO Future Engineers).
+"""Open Challenge main node (WRO Future Engineers).
 
-Control en cascada lidar + IMU. Maquina de estados:
+Cascaded lidar + IMU control. State machine:
 
-  IDLE --(boton)--> CALIBRANDO --(4 s)--> RECTO <--> GIRANDO --(3 vueltas)--> FIN
+  IDLE --(button)--> CALIBRANDO --(4 s)--> RECTO <--> GIRANDO --(3 laps)--> FIN
 
-El lidar (scan_callback, ~10 Hz) fija el rumbo objetivo para centrar el robot.
-El IMU (imu_callback, ~50 Hz) es el unico lazo que escribe al servo: integra
-el giro, calcula el angulo de direccion y ejecuta los giros de esquina.
+The lidar (scan_callback, ~10 Hz) sets the target heading that centres the
+robot. The IMU (imu_callback, ~50 Hz) is the only loop that writes the servo:
+it integrates the rotation, computes the steering angle and runs the corner
+turns.
 """
 import math
 import statistics
@@ -20,10 +21,10 @@ from std_msgs.msg import Float32
 from ros_robot_controller_msgs.msg import (SetAckerServoState, ButtonState,
                                            BuzzerState)
 
-from renkay_open.config import Config, clamp, wrap180
-from renkay_open.control import (InnerLoop, OuterLoop, Corner, LapCounter, window_median,
-                     delta_to_us, detect_corner, start_turn, turn_complete,
-                     turn_timed_out)
+from renkay_open.config import Config, clamp, clamp_duty, wrap180
+from renkay_open.control import (InnerLoop, OuterLoop, Corner, LapCounter,
+                                 scan_range, delta_to_us, detect_corner,
+                                 start_turn, turn_complete, turn_timed_out)
 
 BUTTON_MIN_INTERVAL_S = 1.5
 
@@ -67,11 +68,17 @@ class OpenChallenge(Node):
         self.last_scan_t = None
         self.last_button_t = None
 
+        # watchdog latch: once a sensor is lost the robot stays stopped until
+        # both sensors have been valid for FAULT_RECOVERY_S
+        self.fault_latched = False
+        self.fault_t = None
+        self.recovery_since = None
+
         self.create_timer(self.cfg.WATCHDOG_S, self.watchdog_callback)
-        self.get_logger().info('Listo. Pulsa el boton para arrancar.')
+        self.get_logger().info('Ready. Press the button to start.')
 
     # ------------------------------------------------------------------ #
-    # utilidades
+    # utilities
     # ------------------------------------------------------------------ #
     def now(self):
         return self.get_clock().now().nanoseconds * 1e-9
@@ -94,13 +101,14 @@ class OpenChallenge(Node):
         self.servo_pub.publish(msg)
 
     def send_motor(self, pct):
-        self.motor_pub.publish(Float32(data=float(max(0.0, min(100.0, pct)))))
+        """Signed duty: negative reverses, magnitude is preserved."""
+        self.motor_pub.publish(Float32(data=float(clamp_duty(pct))))
 
     # ------------------------------------------------------------------ #
-    # transiciones de estado
+    # state transitions
     # ------------------------------------------------------------------ #
     def button_callback(self, msg):
-        if msg.state not in (1, 5):        # solo flancos de pulsacion
+        if msg.state not in (1, 5):        # only press edges
             return
         t = self.now()
         if self.last_button_t is not None and \
@@ -110,15 +118,16 @@ class OpenChallenge(Node):
         if self.state in (State.IDLE, State.FIN):
             self.start_calibration()
         else:
-            self.stop('boton')
+            self.stop('button')
 
     def start_calibration(self):
+        self.reset_fault()
         self.state = State.CALIBRANDO
         self.cal_samples = []
         self.cal_start_t = self.now()
         self.send_motor(0.0)
         self.send_servo(self.cfg.SERVO_CENTER_US)
-        self.get_logger().info('Calibrando giroscopio, mantener el robot quieto...')
+        self.get_logger().info('Calibrating gyro, keep the robot still...')
 
     def finish_calibration(self):
         self.inner.bias_deg_s = statistics.fmean(self.cal_samples)
@@ -131,23 +140,23 @@ class OpenChallenge(Node):
         self.state = State.RECTO
         self.beep(880, 0.1)
         self.get_logger().info(
-            f'Bias gz = {self.inner.bias_deg_s:.3f} deg/s. Arrancando.')
+            f'gz bias = {self.inner.bias_deg_s:.3f} deg/s. Starting.')
 
     def finish(self):
         self.send_motor(0.0)
         self.send_servo(self.cfg.SERVO_CENTER_US)
         self.state = State.FIN
-        self.get_logger().info(f'{self.cfg.MAX_LAPS} vueltas completadas.')
+        self.get_logger().info(f'{self.cfg.MAX_LAPS} laps completed.')
 
     def stop(self, reason):
         self.send_motor(0.0)
         self.send_servo(self.cfg.SERVO_CENTER_US)
         self.corner.turning = False
         self.state = State.IDLE
-        self.get_logger().info(f'PARADA ({reason}).')
+        self.get_logger().info(f'STOP ({reason}).')
 
     # ------------------------------------------------------------------ #
-    # lazo interno (IMU): rumbo -> servo
+    # inner loop (IMU): heading -> servo
     # ------------------------------------------------------------------ #
     def imu_callback(self, msg):
         gz = getattr(getattr(msg, 'angular_velocity', None), 'z', None)
@@ -167,31 +176,32 @@ class OpenChallenge(Node):
 
         dt = t - self.last_imu_t if self.last_imu_t is not None else 0.0
         self.last_imu_t = t
+        if self.fault_latched:
+            return                  # keep 0 duty until reset_fault() clears it
         if dt <= 0.0 or dt > self.cfg.IMU_TIMEOUT_S:
             return
 
         gz_deb = self.inner.integrate(gz_deg, dt, self.cfg)
 
-        # conteo de vueltas por yaw integrado
-        if self.laps.update(self.inner.theta_deg, self.cfg):
-            self.get_logger().info(f'Vuelta {self.laps.laps}.')
-            if self.laps.laps >= self.cfg.MAX_LAPS:
-                self.beep(self.cfg.FINISH_BEEP_FREQ, 0.3, repeat=2)
-                self.finish()
-                return
-            self.beep(self.cfg.LAP_BEEP_FREQ, 0.2)
-
-        # fin (o timeout) del giro de esquina
+        # end (or timeout) of the corner turn
         if self.corner.turning:
             if turn_timed_out(self.corner, t, self.cfg):
-                self.stop('timeout de giro')
+                self.stop('turn timeout')
                 return
             if turn_complete(self.corner, self.inner.theta_deg, gz_deb, self.cfg):
                 self.corner.turning = False
                 self.outer.reset()
-                self.get_logger().info('Giro completo.')
+                self.get_logger().info('Turn complete.')
+                # a lap is one corner exit after another, not integrated yaw
+                if self.laps.on_corner_exit(self.cfg):
+                    self.get_logger().info(f'Lap {self.laps.laps}.')
+                    if self.laps.laps >= self.cfg.MAX_LAPS:
+                        self.beep(self.cfg.FINISH_BEEP_FREQ, 0.3, repeat=2)
+                        self.finish()
+                        return
+                    self.beep(self.cfg.LAP_BEEP_FREQ, 0.2)
 
-        # rumbo objetivo: durante el giro solo cuenta el rumbo base
+        # target heading: during a turn only the base heading counts
         if self.corner.turning:
             ref = self.corner.heading_base_deg
         else:
@@ -204,18 +214,21 @@ class OpenChallenge(Node):
         self.send_motor(pct)
 
     # ------------------------------------------------------------------ #
-    # lazo externo (lidar): centrado y deteccion de esquina
+    # outer loop (lidar): centring and corner detection
     # ------------------------------------------------------------------ #
     def scan_callback(self, msg):
         self.last_scan_t = self.now()
         if not self.driving():
             return
 
-        self.dL = window_median(msg.ranges, self.cfg.LIDAR_LEFT_DEG, self.cfg)
-        self.dR = window_median(msg.ranges, self.cfg.LIDAR_RIGHT_DEG, self.cfg)
-        self.front = window_median(msg.ranges, self.cfg.LIDAR_FRONT_DEG, self.cfg)
+        self.dL = scan_range(msg, self.cfg.LIDAR_LEFT_DEG, self.cfg)
+        self.dR = scan_range(msg, self.cfg.LIDAR_RIGHT_DEG, self.cfg)
+        self.front = scan_range(msg, self.cfg.LIDAR_FRONT_DEG, self.cfg)
 
-        # mientras gira, el lazo externo esta congelado
+        if self.fault_latched:
+            return
+
+        # while turning the outer loop is frozen
         if self.corner.turning:
             return
 
@@ -226,25 +239,53 @@ class OpenChallenge(Node):
             start_turn(self.corner, self.dL, self.dR, self.now(), self.cfg)
             self.outer.reset()
             self.theta_ref = 0.0
-            lado = 'derecha' if self.corner.direction > 0 else 'izquierda'
-            self.get_logger().info(f'Esquina: giro a la {lado}.')
+            side = 'right' if self.corner.direction > 0 else 'left'
+            self.get_logger().info(f'Corner: turning {side}.')
             return
 
         self.theta_ref, _ = self.outer.update(
             self.dL, self.dR, theta_rel, self.cfg.SCAN_DT, self.cfg)
 
     # ------------------------------------------------------------------ #
-    # seguridad: frenar si se cae un sensor mientras conduce
+    # safety: stop if a sensor drops while driving
     # ------------------------------------------------------------------ #
+    def latch_fault(self):
+        """Latch the stop: nothing but reset_fault() clears it."""
+        if not self.fault_latched:
+            self.fault_latched = True
+            self.fault_t = self.now()
+            self.recovery_since = None
+            self.get_logger().error('Sensor lost: motor latched off.')
+        self.send_motor(0.0)
+        self.send_servo(self.cfg.SERVO_CENTER_US)
+
+    def reset_fault(self):
+        """Clear a latched fault and re-arm the recovery timer."""
+        self.fault_latched = False
+        self.fault_t = None
+        self.recovery_since = None
+
     def watchdog_callback(self):
         if not self.driving():
+            self.recovery_since = None
             return
         t = self.now()
         imu_lost = self.last_imu_t and t - self.last_imu_t > self.cfg.IMU_TIMEOUT_S
         scan_lost = self.last_scan_t and t - self.last_scan_t > self.cfg.LIDAR_TIMEOUT_S
         if imu_lost or scan_lost:
-            self.send_motor(0.0)
-            self.send_servo(self.cfg.SERVO_CENTER_US)
+            self.latch_fault()
+            return
+        if not self.fault_latched:
+            return
+        # both sensors are valid again: require FAULT_RECOVERY_S of valid data
+        if self.recovery_since is None:
+            self.recovery_since = t
+        if t - self.recovery_since >= self.cfg.FAULT_RECOVERY_S:
+            self.get_logger().info('Sensors back: fault cleared.')
+            self.reset_fault()
+            return
+        self.send_motor(0.0)
+        self.send_servo(self.cfg.SERVO_CENTER_US)
 
 
 def main(args=None):

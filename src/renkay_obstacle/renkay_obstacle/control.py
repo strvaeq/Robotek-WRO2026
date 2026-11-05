@@ -1,9 +1,9 @@
-"""Logica de control del Obstacle Challenge. 
+"""Obstacle Challenge control logic.
 
-El robot sigue una pared a distancia fija con el lazo IMU. La camara decide
-que pared seguir segun el color del bloque mas cercano (rojo -> derecha,
-verde -> izquierda) y, cuando el bloque esta cerca, se anade un pequeno rumbo
-para rodearlo. En las esquinas se suman +-90 al rumbo base.
+The robot follows a wall at a fixed distance with the IMU loop. The camera
+picks which wall to follow from the colour of the nearest block (red -> right,
+green -> left) and, when the block is close, adds a small heading to drive
+around it. Every corner adds +-90 to the base heading.
 """
 import math
 from dataclasses import dataclass
@@ -13,14 +13,38 @@ from renkay_obstacle.config import Config, clamp
 from renkay_obstacle.color_vision import ROJO, VERDE
 
 
-def window_median(ranges: Sequence[float], center_deg: float,
-                  cfg: Config) -> Optional[float]:
-    """Mediana de un abanico de rayos alrededor de center_deg (filtra ruido)."""
+def scan_angles(count: int, angle_min_rad: float,
+                angle_increment_rad: float) -> tuple:
+    """Scan geometry in the config convention (0..360 deg, 180 = front).
+
+    ROS reports angles from the robot x axis; the config files count from the
+    rear so the front sits at 180 deg. Returns (angle_min_deg, increment_deg).
+    """
+    if count <= 0:
+        return 0.0, 0.0
+    inc = math.degrees(angle_increment_rad)
+    amin = math.degrees(angle_min_rad)
+    if not (math.isfinite(inc) and math.isfinite(amin)) or inc <= 0.0:
+        # fallback: the simulator sends no usable geometry, assume a full turn
+        # starting at 0 deg with 180 deg facing forward.
+        return 0.0, 360.0 / count
+    return amin + 180.0, inc
+
+
+def window_median(ranges: Sequence[float], center_deg: float, cfg: Config,
+                  angle_min_deg: float = 0.0,
+                  angle_increment_deg: Optional[float] = None) -> Optional[float]:
+    """Median of a fan of rays around center_deg (removes noise).
+
+    Without angle metadata the indices are spread evenly over 360 deg, which is
+    what the simulator scan expects.
+    """
     n = len(ranges)
     if n == 0:
         return None
-    half = max(1, int(round(cfg.LIDAR_WINDOW_HALF_DEG / 360.0 * n)))
-    center = int(round(center_deg / 360.0 * n)) % n
+    inc = angle_increment_deg if angle_increment_deg else 360.0 / n
+    half = max(1, int(round(cfg.LIDAR_WINDOW_HALF_DEG / inc)))
+    center = int(round((center_deg - angle_min_deg) / inc)) % n
     vals = []
     for i in range(-half, half + 1):
         d = ranges[(center + i) % n]
@@ -32,12 +56,18 @@ def window_median(ranges: Sequence[float], center_deg: float,
     return vals[len(vals) // 2]
 
 
+def scan_range(msg, center_deg: float, cfg: Config) -> Optional[float]:
+    """window_median on a LaserScan message, using its own angle metadata."""
+    amin, inc = scan_angles(len(msg.ranges), msg.angle_min, msg.angle_increment)
+    return window_median(msg.ranges, center_deg, cfg, amin, inc)
+
+
 def side_sign(side: str) -> int:
     return 1 if side == 'right' else -1
 
 
 def side_for_color(color: int) -> Optional[str]:
-    """Rojo -> seguir la pared derecha; verde -> la izquierda."""
+    """Red -> follow the right wall; green -> the left one."""
     if color == ROJO:
         return 'right'
     if color == VERDE:
@@ -46,7 +76,7 @@ def side_for_color(color: int) -> Optional[str]:
 
 
 # --------------------------------------------------------------------------- #
-# Lazo interno: rumbo (IMU) -> angulo de servo
+# Inner loop: heading (IMU) -> servo angle
 # --------------------------------------------------------------------------- #
 @dataclass
 class InnerLoop:
@@ -76,7 +106,7 @@ def delta_to_us(delta_deg: float, cfg: Config) -> float:
 
 
 # --------------------------------------------------------------------------- #
-# Seguimiento de pared
+# Wall following
 # --------------------------------------------------------------------------- #
 @dataclass
 class WallEstimate:
@@ -85,11 +115,16 @@ class WallEstimate:
     angle_deg: float = 0.0
 
 
-def estimate_wall(side_range, forward_range, side, cfg) -> WallEstimate:
-    """Ajusta una recta a dos impactos del muro (rayo lateral a 60 grados y
-    rayo adelantado a 30) en coordenadas del robot. Funciona aunque el rayo
-    lateral no este exactamente a 90. Devuelve la distancia perpendicular y el
-    angulo de la pared respecto al eje de avance.
+def estimate_wall(side_range, forward_range, side, cfg,
+                  prev_distance_m: Optional[float] = None) -> WallEstimate:
+    """Fit a line to two wall hits (side ray at 60 deg, forward ray at 30) in
+    robot coordinates. Works even if the side ray is not exactly at 90 deg.
+    Returns the perpendicular distance and the wall angle relative to the
+    driving axis.
+
+    A pillar hit only lands on one ray and produces a sharp angle or a distant
+    point, so results outside WALL_MAX_ANGLE_DEG or jumping more than
+    WALL_JUMP_MAX_M from the previous distance are rejected.
     """
     if side_range is None or forward_range is None:
         return WallEstimate()
@@ -105,22 +140,25 @@ def estimate_wall(side_range, forward_range, side, cfg) -> WallEstimate:
     span = math.hypot(vx, vy)
     if span < 0.03:
         return WallEstimate()
-    if vx < 0.0:                       # orientar hacia adelante -> 0 grados = paralelo
+    if vx < 0.0:                       # point forward -> 0 deg = parallel
         vx, vy = -vx, -vy
     angle = math.degrees(math.atan2(vy, vx))
     if abs(angle) > cfg.WALL_MAX_ANGLE_DEG:
         return WallEstimate()
-    dist = abs(vx * (0.0 - p1[1]) - vy * (0.0 - p1[0])) / span   # punto-recta al origen
+    dist = abs(vx * (0.0 - p1[1]) - vy * (0.0 - p1[0])) / span   # point-line to origin
     if not (cfg.LIDAR_MIN_M < dist < cfg.WALL_MAX_DIST_M):
+        return WallEstimate()
+    if prev_distance_m is not None and \
+            abs(dist - prev_distance_m) > cfg.WALL_JUMP_MAX_M:
         return WallEstimate()
     return WallEstimate(True, dist, angle)
 
 
 def wall_follow_offset(est: WallEstimate, side: str, cfg: Config) -> float:
-    """Rumbo objetivo (relativo) para dejar la pared a TARGET_M.
+    """Target (relative) heading that leaves the wall at TARGET_M.
 
-    Suma dos terminos: alinear el chasis con la pared (angulo) y corregir la
-    distancia con un atan, que no crece sin limite cuando el error es grande.
+    Two terms: align the chassis with the wall (angle) and correct the distance
+    with an atan, which does not grow without bound for a large error.
     """
     if not est.valid:
         return 0.0
@@ -130,21 +168,21 @@ def wall_follow_offset(est: WallEstimate, side: str, cfg: Config) -> float:
 
 
 def pillar_nudge_deg(block, cfg: Config) -> float:
-    """Rumbo extra para rodear el bloque mientras esta cerca.
+    """Extra heading to drive around the block while it is close.
 
-    Se aleja del lado donde aparece: si el bloque cae a la derecha de la
-    imagen (cx_norm > 0) se gira a la izquierda, y viceversa.
+    Moves away from the side it appears on: a block on the right of the image
+    (cx_norm > 0) turns the robot left, and the other way round.
     """
     if block is None:
         return 0.0
     _color, cx_norm, base_norm, _area = block
-    if base_norm < cfg.PILLAR_NEAR_BASE:      # todavia lejos: no hace falta esquivar
+    if base_norm < cfg.PILLAR_NEAR_BASE:      # still far: no need to avoid yet
         return 0.0
     return clamp(-cx_norm * cfg.PILLAR_GAIN_DEG, -cfg.PILLAR_MAX_DEG, cfg.PILLAR_MAX_DEG)
 
 
 # --------------------------------------------------------------------------- #
-# Esquinas
+# Corners
 # --------------------------------------------------------------------------- #
 @dataclass
 class Corner:
@@ -163,13 +201,17 @@ class Corner:
 
 
 def side_open(d: Optional[float], cfg: Config) -> bool:
+    """True if that flank sees an opening (corner) instead of the wall.
+
+    No reading is not an opening: a missing beam must not start a turn.
+    """
     if d is None:
-        return True
+        return False
     return d > cfg.SIDE_OPEN_M
 
 
 def detect_corner(front, dL, dR, theta_rel_deg, corner, now, cfg) -> bool:
-    """Esquina = pared de frente cerca Y un lateral abierto."""
+    """Corner = close front wall AND an open flank."""
     if corner.turning or front is None or front >= cfg.CORNER_FRONT_M:
         return False
     if corner.last_turn_t is not None and \
@@ -181,8 +223,8 @@ def detect_corner(front, dL, dR, theta_rel_deg, corner, now, cfg) -> bool:
 
 
 def start_turn(corner, dL, dR, now, cfg) -> None:
-    """Suma +-90 al rumbo base. El sentido se fija en la primera esquina y se
-    mantiene toda la ronda (la pista tiene un unico sentido de circulacion)."""
+    """Add +-90 to the base heading. The direction is fixed on the first corner
+    and kept for the rest of the run (the track has one driving direction)."""
     if corner.direction == 0:
         left_open = side_open(dL, cfg)
         right_open = side_open(dR, cfg)
@@ -201,7 +243,7 @@ def start_turn(corner, dL, dR, now, cfg) -> None:
 
 
 def turn_complete(corner, theta_deg, gz_deg_s, cfg) -> bool:
-    """True cuando theta llego al nuevo rumbo Y la rotacion ya freno."""
+    """True once theta reached the new heading AND rotation has stopped."""
     if abs(theta_deg - corner.heading_base_deg) >= cfg.CORNER_EXIT_MARGIN_DEG:
         return False
     return abs(gz_deg_s) < cfg.CORNER_EXIT_MAX_GZ_DEG_S
@@ -213,17 +255,21 @@ def turn_timed_out(corner, now, cfg) -> bool:
 
 
 # --------------------------------------------------------------------------- #
-# Vueltas (por yaw integrado: 4 esquinas de 90 = 360)
+# Laps (counted from confirmed corner exits)
 # --------------------------------------------------------------------------- #
 @dataclass
 class LapCounter:
     laps: int = 0
+    corners: int = 0
 
     def reset(self) -> None:
         self.laps = 0
+        self.corners = 0
 
-    def update(self, theta_deg: float, cfg: Config) -> bool:
-        laps = int((abs(theta_deg) + cfg.LAP_MARGIN_DEG) // 360.0)
+    def on_corner_exit(self, cfg: Config) -> bool:
+        """Count a confirmed corner exit; True when the lap total increased."""
+        self.corners += 1
+        laps = self.corners // cfg.CORNERS_PER_LAP
         if laps > self.laps:
             self.laps = laps
             return True

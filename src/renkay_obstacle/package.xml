@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>renkay_obstacle</name>
+  <version>1.0.0</version>
+  <description>
+    Obstacle Challenge controller of the Renkay car (WRO Future Engineers 2026).
+    IMU heading loop, LiDAR wall following and HSV red/green pillar detection
+    on ROS 2 Jazzy, plus the TB6612FNG motor driver node.
+  </description>
+
+  <maintainer email="rod10peru@gmail.com">Renkay Team</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>python3-opencv</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>ros_robot_controller_msgs</exec_depend>
+
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

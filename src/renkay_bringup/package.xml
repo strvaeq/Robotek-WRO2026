@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>renkay_bringup</name>
+  <version>1.0.0</version>
+  <description>
+    Launch files and reference configuration for the Renkay car. Starts the
+    RRC Lite board, the LD19 LiDAR, the USB camera, the TB6612FNG motor driver
+    and one challenge controller.
+  </description>
+
+  <maintainer email="rod10peru@gmail.com">Renkay Team</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>ament_index_python</exec_depend>
+  <exec_depend>ros_robot_controller</exec_depend>
+  <exec_depend>ros_robot_controller_msgs</exec_depend>
+  <exec_depend>ldlidar_stl_ros2</exec_depend>
+  <exec_depend>usb_cam</exec_depend>
+  <exec_depend>renkay_open</exec_depend>
+  <exec_depend>renkay_obstacle</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
