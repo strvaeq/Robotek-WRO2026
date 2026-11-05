@@ -225,7 +225,7 @@ corner and `DONE`.
 | `CALIBRATING` | button | 4.0 s | mean gyro becomes the bias (`robot_node.py:134-145`) | 4.0 s | 0 %, centre |
 | `STRAIGHT` / `FOLLOWING` | calibration, turn done | corner, lap 3, lap 12 | `detect_corner` (`open/control.py:133-143`) | none | 75 % open, 35 % obstacle |
 | `TURNING` | corner | heading reached | `turn_complete` | 3.3 s (`config.py:78`) | 42 % open, 35 % obstacle |
-| `PARKING` | corner 12 | parked or abort | section 6 | 20 s per state | 0 to 25 %, signed |
+| `PARKING` | corner 12 | parked or abort | section 6 | 8.0 s, whole manoeuvre | 0 to 25 %, signed |
 | `DONE` | lap 3, parked | button | `MAX_LAPS = 3` (`config.py:86`) | none | 0 %, two beeps |
 
 The corner guard is four conditions in series: front closer than the threshold, no turn in the last
@@ -238,55 +238,51 @@ than the manoeuvre.
 
 ## 6. Parallel parking
 
-New in this branch: `parking.py`, six states driven by the side LiDAR distance and the integrated
-heading. The 2026 rules require it (rules 5, Appendix A.6); the previous code stopped after lap 3.
+New in this branch: `parking.py`, six states driven by the side, front and rear LiDAR ranges and the
+integrated heading. The 2026 rules require the car to find the lot and park in parallel after the
+third round; the previous code stopped after lap 3.
 
 ```mermaid
 stateDiagram-v2
   [*] --> APPROACH
-  APPROACH --> ALIGN: slot entered
-  ALIGN --> REVERSE_ARC: yaw error > 3 deg
-  ALIGN --> DONE: aligned
-  REVERSE_ARC --> STRAIGHTEN: yaw error <= 3 deg
-  STRAIGHTEN --> DONE: aligned
-  STRAIGHTEN --> ALIGN: one retry
-  APPROACH --> ABORT: front < 0.10 m
-  REVERSE_ARC --> ABORT: front < 0.10 m
-  STRAIGHTEN --> ABORT: retries done
+  APPROACH --> ALIGN: rear <= 0.60 m
+  ALIGN --> REVERSE_ARC: |yaw| <= 2 deg
+  REVERSE_ARC --> STRAIGHTEN: yaw swept 45 deg
+  REVERSE_ARC --> DONE: rear <= 0.05 m
+  STRAIGHTEN --> DONE: side <= 0.03 m or rear <= 0.05 m
+  APPROACH --> ABORT: front < 0.10 m or 8 s
+  ALIGN --> ABORT: front < 0.10 m or 8 s
+  REVERSE_ARC --> ABORT: front < 0.10 m or 8 s
+  STRAIGHTEN --> ABORT: front < 0.10 m or 8 s
 ```
 
 | State | Entry | Action | Exit |
 |---|---|---|---|
-| `APPROACH` | lap 12 | follow the wall, duty 25 %, watch the marker step | slot entered, heading within 10 deg |
-| `ALIGN` | slot entered, stopped | two side readings one wheelbase apart give distance and yaw | aligned, or reverse needed |
-| `REVERSE_ARC` | yaw error > 3 deg | reverse, opposite lock, negative duty | yaw error <= 3 deg, or rear clearance < 0.10 m |
-| `STRAIGHTEN` | arc done | forward, counter lock | aligned, or retry once |
-| `DONE` | acceptance met | 0 %, two beeps | - |
-| `ABORT` | guard failed | 0 %, one long beep | terminal |
+| `APPROACH` | corner 12 | 12 % forward, servo centred, rear range watched | rear range <= 0.60 m |
+| `ALIGN` | slot beside the car | 8 % forward, steer `clamp(-yaw, +/-30)` deg | `|yaw| <= 2` deg |
+| `REVERSE_ARC` | aligned | reverse at 25 %, steer `PARK_STEER_SIGN * 30` deg | heading swept 45 deg, or rear range <= 0.05 m |
+| `STRAIGHTEN` | arc done | reverse at 25 %, servo centred | side range <= 0.03 m, or rear range <= 0.05 m |
+| `DONE` | acceptance met | 0 %, two beeps | terminal |
+| `ABORT` | front range < 0.10 m, or 8.0 s elapsed | 0 %, one long beep | terminal |
 
-The lot is 200 mm wide and `1.5 * 189 = 283.5 mm` long (rules 5: width 20 cm, length 1.5 times the
-robot; chassis 189 mm, `data/measurements.csv:9`). With a 133.5 mm front track
-(`data/measurements.csv:7`) the centre line can sit between 66.75 and 133.25 mm from the wall: a
-66.5 mm window, and the reason the parking tolerance is measured in the same units as the wheels.
-The bay side is selected by `PARK_STEER_SIGN` (default -1.0), a field calibrated constant: which sign
-puts the car into the lot depends on the side the lot is on and on the servo direction, so it is set
-by driving the manoeuvre once on the field, not derived. Minimum turning radius from the measured
-17.6 deg road wheel at a 25 deg command is 370 mm (`data/measurements.csv:17`), longer than the lot,
-so the car arrives almost aligned and corrects a residual. A heading change `theta` at that radius
-shifts the car by `R*(1-cos theta)`, 1.1 mm per degree near zero, so `ALIGN` corrects lateral
-distance first and yaw second, iterating.
+The lot is 200 mm wide and its length is 1.5 times the length of the robot (rules 5). The code does
+not depend on that length: `PARK_SLOT_LEN_M = 0.60 m` is the rear clearance at which the approach
+stops, chosen conservatively so the slot is beside the car before the arc starts. The bay side is
+selected by `PARK_STEER_SIGN` (default -1.0), a field calibrated constant: which sign puts the car
+into the lot depends on the side the lot is on and on the servo direction, so it is set by driving
+the manoeuvre once on the field, not derived.
 
-Acceptance comes from the rule: fully inside and the two wheel to wall distances within 20 mm
-(rules Appendix A.6). Two readings one wheelbase apart map yaw onto that difference as `L*sin(psi)`,
-so 20 mm over 117.4 mm is 9.8 deg. The target is `|yaw| <= 5 deg`, a 10.2 mm wheel difference, half
-the legal limit, and `|lateral error| <= 20 mm`, recorded per run as `final_lateral_error_mm` and
-`final_yaw_deg`. The 0.10 m abort threshold follows from motion: reverse at 25 percent is
-`0.0137*(25-6.5) = 0.25 m/s` (`data/measurements.csv:20-21`) and stops in `0.25^2/(2*0.6) = 52 mm`
-at the 0.6 m/s^2 limit (`data/measurements.csv:25`), leaving 48 mm.
+With a 133.5 mm front track (`data/measurements.csv:7`) inside a 200 mm lot the centre line has
+33.25 mm of margin per side, so `PARK_TARGET_GAP_M = 0.03 m` is the largest lateral target that
+still fits, with 3 mm left; a 0.15 m standoff would put the outer wheel 16.8 mm outside the lot.
+The arc sweeps 45 deg at the 0.37 m minimum radius, which moves the car `R*(1-cos 45) = 108 mm`
+towards the wall before the straighten phase, and the 25 % reverse speed of 0.25 m/s
+(`data/measurements.csv:20-21`) stops in `0.25^2/(2*0.6) = 52 mm` at the 0.6 m/s^2 limit, which is
+why the front abort sits at 0.10 m.
 
-PARK_TARGET_GAP_M is 0.03 m. The 200 mm lot less the 133.5 mm track leaves 33.25 mm per side, so
-30 mm is the largest lateral target that still fits, with 3 mm of margin. A 0.15 m standoff would
-put the outer wheel 16.8 mm outside the lot, which is why the constant is not 0.15.
+Success follows the rule wording: completely inside the parking area and parallel. The run records
+`final_lateral_gap_m` and `final_yaw_deg`; the target is 0.03 m and 2 deg, and a run that aborts
+records the abort cause instead.
 
 ## 7. Edge cases
 

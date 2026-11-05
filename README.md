@@ -281,7 +281,8 @@ heading, zeroes `theta_ref` and forgets `wall_dist`, so the gate restarts agains
 
 ### Parallel Parking
 
-The bay is 20 cm wide and the slot is 0.60 m long (`PARK_SLOT_LEN_M`). `ParallelPark` in `parking.py` runs
+The bay is 20 cm wide and its length is 1.5 times the length of the robot (rules 5). The code does not depend on that
+length: `PARK_SLOT_LEN_M = 0.60 m` is the rear clearance at which the approach stops. `ParallelPark` in `parking.py` runs
 `APPROACH -> ALIGN -> REVERSE_ARC -> STRAIGHTEN -> DONE`, with `ABORT` reachable from any state, driven by the IMU heading
 and the side, front and rear ranges (the rear ray is read only here). `APPROACH` creeps at 12 percent until the rear range
 falls to 0.60 m and the slot is beside the car. `ALIGN` straightens with `clamp(-yaw, ±30)` deg until `|yaw|` is within

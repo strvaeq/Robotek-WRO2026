@@ -132,13 +132,13 @@ implements is still in force for the rest of that section. The car therefore ret
 line with the same wall, over about 2 m, the outer loop's time constant of 5.4 s at 0.39 m/s.
 
 After the twelfth corner the car is in the starting straight, which is where the lot is placed
-(rules 5). Parking starts there, not after an extra lap, and not on a timer. `APPROACH` keeps the
-wall follower but drops the duty to 25 percent (0.25 m/s) and watches for the marker: the lot
-markers protrude into the lane, so the side distance steps inward as the car reaches the first one.
-The bay side is chosen by `PARK_STEER_SIGN` (default -1.0), a field calibrated constant that encodes
-the servo direction and the side the lot is on. `ALIGN`, `REVERSE_ARC` and `STRAIGHTEN` are described
-in [document 03](03-software-architecture.md), section 6; the acceptance test is the rule's own:
-fully inside the rectangle and the two wheel to wall distances within 20 mm.
+(rules 5). Parking starts there, not after an extra lap, and not on a timer. `APPROACH` creeps
+forward at 12 percent (0.08 m/s) with the servo centred and watches the rear range: the slot is
+beside the car once that range falls to 0.60 m. The bay side is chosen by `PARK_STEER_SIGN`
+(default -1.0), a field calibrated constant that encodes the servo direction and the side the lot
+is on. `ALIGN`, `REVERSE_ARC` and `STRAIGHTEN` are described in
+[document 03](03-software-architecture.md), section 6; the acceptance test is the rule's own:
+completely inside the parking area and parallel, with the final gap and yaw logged per run.
 
 ## 7. The full three-lap sequence
 
@@ -150,8 +150,8 @@ fully inside the rectangle and the two wheel to wall distances within 20 mm.
 | straight 2 to 4 | turn complete | wall follow | +-90, +-180 | 35 % | confirm side |
 | corners 2 to 4 | as corner 1 | `TURNING` | steps of 90 | 35 % | frozen |
 | laps 2 and 3 | corner count 4, 8 | repeat | 360, 720 | 35 % | repeat |
-| lap 3 end | corner 12 | `PARKING` | 1080 | 25 % | lot markers |
-| park | marker step | `APPROACH` to `DONE` | lot heading | 0 to 25 % | none |
+| lap 3 end | corner 12 | `PARKING` | 1080 | 0 to 12 % | none |
+| park | rear <= 0.60 m | `APPROACH` to `DONE` | lot heading | 0 to 25 % | none |
 | stop | acceptance, or abort | `DONE` / `ABORT` | - | 0 % | - |
 
 The heading base is not normalised, so after three laps it reads 1080 deg; the inner loop works on
