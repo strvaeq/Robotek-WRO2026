@@ -1,0 +1,62 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      # Pure-Python tests: no ROS, no camera, no GPIO.
+      - name: Unit tests
+        run: python -m pytest tests -q
+
+      # README must stay long enough to document the project and every link to
+      # a file must exist. Links written as bare words ("system-setup") are
+      # in-page anchors in the current README and are not file paths.
+      - name: Docs check
+        run: |
+          python - <<'PY'
+          import re
+          import sys
+          from pathlib import Path
+
+          README = Path('README.md')
+          LINK = re.compile(r'!?\[[^\]]*\]\(([^)\s]+)(?:\s+"[^"]*")?\)')
+          failures = []
+
+          text = README.read_text(encoding='utf-8')
+          if len(text) <= 5000:
+              failures.append(f'README.md is {len(text)} characters, expected more than 5000')
+
+          files = [README] + sorted(Path('docs').glob('**/*.md'))
+          for path in files:
+              body = path.read_text(encoding='utf-8')
+              for target in LINK.findall(body):
+                  if target.startswith(('http://', 'https://', 'mailto:', '#', '//')):
+                      continue
+                  clean = target.split('#')[0].split('?')[0]
+                  if not clean:
+                      continue
+                  if '/' not in clean and '.' not in clean:
+                      continue
+                  if not (path.parent / clean).resolve().exists():
+                      failures.append(f'{path}: broken link {target}')
+
+          if failures:
+              print('\n'.join(failures))
+              sys.exit(1)
+          print(f'Docs check passed: README {len(text)} characters, {len(files)} files scanned')
+          PY

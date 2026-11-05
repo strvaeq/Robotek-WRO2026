@@ -1,0 +1,8 @@
+# Python packages installed with pip. ROS 2 Jazzy is installed separately
+# (apt) and provides rclpy, cv_bridge, sensor_msgs, std_msgs and the HiWonder
+# ros_robot_controller_msgs; they are NOT listed here on purpose.
+# Pins are the versions CI uses (Ubuntu 24.04, Python 3.12).
+numpy==2.1.3
+opencv-python-headless==4.10.0.84
+pytest==8.3.3
+pyyaml==6.0.2

@@ -1,0 +1,28 @@
+# udev rules for the Renkay car: stable device names and dialout access.
+# tools/setup-pi.sh installs this file as /etc/udev/rules.d/99-renkay.rules, or
+# do it by hand:
+#   sudo cp tools/99-renkay.rules /etc/udev/rules.d/
+#   sudo udevadm control --reload-rules && sudo udevadm trigger
+# Your user must be in the dialout, video and gpio groups (setup-pi.sh does it)
+# and you must log out and back in for the new groups to apply.
+#
+# Where each identifier comes from (nothing invented):
+#  * 1a86:55d4  HiWonder RRC Lite board (appears as /dev/ttyACM0). Same ID as
+#               the 99-ttyACM0.rules shipped with the MentorPi image.
+#  * 10c4:ea60  CP210x USB-serial adapter of the LDROBOT LD19 LiDAR (appears as
+#               /dev/ttyUSB0). Same ID as ldlidar.rules in the LDROBOT repo.
+#               WARNING: any other generic CP210x device also gets /dev/renkay_lidar.
+#  * gpiochip   the TB6612FNG motor driver uses gpiochip 4 through lgpio. The
+#               rule grants the gpio group access. Not verified on a clean image:
+#               the group and rule usually already exist on Ubuntu for the Pi.
+#  * The USB camera (icSpring, 32e6:9005 on this car) needs no rule: the video
+#    group is enough.
+
+# RRC Lite board: /dev/renkay_rrc (and keep ModemManager away from it)
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d4", GROUP="dialout", MODE="0660", SYMLINK+="renkay_rrc", ENV{ID_MM_PORT_IGNORE}="1"
+
+# LD19 LiDAR: /dev/renkay_lidar
+SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", GROUP="dialout", MODE="0660", SYMLINK+="renkay_lidar", ENV{ID_MM_PORT_IGNORE}="1"
+
+# Motor driver GPIO (TB6612FNG through lgpio, gpiochip 4)
+SUBSYSTEM=="gpio", KERNEL=="gpiochip*", GROUP="gpio", MODE="0660"

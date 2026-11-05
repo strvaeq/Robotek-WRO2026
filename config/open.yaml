@@ -1,0 +1,78 @@
+# Reference configuration of the Open Challenge controller.
+#
+# SOURCE OF TRUTH: src/renkay_open/renkay_open/config.py (dataclass Config).
+# The node does NOT read ROS parameters: its constructor builds Config() with
+# the values below. This file repeats those values with units so the whole
+# tuning is readable in one place. Editing this file does not change the robot
+# until the same number is copied into config.py.
+#
+# Sign convention (config.py docstring): positive theta and delta (steering
+# angle) mean a right turn; positive lateral error means the robot sits left of
+# the corridor centre and must correct to the right.
+
+# --- inner loop: IMU heading -> steering angle ------------------------------
+KP_IN: 1.6                    # deg steering per deg of heading error, dimensionless
+KD_IN: 0.28                   # deg steering per deg/s of gyro rate, s (D term uses the gyro directly)
+DELTA_MAX_DEG: 30.0           # deg, mechanical steering limit
+
+# --- outer loop: lateral position -> target heading -------------------------
+KP_OUT: 27.0                  # deg of target heading per m of lateral error, deg/m
+KD_OUT: 4.5                   # deg of target heading per (m/s), deg*s/m
+DERIV_ALPHA: 0.25             # low-pass weight of the derivative term, dimensionless (0..1)
+THETA_REF_MAX_DEG: 9.0        # deg, clamp of the target heading
+THETA_REL_MAX_DEG: 40.0       # deg, outer loop is frozen beyond this heading offset
+
+# --- LiDAR beams ------------------------------------------------------------
+# Angles are index positions on the 360 deg scan: 180 deg is straight ahead,
+# 240 deg is the left side and 120 deg the right side of the car.
+LIDAR_LEFT_DEG: 240.0         # deg
+LIDAR_RIGHT_DEG: 120.0        # deg
+LIDAR_FRONT_DEG: 180.0        # deg
+LIDAR_WINDOW_HALF_DEG: 10.0   # deg, half width of the median window
+LIDAR_SIDE_ANGLE_DEG: 60.0    # deg between a side beam and the front axis
+LIDAR_MIN_M: 0.05             # m, readings closer than this are discarded
+LIDAR_MAX_M: 3.3              # m, readings farther than this are discarded
+
+# --- gyroscope --------------------------------------------------------------
+GYRO_SIGN: -1.0               # dimensionless, flips the sensor sign to the right-turn-positive convention
+GYRO_CAL_S: 4.0               # s of still samples averaged at start-up for the bias
+
+# --- steering servo (RRC Lite acker_servo) ----------------------------------
+SERVO_CENTER_US: 1500.0       # us, straight ahead
+SERVO_MIN_US: 1000.0          # us, hard limit
+SERVO_MAX_US: 2050.0          # us, hard limit
+SERVO_GAIN_POS: 18.3333       # us/deg, = 550 us / 30 deg (positive branch)
+SERVO_GAIN_NEG: 16.6667       # us/deg, = 500 us / 30 deg (negative branch)
+SERVO_SIGN: -1.0              # dimensionless, -1.0 flips the steering direction
+SERVO_CMD_S: 0.05             # s, duration field sent with every servo command
+
+# --- drive motor ------------------------------------------------------------
+MOTOR_CRUISE_PCT: 75.0        # % of full duty on straights
+MOTOR_TURN_PCT: 42.0          # % of full duty during a corner
+
+# --- corners ----------------------------------------------------------------
+CORNER_FRONT_M: 0.80          # m, front wall distance that can trigger a turn
+CORNER_COOLDOWN_S: 1.5        # s, minimum time between two turns
+CORNER_MAX_THETA_REL_DEG: 10.0  # deg, corners are ignored when the heading offset is larger
+CORNER_EXIT_MARGIN_DEG: 4.0   # deg, turn counts as done inside this band around the new heading
+CORNER_EXIT_MAX_GZ_DEG_S: 20.0  # deg/s, turn also requires the rotation to have slowed down
+CORNER_TIMEOUT_S: 3.3         # s, a turn longer than this stops the car
+SIDE_OPEN_M: 1.8              # m, a side beam beyond this distance means an opening
+
+# --- laps -------------------------------------------------------------------
+# A lap is counted from confirmed corner exits, not from integrated yaw.
+MAX_LAPS: 3                   # laps
+CORNERS_PER_LAP: 4            # corners, one per 90 deg turn
+LAP_MARGIN_DEG: 10.0          # deg, declared in config.py but not read by the current code
+LAP_BEEP_FREQ: 523            # Hz, buzzer note after each lap
+FINISH_BEEP_FREQ: 784         # Hz, buzzer note at the end
+
+# --- timing -----------------------------------------------------------------
+SCAN_DT: 0.1                  # s, nominal LiDAR period (~10 Hz) used by the derivative
+IMU_TIMEOUT_S: 0.15           # s, no IMU message for longer than this latches a fault
+LIDAR_TIMEOUT_S: 0.3          # s, no scan message for longer than this latches a fault
+WATCHDOG_S: 0.05              # s, period of the safety timer
+FAULT_RECOVERY_S: 1.0         # s, both sensors must be valid this long before a latched fault clears
+
+# --- node constants (robot_node.py, not in config.py) -----------------------
+BUTTON_MIN_INTERVAL_S: 1.5    # s, debounce between two RRC Lite button presses
