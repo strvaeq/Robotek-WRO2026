@@ -74,7 +74,8 @@ depth.
 * **Body clearance.** With a 66.75 mm half track the outer wheel sits 113 mm from the wall, well
   outside the 14.5 mm wheel width plus any yaw the follow loop allows.
 * **Corridor margin.** In a 1000 mm corridor the far wall is 0.82 m away, so a 0.32 m lateral error
-  is still 0.50 m from contact while the outer loop corrects at 0.471 rad/m.
+  still leaves 0.43 m between the outer wheel and the far wall while the outer loop corrects at
+  0.471 rad/m.
 
 Following at a constant distance rather than centring is deliberate. Centring in a 1000 mm corridor
 puts the car at 0.50 m from each wall, which is outside the reliable fit range of the 30 deg beam for
@@ -110,10 +111,10 @@ work.
 
 ## 5. Re-anchoring and lap counting
 
-Two events re-anchor the heading. At every corner the base steps by 90 deg (`control.py:197`). When
-the followed wall changes side, the base is set to the measured heading and `theta_ref` is zeroed, so
-the car does not inherit a heading offset that belonged to the other wall. Without that, a red to
-green change leaves the car tracking a wall at 19 deg of bias until the next corner.
+Two events change the heading base. At every corner it steps by 90 deg (`control.py:197`). When the
+followed wall changes side, the base is set to the measured heading and `theta_ref` is zeroed, so the
+car does not inherit a heading offset that belonged to the other wall. Without that, a red to green
+change leaves the car tracking a wall with up to 7 deg of wall-follow bias until the next corner.
 
 Laps are counted by corner events, not by integrated yaw. Four completed corners are one lap, and
 `MAX_LAPS = 3` (`config.py:86`) means the twelfth corner ends the racing phase. The old counter
@@ -128,7 +129,7 @@ way a lap count can run ahead.
 The nudge and the side decision are independent. When the block leaves the near zone or expires
 (1.5 s without a detection), only the nudge goes to zero; `wall_side` stays, because the rule it
 implements is still in force for the rest of that section. The car therefore returns to the 0.18 m
-line with the same wall, over the 2.1 m the outer loop needs for a 0.1 m offset.
+line with the same wall, over about 2 m, the outer loop's time constant of 5.4 s at 0.39 m/s.
 
 After the twelfth corner the car is in the starting straight, which is where the lot is placed
 (rules 5). Parking starts there, not after an extra lap, and not on a timer. `APPROACH` keeps the
@@ -195,6 +196,6 @@ scores nothing while a car on the wrong line still completes the lap.
 
 The nudge timing assumes the block reaches `base_norm = 0.5` about 1 m before the closest approach;
 the camera has no depth, so that distance is an estimate from the 6 fps geometry, not a measurement.
-The 16.8 mm margin calculation for parking and the 0.15 m approach target are pending the parking
-implementation described in document 03. The lap and lateral error figures that would validate the
+The parking lateral target is 0.03 m. A 200 mm lot with a 133.5 mm track leaves 33.25 mm per side,
+so the final setpoint keeps 3 mm of margin; the field run validates it, and document 03 derives it. The lap and lateral error figures that would validate the
 whole strategy are not logged yet: `data/test-runs.csv` has a header and no rows.

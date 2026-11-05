@@ -128,7 +128,7 @@ P and I run 1 to 5; score is their product.
 | R-03 | Glare or false colour | 4 | 3 | 12 | Decision log, confirmation counter | LED ring, dual red HSV range, 3-frame confirmation, area and fill filters | Vision | 6 |
 | R-04 | Servo stall on the stop | 3 | 3 | 9 | Yaw not following for 0.5 s | 30 deg clamp, 1000 to 2050 us pulse clamp, asymmetric gains | Mechanical | 4 |
 | R-05 | Lap miscount | 3 | 5 | 15 | Lap and finish beeps, corner counter | Corner events confirmed by yaw, 1.5 s cooldown, 10 deg margin | Software | 6 |
-| R-06 | Parking overshoot | 4 | 4 | 16 | Front clearance, yaw per phase | Reverse capped at 25 %, 0.25 m/s; abort below 0.10 m; 0.15 m target | Software | 8 |
+| R-06 | Parking overshoot | 4 | 4 | 16 | Front clearance, yaw per phase | Reverse capped at 25 %, 0.25 m/s; abort below 0.10 m; 0.03 m target | Software | 8 |
 | R-07 | USB disconnect | 3 | 4 | 12 | Topic rate drop, missing udev path, 1.5 s expiry | Strain relief, udev symlink by ID, fixed port map | Integration | 6 |
 | R-08 | Rule non-compliance | 2 | 5 | 10 | Pre-run checklist | Size, autonomy, English and video checks | Team | 2 |
 
@@ -148,7 +148,7 @@ The top residuals are measurement gaps: a clamp meter and a measured slot would 
 | V-06 | Stop within 0.35 s of LiDAR loss | Unplug the LiDAR on a straight | pending | `docs/06` |
 | V-07 | Colour confirmed within 0.5 s | 10 approaches per colour | pending | video, notebook |
 | V-08 | 3 laps counted in 10 runs | Field test against manual count | pending | `data/runs.csv` |
-| V-09 | Park within 0.15 m and 5 deg | 10 manoeuvres | pending | `data/runs.csv` |
+| V-09 | Park within 30 mm lateral and 5 deg | 10 manoeuvres | pending | `data/runs.csv` |
 | V-10 | 3 laps plus parking inside round time | Stopwatch on a full run | pending | video |
 
 Five are closed; five need a run log, recorded as a gap.
@@ -213,6 +213,6 @@ Printing hours are the one line with no data: slicer estimate per STL, summed in
 | Inverted camera mirrors cx | Mount is upside down and the frame is not rotated | Pillar nudge can steer toward the block | Rotate 180 deg before detection, or negate cx |
 | Mass 1.39 kg, 0.10 kg | Pack not weighed | 7 % torque uncertainty | Weigh the pack |
 
-Three numbers a judge asks first, lateral error, per-rail current and parking accuracy, are still `pending`. A perfect run needs three laps without wall contact, every sign read on the first approach, and a park inside 0.15 m and 5 deg. The design supports all three; the evidence supports speed, steering geometry, sensor rates and stop logic, and the rest only partly.
+Three numbers a judge asks first, lateral error, per-rail current and parking accuracy, are still `pending`. A perfect run needs three laps without wall contact, every sign read on the first approach, and a park inside 30 mm lateral and 5 deg. The design supports all three; the evidence supports speed, steering geometry, sensor rates and stop logic, and the rest only partly.
 
 The reasoning is defensible; the measurement record for five requirements is not, and needs Section 6.

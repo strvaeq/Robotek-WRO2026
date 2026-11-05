@@ -95,7 +95,7 @@ class Config:
     # --- parking (after the last lap) ---
     PARKING_ENABLED: bool = True
     PARK_SLOT_LEN_M: float = 0.60
-    PARK_TARGET_GAP_M: float = 0.15
+    PARK_TARGET_GAP_M: float = 0.03
     PARK_REVERSE_PCT: float = 25.0
     PARK_ABORT_FRONT_M: float = 0.10
     PARK_MAX_TIME_S: float = 8.0

@@ -59,7 +59,7 @@ Contact is through the team Instagram, not personal email addresses.
 | [`docs/04-obstacle-strategy.md`](docs/04-obstacle-strategy.md) | Colour decision, pillar geometry, three-lap sequence, recovery |
 | [`docs/05-systems-engineering.md`](docs/05-systems-engineering.md) | Constraints, decision log, iteration log, risk register, verification matrix, cost |
 | [`docs/06-repository-and-reproducibility.md`](docs/06-repository-and-reproducibility.md) | Structure, verification order, commit and release policy, licences |
-| [`docs/09-media-and-diagrams.md`](docs/09-media-and-diagrams.md) | Every diagram, photograph and video, with the capture protocol |
+| [`docs/07-media-and-diagrams.md`](docs/07-media-and-diagrams.md) | Every diagram, photograph and video, with the capture protocol |
 | [`data/measurements.csv`](data/measurements.csv) | Single source of truth for every number in this documentation |
 | [`src/`](src) | ROS 2 packages `renkay_open`, `renkay_obstacle`, `renkay_bringup` |
 | [`models/`](models) | Printable parts, STL files and print notes |
@@ -286,7 +286,7 @@ The bay is 20 cm wide and the slot is 0.60 m long (`PARK_SLOT_LEN_M`). `Parallel
 and the side, front and rear ranges (the rear ray is read only here). `APPROACH` creeps at 12 percent until the rear range
 falls to 0.60 m and the slot is beside the car. `ALIGN` straightens with `clamp(-yaw, ±30)` deg until `|yaw|` is within
 2 deg. `REVERSE_ARC` reverses at 25 percent on full lock, `PARK_STEER_SIGN * DELTA_MAX_DEG`, until the heading has swept
-45 deg (`ARC_YAW_DEG`). `STRAIGHTEN` reverses straight until the side range reaches the 0.15 m gap (`PARK_TARGET_GAP_M`).
+45 deg (`ARC_YAW_DEG`). `STRAIGHTEN` reverses straight until the side range reaches the 0.03 m gap (`PARK_TARGET_GAP_M`).
 Abort rules: a front range under 0.10 m at any time, or 8.0 s elapsed (`PARK_MAX_TIME_S`); a rear range under 0.05 m ends
 the manoeuvre as `DONE`. The manoeuvre is implemented, its success rate is measured on the field, no run is logged yet.
 
@@ -295,7 +295,7 @@ the manoeuvre as `DONE`. The manoeuvre is implemented, its success rate is measu
 | `APPROACH` | 12 % forward, rear range watched | rear range <= 0.60 m |
 | `ALIGN` | 8 % forward, steer `clamp(-yaw, ±30)` deg | `|yaw| <= 2` deg |
 | `REVERSE_ARC` | reverse 25 %, full lock `PARK_STEER_SIGN * 30` deg | heading swept 45 deg |
-| `STRAIGHTEN` | reverse 25 %, servo centred | side range <= 0.15 m, or rear <= 0.05 m |
+| `STRAIGHTEN` | reverse 25 %, servo centred | side range <= 0.03 m, or rear <= 0.05 m |
 | `DONE` | 0 %, servo centred | terminal |
 | `ABORT` | 0 %, one long beep | front < 0.10 m or 8.0 s elapsed |
 
@@ -324,7 +324,7 @@ The colour table, the clearance geometry, the failure recovery table and the ful
 | Lane width | 1 m | The 300 x 200 mm rule envelope leaves 0.37 m turning radius and room to correct; no skid steering |
 | Wall height | 10 cm | LiDAR plane sits at 30 mm and 128 mm ahead, so the beam returns from the wall, not over it |
 | Three laps per round | 3 laps | Lap count comes from confirmed corner events, with a finish beep on the third |
-| Parking bay | 20 cm | Parking is a reverse arc with a 0.15 m target and an abort below 0.10 m front clearance |
+| Parking bay | 20 cm | Parking is a reverse arc with a 0.03 m target and an abort below 0.10 m front clearance |
 | No external compute | 0 off-board processes | Every node runs on the Pi 5; no laptop, no Wi-Fi link in the control loop |
 | Supply | 7.4 V | 2S Li-Po feeds the motors through the TB6612FNG, the RRC Lite makes the 5 V rail |
 | Parking budget | 8 s | The four parking phases share one time limit and the node stops on expiry |
@@ -404,7 +404,7 @@ The step-by-step build, the device permissions and the troubleshooting table are
 | ![Vehicle, left view](v-photos/real-vehicle/vehicle-left.png)<br>Vehicle, left view | ![Vehicle, top view](v-photos/real-vehicle/vehicle-top.png)<br>Vehicle, top view |
 | ![Electrical wiring](schemes/electrical-wiring-diagram.png)<br>Electrical wiring, 7.4 V motor rail and 5 V logic rail | ![Obstacle flow](schemes/obstacle-challenge-flowchart.png)<br>Obstacle Challenge state flow, up to parallel parking |
 
-The full index, with the ROS node graph, the power distribution, the visual wiring, all six vehicle views and the capture protocol for the missing shots, is in [Media and Diagrams](docs/09-media-and-diagrams.md).
+The full index, with the ROS node graph, the power distribution, the visual wiring, all six vehicle views and the capture protocol for the missing shots, is in [Media and Diagrams](docs/07-media-and-diagrams.md).
 
 ## License and Credits
 

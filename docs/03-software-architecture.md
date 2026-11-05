@@ -266,14 +266,15 @@ stateDiagram-v2
 
 The lot is 200 mm wide and `1.5 * 189 = 283.5 mm` long (rules 5: width 20 cm, length 1.5 times the
 robot; chassis 189 mm, `data/measurements.csv:9`). With a 133.5 mm front track
-(`data/measurements.csv:7`) the centre line can sit between 66.75 and 133.25 mm from the wall, 7 mm
-of margin at each end. The bay side is selected by `PARK_STEER_SIGN` (default -1.0), a field
-calibrated constant: which sign puts the car into the lot depends on the side the lot is on and on
-the servo direction, so it is set by driving the manoeuvre once on the field, not derived. Minimum
-turning radius from the measured 17.6 deg road wheel at a 25 deg command is 370 mm
-(`data/measurements.csv:17`), longer than the lot, so the car arrives almost aligned and corrects a
-residual. A heading change `theta` at that radius shifts the car by `R*(1-cos theta)`, 1.1 mm per
-degree near zero, so `ALIGN` corrects lateral distance first and yaw second, iterating.
+(`data/measurements.csv:7`) the centre line can sit between 66.75 and 133.25 mm from the wall: a
+66.5 mm window, and the reason the parking tolerance is measured in the same units as the wheels.
+The bay side is selected by `PARK_STEER_SIGN` (default -1.0), a field calibrated constant: which sign
+puts the car into the lot depends on the side the lot is on and on the servo direction, so it is set
+by driving the manoeuvre once on the field, not derived. Minimum turning radius from the measured
+17.6 deg road wheel at a 25 deg command is 370 mm (`data/measurements.csv:17`), longer than the lot,
+so the car arrives almost aligned and corrects a residual. A heading change `theta` at that radius
+shifts the car by `R*(1-cos theta)`, 1.1 mm per degree near zero, so `ALIGN` corrects lateral
+distance first and yaw second, iterating.
 
 Acceptance comes from the rule: fully inside and the two wheel to wall distances within 20 mm
 (rules Appendix A.6). Two readings one wheelbase apart map yaw onto that difference as `L*sin(psi)`,
@@ -283,9 +284,9 @@ the legal limit, and `|lateral error| <= 20 mm`, recorded per run as `final_late
 `0.0137*(25-6.5) = 0.25 m/s` (`data/measurements.csv:20-21`) and stops in `0.25^2/(2*0.6) = 52 mm`
 at the 0.6 m/s^2 limit (`data/measurements.csv:25`), leaving 48 mm.
 
-One open item is recorded rather than hidden: the branch brief carries a 0.15 m lateral target, but
-with a 133.5 mm track that puts the outer wheel at 216.8 mm, 16.8 mm outside the 200 mm lot. It can
-only be an approach standoff, and the final setpoint must be at or below 133 mm.
+PARK_TARGET_GAP_M is 0.03 m. The 200 mm lot less the 133.5 mm track leaves 33.25 mm per side, so
+30 mm is the largest lateral target that still fits, with 3 mm of margin. A 0.15 m standoff would
+put the outer wheel 16.8 mm outside the lot, which is why the constant is not 0.15.
 
 ## 7. Edge cases
 
