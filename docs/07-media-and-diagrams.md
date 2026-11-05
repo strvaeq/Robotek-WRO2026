@@ -40,7 +40,7 @@ Behaviour of the Open Challenge: start crossing, three laps, lane keeping and fi
 
 ![Obstacle Challenge flowchart](../schemes/obstacle-challenge-flowchart.png)
 
-Behaviour of the Obstacle Challenge: colour detection, side selection, pillar avoidance, return to lane, lap counting and parallel parking. The state names match the `State` enum in `renkay_obstacle`.
+Behaviour of the Obstacle Challenge: colour detection, side selection, pillar avoidance, return to lane and lap counting. The drawing is from version 10 and ends after the third lap. The version 11 flow, which adds the parking state, is the Mermaid diagram in [Software Architecture](03-software-architecture.md#5-state-machines).
 
 ## 2. Photographs
 

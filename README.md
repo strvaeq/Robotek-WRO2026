@@ -403,7 +403,7 @@ The step-by-step build, the device permissions and the troubleshooting table are
 | | |
 |---|---|
 | ![Vehicle, left view](v-photos/real-vehicle/vehicle-left.png)<br>Vehicle, left view | ![Vehicle, top view](v-photos/real-vehicle/vehicle-top.png)<br>Vehicle, top view |
-| ![Electrical wiring](schemes/electrical-wiring-diagram.png)<br>Electrical wiring, 7.4 V motor rail and 5 V logic rail | ![Obstacle flow](schemes/obstacle-challenge-flowchart.png)<br>Obstacle Challenge state flow, up to parallel parking |
+| ![Electrical wiring](schemes/electrical-wiring-diagram.png)<br>Electrical wiring, 7.4 V motor rail and 5 V logic rail | ![Obstacle flow](schemes/obstacle-challenge-flowchart.png)<br>Obstacle Challenge state flow, version 10 vehicle. The version 11 flow, including parking, is in [docs/03](docs/03-software-architecture.md#5-state-machines) |
 
 The full index, with the ROS node graph, the power distribution, the visual wiring, all six vehicle views and the capture protocol for the missing shots, is in [Media and Diagrams](docs/07-media-and-diagrams.md).
 
