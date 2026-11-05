@@ -1,10 +1,10 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Obstacle Challenge main node (WRO Future Engineers).
 
 Wall following with the IMU loop + colour vision. State machine:
 
-  IDLE --(button)--> CALIBRANDO --(4 s)--> SIGUIENDO <--> GIRANDO
-        --(3 laps)--> PARKING --> FIN
+  IDLE --(button)--> CALIBRATING --(4 s)--> FOLLOWING <--> TURNING
+        --(3 laps)--> PARKING --> FINISH
 
 The camera detects the nearest block and picks the wall to follow (red ->
 right, green -> left). The lidar gives the wall geometry and triggers the
@@ -36,11 +36,11 @@ BUTTON_MIN_INTERVAL_S = 1.5
 
 class State(Enum):
     IDLE = auto()
-    CALIBRANDO = auto()
-    SIGUIENDO = auto()
-    GIRANDO = auto()
+    CALIBRATING = auto()
+    FOLLOWING = auto()
+    TURNING = auto()
     PARKING = auto()
-    FIN = auto()
+    FINISH = auto()
 
 
 class ObstacleChallenge(Node):
@@ -101,7 +101,7 @@ class ObstacleChallenge(Node):
         return self.get_clock().now().nanoseconds * 1e-9
 
     def driving(self):
-        return self.state in (State.SIGUIENDO, State.GIRANDO, State.PARKING)
+        return self.state in (State.FOLLOWING, State.TURNING, State.PARKING)
 
     def beep(self, freq, dur=0.2, repeat=1):
         msg = BuzzerState()
@@ -140,14 +140,14 @@ class ObstacleChallenge(Node):
                 t - self.last_button_t < BUTTON_MIN_INTERVAL_S:
             return
         self.last_button_t = t
-        if self.state in (State.IDLE, State.FIN):
+        if self.state in (State.IDLE, State.FINISH):
             self.start_calibration()
         else:
             self.stop('button')
 
     def start_calibration(self):
         self.reset_fault()
-        self.state = State.CALIBRANDO
+        self.state = State.CALIBRATING
         self.cal_samples = []
         self.cal_start_t = self.now()
         self.send_motor(0.0)
@@ -162,7 +162,7 @@ class ObstacleChallenge(Node):
         self.theta_ref = 0.0
         self.wall_dist = None
         self.last_imu_t = self.now()
-        self.state = State.SIGUIENDO
+        self.state = State.FOLLOWING
         self.beep(880, 0.1)
         self.get_logger().info(
             f'gz bias = {self.inner.bias_deg_s:.3f} deg/s. Starting '
@@ -178,7 +178,7 @@ class ObstacleChallenge(Node):
     def finish(self):
         self.send_motor(0.0)
         self.send_servo(self.cfg.SERVO_CENTER_US)
-        self.state = State.FIN
+        self.state = State.FINISH
         self.get_logger().info(f'{self.cfg.MAX_LAPS} laps completed.')
 
     def stop(self, reason):
@@ -223,7 +223,7 @@ class ObstacleChallenge(Node):
             self.active_color = detected
             # only switch walls while following or cornering, never while parking
             if not self.corner.turning and \
-                    self.state in (State.SIGUIENDO, State.GIRANDO):
+                    self.state in (State.FOLLOWING, State.TURNING):
                 side = side_for_color(detected)
                 if side != self.wall_side:
                     self.wall_side = side
@@ -297,7 +297,7 @@ class ObstacleChallenge(Node):
         gz_deg = math.degrees(float(gz))
         t = self.now()
 
-        if self.state == State.CALIBRANDO:
+        if self.state == State.CALIBRATING:
             self.cal_samples.append(gz_deg)
             if t - self.cal_start_t >= self.cfg.GYRO_CAL_S:
                 self.finish_calibration()

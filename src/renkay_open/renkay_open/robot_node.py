@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Open Challenge main node (WRO Future Engineers).
 
 Cascaded lidar + IMU control. State machine:
 
-  IDLE --(button)--> CALIBRANDO --(4 s)--> RECTO <--> GIRANDO --(3 laps)--> FIN
+  IDLE --(button)--> CALIBRATING --(4 s)--> STRAIGHT <--> TURNING --(3 laps)--> FINISH
 
 The lidar (scan_callback, ~10 Hz) sets the target heading that centres the
 robot. The IMU (imu_callback, ~50 Hz) is the only loop that writes the servo:
@@ -31,10 +31,10 @@ BUTTON_MIN_INTERVAL_S = 1.5
 
 class State(Enum):
     IDLE = auto()
-    CALIBRANDO = auto()
-    RECTO = auto()
-    GIRANDO = auto()
-    FIN = auto()
+    CALIBRATING = auto()
+    STRAIGHT = auto()
+    TURNING = auto()
+    FINISH = auto()
 
 
 class OpenChallenge(Node):
@@ -84,7 +84,7 @@ class OpenChallenge(Node):
         return self.get_clock().now().nanoseconds * 1e-9
 
     def driving(self):
-        return self.state in (State.RECTO, State.GIRANDO)
+        return self.state in (State.STRAIGHT, State.TURNING)
 
     def beep(self, freq, dur=0.2, repeat=1):
         msg = BuzzerState()
@@ -115,14 +115,14 @@ class OpenChallenge(Node):
                 t - self.last_button_t < BUTTON_MIN_INTERVAL_S:
             return
         self.last_button_t = t
-        if self.state in (State.IDLE, State.FIN):
+        if self.state in (State.IDLE, State.FINISH):
             self.start_calibration()
         else:
             self.stop('button')
 
     def start_calibration(self):
         self.reset_fault()
-        self.state = State.CALIBRANDO
+        self.state = State.CALIBRATING
         self.cal_samples = []
         self.cal_start_t = self.now()
         self.send_motor(0.0)
@@ -137,7 +137,7 @@ class OpenChallenge(Node):
         self.laps.reset()
         self.theta_ref = 0.0
         self.last_imu_t = self.now()
-        self.state = State.RECTO
+        self.state = State.STRAIGHT
         self.beep(880, 0.1)
         self.get_logger().info(
             f'gz bias = {self.inner.bias_deg_s:.3f} deg/s. Starting.')
@@ -145,7 +145,7 @@ class OpenChallenge(Node):
     def finish(self):
         self.send_motor(0.0)
         self.send_servo(self.cfg.SERVO_CENTER_US)
-        self.state = State.FIN
+        self.state = State.FINISH
         self.get_logger().info(f'{self.cfg.MAX_LAPS} laps completed.')
 
     def stop(self, reason):
@@ -165,7 +165,7 @@ class OpenChallenge(Node):
         gz_deg = math.degrees(float(gz))
         t = self.now()
 
-        if self.state == State.CALIBRANDO:
+        if self.state == State.CALIBRATING:
             self.cal_samples.append(gz_deg)
             if t - self.cal_start_t >= self.cfg.GYRO_CAL_S:
                 self.finish_calibration()
