@@ -14,7 +14,7 @@ class Config:
     # --- lazo interno (IMU -> angulo de servo) ---
     KP_IN: float = 1.6
     KD_IN: float = 0.28            # termino D = gyro directo, no derivada de theta
-    DELTA_MAX_DEG: float = 29.0    # tope mecanico de la direccion
+    DELTA_MAX_DEG: float = 30.0    # tope mecanico de la direccion
 
     # --- lazo externo 
     KP_OUT: float = 27.0
@@ -40,8 +40,8 @@ class Config:
     SERVO_CENTER_US: float = 1500.0
     SERVO_MIN_US: float = 1000.0
     SERVO_MAX_US: float = 2050.0
-    SERVO_GAIN_POS: float = 550.0 / 29.0
-    SERVO_GAIN_NEG: float = 500.0 / 29.0
+    SERVO_GAIN_POS: float = 550.0 / 30.0
+    SERVO_GAIN_NEG: float = 500.0 / 30.0
     SERVO_SIGN: float = -1.0
     SERVO_CMD_S: float = 0.05
 

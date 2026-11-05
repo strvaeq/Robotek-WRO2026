@@ -13,7 +13,7 @@ class Config:
     # --- lazo interno (IMU -> angulo de servo) ---
     KP_IN: float = 1.8
     KD_IN: float = 0.22            
-    DELTA_MAX_DEG: float = 26.0
+    DELTA_MAX_DEG: float = 30.0
 
     # --- servo ---
     SERVO_CENTER_US: float = 1500.0

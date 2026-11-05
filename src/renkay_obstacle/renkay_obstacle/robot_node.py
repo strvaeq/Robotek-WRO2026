@@ -21,9 +21,9 @@ from std_msgs.msg import Float32
 from ros_robot_controller_msgs.msg import (SetAckerServoState, ButtonState,
                                            BuzzerState)
 
-from config import Config, clamp, wrap180
-from color_vision import LIBRE, ROJO, VERDE, detect_block
-from control import (InnerLoop, Corner, LapCounter, window_median, delta_to_us,
+from renkay_obstacle.config import Config, clamp, wrap180
+from renkay_obstacle.color_vision import LIBRE, ROJO, VERDE, detect_block
+from renkay_obstacle.control import (InnerLoop, Corner, LapCounter, window_median, delta_to_us,
                      estimate_wall, wall_follow_offset, pillar_nudge_deg,
                      side_for_color, detect_corner, start_turn, turn_complete,
                      turn_timed_out)

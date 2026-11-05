@@ -1,0 +1,43 @@
+quantity,symbol,value,unit,method,instrument,date,uncertainty,source,status
+total_mass_modelled,m,1.11,kg,sum of URDF link masses,URDF,2026-10-21,0.02,robotek.urdf.xacro,modelled
+total_mass_with_pack,m_total,1.39,kg,modelled mass + pack estimate,scale,2026-10-21,0.10,estimate,estimated
+wheel_diameter,D,61.0,mm,3 measurements per wheel,digital caliper,2026-10-21,0.1,URDF comment,measured
+wheel_width,b,14.5,mm,caliper,digital caliper,2026-10-21,0.1,URDF comment,measured
+wheelbase,L,117.4,mm,axle centre to axle centre,caliper,2026-10-21,0.2,URDF comment,measured
+track_front,t_f,133.5,mm,outer rim to outer rim,caliper,2026-10-21,0.2,URDF comment,measured
+track_rear,t_r,123.5,mm,outer rim to outer rim,caliper,2026-10-21,0.2,URDF comment,measured
+chassis_length,l_c,189.0,mm,plate,caliper,2026-10-21,0.5,URDF comment,measured
+chassis_width,w_c,90.0,mm,plate,caliper,2026-10-21,0.5,URDF comment,measured
+plate_top_height,h_p,45.0,mm,table to plate top,caliper,2026-10-21,0.5,URDF comment,measured
+ground_clearance,h_g,,mm,lowest point to ground,caliper,,,pending,pending
+centre_of_gravity_height,h_cg,,mm,balance test,scale + blocks,,,pending,pending
+steering_command_limit,delta_cmd,30.0,deg,software clamp,encoder,2026-11-04,0,user confirmation,configured
+wheel_angle_left_at_25,delta_l25,19.7,deg,circle test,LiDAR odometry + gyro,2026-10-08,1.0,real_car_v1.yaml,measured
+wheel_angle_right_at_25,delta_r25,17.6,deg,circle test,LiDAR odometry + gyro,2026-10-08,1.0,real_car_v1.yaml,measured
+min_turning_radius,R_min,0.37,m,L/tan(17.6 deg),derived,2026-10-08,0.03,derived,derived
+servo_speed,omega_s,70,deg/s,step response,IMU,2026-10-08,10,real_car_v1.yaml,measured
+servo_delay,t_s,60,ms,command to chassis reaction,IMU,2026-10-08,10,real_car_v1.yaml,measured
+motor_speed_constant,k_v,0.0137,m/s per %,straight 1 s pulses,LiDAR,2026-10-08,0.0005,robot.yaml,measured
+motor_deadband,p_min,6.5,%,first movement,LiDAR,2026-10-08,0.5,robot.yaml,measured
+cruise_speed_at_35,v_35,0.39,m/s,k_v*(35-6.5),derived,2026-10-08,0.02,derived,derived
+top_speed_measured,v_max,0.42,m/s,50 % duty on 7.3 V pack,LiDAR,2026-10-08,0.03,robot.yaml,measured
+acceleration_limit,a_max,1.0,m/s^2,software limit,IMU,2026-11-01,0.05,robot.yaml,configured
+deceleration_limit,a_min,0.6,m/s^2,software limit,IMU,2026-11-01,0.05,robot.yaml,configured
+torque_required_at_axle,T_req,0.042,N m,m_total*a_max*R,derived,2026-11-04,0.004,derived,derived
+motor_stall_torque,T_stall,,N m,stall test,spring scale + arm,,,pending,pending
+traction_coefficient,mu,,,incline test,protractor,,,pending,pending
+battery_voltage,V_bat,7.4,V,2S Li-Po,multimeter,2026-11-01,0.1,BOM,measured
+battery_capacity,C_bat,5000,mAh,pack label,label,2026-11-01,0,BOM,declared
+battery_c_rate,c_rate,20,C,pack label,label,2026-11-01,0,BOM,declared
+battery_energy,E_bat,37,Wh,V*C,derived,2026-11-01,0.5,derived,derived
+current_5v_rail,I_5v,,A,clamp meter,UNI-T UT210E,,,pending,pending
+current_motor_rail,I_mot,,A,clamp meter,UNI-T UT210E,,,pending,pending
+autonomy_measured,t_run,,min,full discharge,LiDAR + timer,,,pending,pending
+lidar_range_max,r_lidar,12,m,datasheet,datasheet,2026-10-01,0,LD19 datasheet,declared
+lidar_rate,f_lidar,5000,Hz,datasheet,datasheet,2026-10-01,0,LD19 datasheet,declared
+camera_hfov,fov,66.7,deg,lens fit,checkerboard,2026-11-01,0.5,robot.yaml,measured
+camera_rate,f_cam,6,fps,ros2 topic hz,ros2,2026-11-01,0.5,robot.yaml,measured
+imu_rate,f_imu,50,Hz,topic hz,ros2,2026-11-01,0,robot.yaml,measured
+gyro_noise_sigma,sigma_g,0.0019,rad/s,stationary log,ros2,2026-11-01,0.0002,URDF comment,measured
+gyro_bias,b_g,0.006,rad/s,stationary log,ros2,2026-11-01,0.001,URDF comment,measured
+lap_time_best,t_lap,,s,3 laps / 3,timer,,,pending,pending

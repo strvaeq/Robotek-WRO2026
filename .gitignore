@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# ROS 2
+build/
+install/
+log/
+
+# Run artefacts
+*.bag
+*.db3
+*.mcap
+*.csv.tmp
+logs/
+runs/
+
+# Media that must not be committed (link the YouTube video instead)
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local calibration overrides
+config/local.yaml

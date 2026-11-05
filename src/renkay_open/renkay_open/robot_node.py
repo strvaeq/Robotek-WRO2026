@@ -20,8 +20,8 @@ from std_msgs.msg import Float32
 from ros_robot_controller_msgs.msg import (SetAckerServoState, ButtonState,
                                            BuzzerState)
 
-from config import Config, clamp, wrap180
-from control import (InnerLoop, OuterLoop, Corner, LapCounter, window_median,
+from renkay_open.config import Config, clamp, wrap180
+from renkay_open.control import (InnerLoop, OuterLoop, Corner, LapCounter, window_median,
                      delta_to_us, detect_corner, start_turn, turn_complete,
                      turn_timed_out)
 
