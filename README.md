@@ -1,5 +1,12 @@
-﻿# Renkay: WRO 2026 Future Engineers
+# Renkay - WRO 2026 Future Engineers<img width="50" alt="robotek" src="https://github.com/user-attachments/assets/bffadef9-b0aa-4810-93ff-13db445ac044" /><img src="https://em-content.zobj.net/source/apple/325/flag-peru_1f1f5-1f1ea.png" alt="Peru Flag" width="30" />
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0a4118c9-bc9c-422e-af6b-4e9b3267209f" alt="Banner Renkay" width="100%">
+</p>
+
+[![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/robotekperu/)
+[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@Robotekperu)
+[![Facebook](https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white)](https://www.facebook.com/p/Robotek-Per%C3%BA-61566493439700/)
 Renkay is the Peruvian team for the WRO 2026 Future Engineers category. This repository documents **Sami**, an autonomous Ackermann car that completes three laps of the Open Challenge and three laps of the Obstacle Challenge, then performs a parallel park.
 
 The car runs ROS 2 Jazzy on a Raspberry Pi 5. A 2D LiDAR keeps the car in the lane and finds the corners, a camera reads the red and green pillars, an IMU holds the heading, and a TB6612FNG drives the rear axle. Every design decision, measurement and failed attempt that changed the car is recorded here, including the numbers that are still missing.
