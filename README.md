@@ -1,7 +1,7 @@
 # Renkay - WRO 2026 Future Engineers<img width="50" alt="robotek" src="https://github.com/user-attachments/assets/bffadef9-b0aa-4810-93ff-13db445ac044" /><img src="https://em-content.zobj.net/source/apple/325/flag-peru_1f1f5-1f1ea.png" alt="Peru Flag" width="30" />
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/0a4118c9-bc9c-422e-af6b-4e9b3267209f" alt="Banner Renkay" width="100%">
+  <img src="https://github.com/user-attachments/assets/3ece1ba0-2d79-45b8-8d2e-a477b1c48dd1" alt="Banner Renkay" width="100%">
 </p>
 
 [![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/robotekperu/)
@@ -68,12 +68,55 @@ The **World Robot Olympiad (WRO)** is a global robotics competition which brings
 ### **<ins>Future Engineers Category</ins>**
 We participate in the **Future Engineers category**, designed for students aged 14–22. In this category, teams design and build an autonomous vehicle using freely chosen hardware and software. It focuses on autonomous driving, requiring the vehicle to navigate a track and respond to changing conditions.
 
+### <ins>Challenges Overview</ins>
 
-### **<ins>Challenges Overview</ins>**
-| 🔓 Open Challenge | 🚨 Obstacle Challenge |
-|--------------------|--------------------|
-| In the **Open Challenge**, the vehicle must autonomously navigate the track and complete three laps. The track layout and driving direction can change between rounds, and the vehicle should adapt to different configurations. | In the **Obstacle Challenge**, the vehicle must complete three laps and detects the obstacles placed on the track. After completing it, the vehicle must perform a parallel parking maneuver. |
-| <img width="450" alt="Open Challenge" src="https://github.com/user-attachments/assets/4a27ae44-db66-49ba-a908-089bac1b55ff"/> | <img width="450" alt="Obstacle Challenge" src="https://github.com/user-attachments/assets/05564ce7-e8b3-4ec2-8f6c-ba8a3d05d400"/>
+<p align="left">
+  <a href="https://wro-association.org/wp-content/uploads/WRO-2026-Future-Engineers-Self-Driving-Cars-General-Rules.pdf">
+    <img src="https://img.shields.io/badge/WRO_2026-General_%26_Game_Rules-7656B5?style=for-the-badge&logo=readthedocs&logoColor=white" alt="WRO 2026 General and Game Rules"/>
+  </a>
+</p>
+
+<table width="100%">
+  <tr>
+    <td align="center" width="50%">
+      <h3>🔓 Open Challenge</h3>
+    </td>
+    <td align="center" width="50%">
+      <h3>🚨 Obstacle Challenge</h3>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img width="450" alt="Open Challenge" src="https://github.com/user-attachments/assets/12f33ba1-abec-4bde-bc38-012350ff9191"/>
+    </td>
+    <td align="center">
+      <img width="450" alt="Obstacle Challenge" src="https://github.com/user-attachments/assets/81ab2bdf-1634-4318-bfc4-1e2dc6f8fbba"/>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      The vehicle must autonomously complete three laps, adapting to different track configurations and driving directions.
+      <br><br>
+      <b>Key objectives:</b>
+      <ul>
+        <li>Autonomous navigation</li>
+        <li>Track layout adaptation</li>
+        <li>Accurate steering and speed control</li>
+      </ul>
+    </td>
+    <td valign="top">
+      The vehicle must complete three laps, navigating around red and green traffic signs according to the game rules, followed by a parallel parking maneuver.
+      <br><br>
+      <b>Key objectives:</b>
+      <ul>
+        <li>Obstacle detection and avoidance</li>
+        <li>Color recognition</li>
+        <li>Autonomous parallel parking</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
 
 
 ## 2. Repository Structure
@@ -92,79 +135,148 @@ We participate in the **Future Engineers category**, designed for students aged 
 
 <table width="100%">
   <tr>
-    <td width="75%" style="padding: 20px;">
-      <h3><strong>Isabella Gonzales 🌟</strong></h3>
-      <b>🔧 Role: </b>Team Member<br>
-      <b>💬 About me:</b> Hello! My name is Isabella, I'm 17 years old, and I love robotics. I founded Robotek Perú, a club where students can learn robotics and join competitions, and this is my second time at the WRO. My favorite hobbies are singing with my choir, practicing taekwondo, and art.<br>
-      <b>🌐 Contact:</b> isabellamilagros842@gmail.com
+    <td align="center" width="30%">
+      <img src="https://github.com/user-attachments/assets/02202969-ddd2-48c0-a2f9-5b149c6e22a7" width="260" alt="Isabella Gonzales">
     </td>
-    <td align="center" width="25%" style="padding: 20px;">
-      <img src="https://github.com/user-attachments/assets/4f37460a-c3a6-42cd-93e6-db632a62fead" width="800" style="border-radius: 10px;">
-    </td>
-  </tr>
-
-  <tr>
-    <td width="75%" style="padding: 20px;">
-      <h3><strong>Rodrigo Osorio 6️⃣7️⃣</strong></h3>
-      <b>🔧 Role: </b>Team Member<br>
-      <b>💬 About me:</b> Hi. I'm Rodrigo, a 16-year-old teenager passionate about many kinds of knowledge across a wide variety of fields. This is my third time taking part of the World Robot Olympiad however, in the past I'd taken part of Robo Mission: Junior through the 2024 and 2025 seasons. Besides robotics, I'm thrilled about humanities, specially philosophy, a field where curiosity can be flow naturally. I'm excited to take part in this year's WRO season!!<br>
-      <b>🌐 Contact:</b> rod10peru@gmail.com
-    </td>
-    <td align="center" width="25%" style="padding: 20px;">
-      <img src="https://github.com/user-attachments/assets/c0f1333d-bda1-4e65-9402-9381d1af59e1" width="800" style="border-radius: 10px;">
-    </td>
-  </tr>
-
-  <tr>
-    <td width="75%" style="padding: 20px;">
-      <h3><strong>Valeria Hurtado 🎷🐛</strong></h3>
-      <b>🔧 Role: </b>Team Member<br>
-      <b>💬 About me:</b> Hellooo! My name is Valeria and I’m 17 years old. I’m curious about science, technology, and how things work, which is what got me into robotics. This is my first time participating in the WRO, and I’m excited to figure things out along the way. Outside robotics, I enjoy baking, cycling, and designing things on Canva.<br>
-      <b>🌐 Contact:</b> valeria.hurtado.delarosa@outlook.com
-    </td>
-    <td align="center" width="25%" style="padding: 20px;">
-      <img src="https://github.com/user-attachments/assets/e68b56c1-9123-44ee-a194-316b82ebae8a" width="800" style="border-radius: 10px;">
-    </td>
-  </tr>
-
-  <tr>
-    <td width="75%" style="padding: 20px;">
-      <h3><strong>Anthony Valladolid 🤓</strong></h3>
-      <b>🔧 Role: </b>Coach<br>
-      <b>💬 About me:</b> Hi, I am Anthony Valladolid, a Mechatronics Engineering graduate from Pontificia Universidad Católica del Perú, passionate about developing and researching emerging technologies. My main areas of interest are embedded systems, robotics, and applied artificial intelligence.<br>
-      <b>🌐 Contact:</b> anthony.valladolid@pucp.edu.pe
-    </td>
-    <td align="center" width="25%" style="padding: 20px;">
-      <img src="https://github.com/user-attachments/assets/2ce1a5c3-1f01-488f-a7aa-983ac89b57d3" width="800" style="border-radius: 10px;">
+    <td width="70%">
+      <h3>Isabella Gonzales 🌟</h3>
+      <b>💬 About me:</b><br>
+      Hello! My name is Isabella, I'm 17 years old, and I love robotics. I founded Robotek Perú, a club where students can learn robotics and join competitions, and this is my third time at the WRO. My favorite hobbies are singing with my choir, practicing taekwondo, and art.
+      <br><br>
+      <b>🌐 Contact:</b>
+      <a href="mailto:isabellamilagros842@gmail.com">isabellamilagros842@gmail.com</a>
     </td>
   </tr>
 </table>
 
+<table width="100%">
+  <tr>
+    <td width="70%">
+      <h3>Rodrigo Osorio 6️⃣7️⃣</h3>
+      <b>💬 About me:</b><br>
+      Hi! I'm Rodrigo, I'm 16, and I love exploring anything that sparks my curiosity. This is my third time competing in the WRO, after participating in RoboMission Junior in 2024 and 2025. Besides robotics, I enjoy the humanities, especially philosophy, because I love questioning things and discovering new perspectives. I'm excited to see what this season brings!
+      <br><br>
+      <b>🌐 Contact:</b>
+      <a href="mailto:rod10peru@gmail.com">rod10peru@gmail.com</a>
+    </td>
+    <td align="center" width="30%">
+      <img src="https://github.com/user-attachments/assets/937a89d1-3184-4516-85d0-34cc25caaf56" width="260" alt="Rodrigo Osorio">
+    </td>
+  </tr>
+</table>
+
+<table width="100%">
+  <tr>
+    <td align="center" width="30%">
+      <img src="https://github.com/user-attachments/assets/c8f11a6f-a050-47ac-b708-ce78d3886dc3" width="260" alt="Valeria Hurtado">
+    </td>
+    <td width="70%">
+      <h3>Valeria Hurtado 🎷🐛</h3>
+      <b>💬 About me:</b><br>
+      Hellooo! My name is Valeria and I’m 17 years old. I’m curious about science, technology, and how things work, which is what got me into robotics. This is my first time participating in the WRO, and I’m excited to figure things out along the way. Outside robotics, I enjoy baking, cycling, and designing things on Canva.
+      <br><br>
+      <b>🌐 Contact:</b>
+      <a href="mailto:valeria.hurtado.delarosa@outlook.com">valeria.hurtado.delarosa@outlook.com</a>
+    </td>
+  </tr>
+</table>
 
 ## 4. Vehicle Overview
-This is our car named **Sami**, it is the result of multiple versions and modifications since 2024. We have been studying, learning and testing different methods to improve our car. It has been an interesting and challenging journey in robotics, but every effort was worth it!
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/491effc5-e55b-4c2b-aae7-920ffc49a3a9" width="70%">
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/5a4a2ce3-3981-4d62-b984-03c98752bab0" width="75%" alt="Sami - Autonomous Vehicle"/>
+</div>
 
-</p>
-
+This is our car, **Sami**, the result of multiple versions and modifications since 2024. We have been studying, learning, and testing different methods to improve our car. It has been an interesting and challenging journey in robotics, but every effort was worth it!
 
 ### **<ins>General Description of the Car</ins>**
-Our autonomous vehicle is built to take on both the Open and Obstacle Challenges at the Future Engineers competition. Running on Ubuntu with ROS, it can process information and make decisions in real time. The car uses an Ackermann steering system and a custom-built chassis to move smoothly through turns and straight paths. A LiDAR sensor helps it detect the field walls, while the camera identifies traffic signs and obstacles. With this setup, the car can adapt its route, count laps, and complete the course efficiently.
-<br>
 
-| Front | Left | Right |
-| :--: | :--: | :--: | 
-| <img src="https://github.com/user-attachments/assets/57818eb1-a1db-4454-9928-7ac42b46e3ae" width="90%" /> | <img src="https://github.com/user-attachments/assets/3c8d3351-0cf4-471f-be21-785de03897c0" width="90%" /> |  <img src="https://github.com/user-attachments/assets/b8d704a5-4bf8-4e6a-acd5-54b882e8ccc6" width="90%" /> |
+Our autonomous vehicle is built to take on both the Open and Obstacle Challenges in the Future Engineers competition. To achieve this, Sami combines different mechanical, electronic, and software systems.
 
-| Back  | Top  | Bottom |
-| :--: | :--: |:--: |  
-| <img src="https://github.com/user-attachments/assets/1b9fdaee-b758-47dd-b572-509e3d5af35e" width="90%" /> | <img src="https://github.com/user-attachments/assets/19fba1bd-56ff-441b-8411-ddadb8295040" width="90%" /> |  <img src="https://github.com/user-attachments/assets/e8d83c7d-673f-43ad-bcc0-ec78e74bc9e3" width="90%" /> | 
+<table width="100%">
+  <tr>
+    <td width="30%">
+      <b>⚙️ Mechanical System</b>
+    </td>
+    <td>
+      A custom-built chassis and an Ackermann steering system allow the vehicle to move smoothly through turns and straight paths.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <b>💻 Software System</b>
+    </td>
+    <td>
+      The vehicle runs on Ubuntu with ROS (Robot Operating System), allowing it to process sensor data and make decisions in real time.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <b>📡 LiDAR Sensing</b>
+    </td>
+    <td>
+      The LiDAR sensor measures distances and detects the track walls, helping the vehicle understand its surroundings.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <b>📷 Computer Vision</b>
+    </td>
+    <td>
+      The camera identifies traffic signs and obstacles, providing visual information for navigation decisions.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <b>🧭 Autonomous Navigation</b>
+    </td>
+    <td>
+      The vehicle uses the information collected by its sensors to adapt its route, count laps, and complete the course efficiently.
+    </td>
+  </tr>
+</table>
+
+### **<ins>Vehicle Views</ins>**
+
+<table width="100%">
+  <tr>
+    <td align="center" width="33%">
+      <img src="https://github.com/user-attachments/assets/35834c58-afad-4332-96cf-e056cbc00979" width="280" alt="Front View"/>
+      <br>
+      <b>Front View</b>
+    </td>
+    <td align="center" width="33%">
+      <img src="https://github.com/user-attachments/assets/cfd5bcf8-b6e1-4122-801f-51678419ac3f" width="280" alt="Left View"/>
+      <br>
+      <b>Left View</b>
+    </td>
+    <td align="center" width="33%">
+      <img src="https://github.com/user-attachments/assets/20102e6a-a631-4c24-ba1d-42cd0c943ffa" width="280" alt="Right View"/>
+      <br>
+      <b>Right View</b>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/19500777-c136-47d2-802b-c8b197ea6f02" width="280" alt="Rear View"/>
+      <br>
+      <b>Rear View</b>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/f1afee2f-f1a2-4679-8fc2-341f68e984d1" width="280" alt="Top View"/>
+      <br>
+      <b>Top View</b>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/514f7524-91a3-4e24-9201-c63bc6c64d5a" width="280" alt="Bottom View"/>
+      <br>
+      <b>Bottom View</b>
+    </td>
+  </tr>
+</table>
+
 > [!NOTE]
-> 📸 Visit our [`v-photos`](https://github.com/vania020/wro2025-robotek/tree/main/v-photos) folder for more detailed photos of the car
-
-
+> 📸 For additional photos and close-up views of Sami, visit the [`v-photos`](./v-photos) folder.
 
 ### **<ins>Versions of the Car</ins>**
 Our vehicle has gone through **10 versions** (and since we are always improving, there are still more to come). It all started with a cardboard prototype, then moved on to acrylic and metal chassis designs, and later, we made personalized adjustments to a HiWonder kit. Along the way, we also experimented with different wheel designs, repositioned components, tested sensors like LiDAR, and finally adopted a new operating environment with ROS and Ubuntu.
