@@ -1017,8 +1017,10 @@ Finally, install all electronic components, attaching them to their designated h
 
 | Challenge | YouTube Video |
 |----------|----------------|
-| <img width="500" alt="Open Challenge" src="https://github.com/user-attachments/assets/0817027d-4a95-4c08-91b8-08089479daca" /> | <a href="https://youtu.be/lE8SPT6_tL0?si=ECjmNy6-T6QCe0LI">Watch on YouTube 🎥</a> |
-| <img width="500" alt="Obstacle Challenge" src="https://github.com/user-attachments/assets/f38546b0-ad52-47cb-9aae-0622345f260a" /> | <a href="https://youtu.be/DUVe36ZpR18?si=IGmmhTL5FZdeEi8m">Watch on YouTube 🎥</a> |
+| <img width="500" alt="Open Challenge" src="https://github.com/user-attachments/assets/0817027d-4a95-4c08-91b8-08089479daca" /> | <a href="https://youtu.be/tsB4a0l5X2I?si=Ima6nFHOc9vGB94B">Watch on YouTube 🎥</a> |
+| <img width="500" alt="Obstacle Challenge" src="https://github.com/user-attachments/assets/f38546b0-ad52-47cb-9aae-0622345f260a" /> | <a href="https://youtu.be/63x4dT2rv1Y?si=OLvnQLuQXkPWdwnS">Watch on YouTube 🎥</a> |
 
 </div>
+
+
 
